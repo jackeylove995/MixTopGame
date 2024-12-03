@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Game
+  m_EditorClassIdentifier: 
+  m_GroupName: Game
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 2fc286318dcb2a44096f431cc9c091fe
+  m_SerializeEntries:
+  - m_GUID: 2732224696885404bbc2106e58915d70
+    m_Address: Assets/HotFixAssets/Game/Lua/GamePanel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 511b41f27ee41c24cb4e37d4daf0387a
+    m_Address: Assets/HotFixAssets/Game/Prefabs/GamePanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9153cc92d527fc94485674556d43f81f, type: 2}
+    - {fileID: 11400000, guid: 71ec342c7de42ba4fb6a576e6da25d1d, type: 2}

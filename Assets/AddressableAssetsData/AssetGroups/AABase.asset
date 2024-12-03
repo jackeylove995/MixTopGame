@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: AABase
+  m_EditorClassIdentifier: 
+  m_GroupName: AABase
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c67bfabf7e768f84395ab694c8ca255d
+  m_SerializeEntries:
+  - m_GUID: a006d6bc6a6446b49a6b15198f434c30
+    m_Address: Assets/HotFixAssets/AABase/Prefabs/BasePanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 32dc81b4e7944e64fa189d509435b88b, type: 2}
+    - {fileID: 11400000, guid: 5f24b6ab29d13b04bb264d151c51da4c, type: 2}

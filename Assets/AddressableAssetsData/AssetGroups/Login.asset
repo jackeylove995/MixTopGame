@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Login
+  m_EditorClassIdentifier: 
+  m_GroupName: Login
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 901360cd900b0124fa8b2e6de9074fe6
+  m_SerializeEntries:
+  - m_GUID: 3c613e840e4d01a428aa4de579c21bb9
+    m_Address: Assets/HotFixAssets/Login/Art/bg3.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4dcda54a005a93e4cb2e9ed2ed0d6c98
+    m_Address: Assets/HotFixAssets/Login/Art/login_bg.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 36e9c4be3bbd4294a9a9884bc846dcee
+    m_Address: Assets/HotFixAssets/Login/Lua/LoginPanel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4238498776e7c2d409821598f7f09f0b
+    m_Address: Assets/HotFixAssets/Login/Prefabs/LoginPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1c3f3228c5e7eab40bb568af6635e6ee
+    m_Address: Assets/HotFixAssets/Login/Art/image.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b32bd7647431ce044ada7bed9faefadc, type: 2}
+    - {fileID: 11400000, guid: 9a0abdd7eabae5a459f4b659c4ea1d4f, type: 2}
