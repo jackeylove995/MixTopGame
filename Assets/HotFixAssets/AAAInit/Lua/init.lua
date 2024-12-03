@@ -7,6 +7,8 @@ AssetLoader = CS.MTG.AssetLoader
 UIUtil = CS.MTG.UIUtil
 GlobalSetting = CS.MTG.GlobalSetting
 
+require("Assets.HotFixAssets.AddressMap.AddressMap")
+
 Debug.Log("lua init success")
 
 --- 创建GameObject
@@ -24,7 +26,8 @@ local function InitEnv()
 end
 
 local function InitGame()
-    LoadGameObject("LoginPanel", GlobalSetting.FullbackPanelContainor)
+    LoadGameObject(LoginPanel_prefab, GlobalSetting.FullbackPanelContainor)
 end
 
+InitEnv()
 InitGame()

@@ -15,8 +15,12 @@ MonoBehaviour:
   m_GroupName: AABase
   m_Data:
     m_SerializedData: []
-  m_GUID: 0ada318b44ccbf042bd192c132165656
-  m_SerializeEntries: []
+  m_GUID: 96a529aa855236f48b0b6223fac1f101
+  m_SerializeEntries:
+  - m_GUID: a006d6bc6a6446b49a6b15198f434c30
+    m_Address: AABase/Prefabs/BasePanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

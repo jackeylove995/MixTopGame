@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: AAAInit
   m_Data:
     m_SerializedData: []
-  m_GUID: b0de736fa3c9a264faf80b98c6b255b5
+  m_GUID: 3df2e8ad6a3f1cd4aa5eedabcb64a067
   m_SerializeEntries:
   - m_GUID: ee04d0efd040f3f4ca1a9c745f9d5b48
     m_Address: AAAInit/Lua/init.lua

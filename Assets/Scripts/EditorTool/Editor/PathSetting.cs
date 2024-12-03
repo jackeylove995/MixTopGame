@@ -41,6 +41,10 @@ namespace MTG
         /// </summary>
         public static string BuildApplicationPath { get => Application.dataPath.Replace("Assets", "BuildOutput"); }
 
+        /// <summary>
+        /// 自动创建资源映射，避免手动写字符串地址
+        /// </summary>
+        public static string CodeAddressMapPath { get => Path.Combine(Application.dataPath,"HotFixAssets","AddressMap"); }
     }
 }
 

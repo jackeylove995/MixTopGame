@@ -10,7 +10,7 @@ namespace MTG
     {     
         public static void LoadGameObject(string address, Transform parent, Action<GameObject> onCreate)
         {
-            Addressables.InstantiateAsync(address + ".prefab", parent).Completed += (handle) =>
+            Addressables.InstantiateAsync(address, parent).Completed += (handle) =>
             {
                 onCreate?.Invoke(handle.Result);
             };

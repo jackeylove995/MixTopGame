@@ -15,10 +15,10 @@ MonoBehaviour:
   m_GroupName: LevelSetting
   m_Data:
     m_SerializedData: []
-  m_GUID: 4971e2973ab35064f92b8ee6f424ccb4
+  m_GUID: 042187ddca7968d488e0d58b545f82bd
   m_SerializeEntries:
   - m_GUID: b4d2ea355625116409b0a1073603203b
-    m_Address: LevelSetting/Lua/LevelSetting.lua
+    m_Address: LevelSetting/LevelSetting.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

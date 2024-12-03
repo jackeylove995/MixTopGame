@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Game
+  m_Name: AddressMap
   m_EditorClassIdentifier: 
-  m_GroupName: Game
+  m_GroupName: AddressMap
   m_Data:
     m_SerializedData: []
-  m_GUID: 2bf7810f5a46d24498700a454ef7640e
+  m_GUID: 8b18c0a5a01a3214098343a1026f7853
   m_SerializeEntries:
-  - m_GUID: 2732224696885404bbc2106e58915d70
-    m_Address: Game/Lua/GamePanel.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 511b41f27ee41c24cb4e37d4daf0387a
-    m_Address: Game/Prefabs/GamePanel.prefab
+  - m_GUID: da45f56a990d4604bbc509fa013b5935
+    m_Address: AddressMap/AddressMap.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 9153cc92d527fc94485674556d43f81f, type: 2}
-    - {fileID: 11400000, guid: 71ec342c7de42ba4fb6a576e6da25d1d, type: 2}
+    - {fileID: 11400000, guid: 449cb9be9501bda479da32d87ddfd304, type: 2}
+    - {fileID: 11400000, guid: 23b3da7544a80a44f93b76b1c77062c1, type: 2}
