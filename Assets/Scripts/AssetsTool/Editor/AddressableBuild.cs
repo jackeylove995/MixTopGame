@@ -41,16 +41,16 @@ public class AddressableBuild
 
     public static void CopyLocalBundlesToNet()
     {
-        string gitHttpConfig = "git config --global --unset http.proxy";
+        //string gitHttpConfig = "git config --global --unset http.proxy";
 
         if (!Directory.Exists(LocalGitPath))
         {
             Debug.LogError("git clone and retry");
             return;
-            Directory.CreateDirectory(LocalGitPath);
+            /*Directory.CreateDirectory(LocalGitPath);
             //本地远端仓库没有，那么先拉取创建
             string gitClone = string.Format($"git clone -b main {NetAssetsURL} {LocalGitPath}");
-            RunCMD(new string[] { "git init", gitClone });
+            RunCMD(new string[] { "git init", gitClone });*/
         }
 
         //如果本地有这个文件，那么直接提交 

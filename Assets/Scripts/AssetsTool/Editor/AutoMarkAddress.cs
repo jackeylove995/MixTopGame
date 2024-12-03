@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
+using UnityEngine;
 
 public class AutoMarkAddress : AssetPostprocessor
 {
@@ -21,6 +22,19 @@ public class AutoMarkAddress : AssetPostprocessor
         {
             settings = AddressableAssetSettingsDefaultObject.Settings;
         }
+
+        if(settings ==null || settings.groups == null || settings.groups.Count == 0)
+        {
+            Debug.LogError("先创建一个默认addressable group，才可以使用自动标记address功能");
+            return;
+        }
+        if(!settings.BuildRemoteCatalog)
+        {
+            Debug.LogWarning("先设置AddressableAssetSettings的Build Remote Catalog为true, 并配置Build和RemotePath才可以使用远程加载，RemoteLoadPath为搭建的CDN资源存放地址");
+            return;
+        }
+
+
 
         foreach (string path in movedFromAssetPaths)
         {
@@ -53,6 +67,7 @@ public class AutoMarkAddress : AssetPostprocessor
             return;
         }
         AddressableAssetGroup group = GetOrCreateGroup(module);
+
         foreach (var asset in group.entries)
         {
             if (asset.address == path)
@@ -64,7 +79,8 @@ public class AutoMarkAddress : AssetPostprocessor
     }
 
     static AddressableAssetGroup GetOrCreateGroup(string module)
-    {
+    {     
+
         foreach (var group in settings.groups)
         {
             if (group.Name == module)
@@ -74,14 +90,14 @@ public class AutoMarkAddress : AssetPostprocessor
         }
 
         List<AddressableAssetGroupSchema> schemas = new List<AddressableAssetGroupSchema>();
-
-        BundledAssetGroupSchema contentUpdate = new BundledAssetGroupSchema();;
+        
+        BundledAssetGroupSchema contentUpdate = ScriptableObject.CreateInstance<BundledAssetGroupSchema>();;
         // 设置 Build Path 和 Load Path
         contentUpdate.BuildPath.SetVariableByName(settings, AddressableAssetSettings.kRemoteBuildPath);
         contentUpdate.LoadPath.SetVariableByName(settings, AddressableAssetSettings.kRemoteLoadPath);
     
         schemas.Add(contentUpdate);
-        schemas.Add(new ContentUpdateGroupSchema());
+        schemas.Add(ScriptableObject.CreateInstance<ContentUpdateGroupSchema>());
         return settings.CreateGroup(module, false, false, false, schemas);
     }
 

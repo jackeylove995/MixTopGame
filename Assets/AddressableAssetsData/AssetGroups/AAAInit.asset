@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: AAAInit
   m_Data:
     m_SerializedData: []
-  m_GUID: e1a4b90696ca9c34197a29ffba2452ab
+  m_GUID: 814812fe02ef2f74d992592add7d8b6f
   m_SerializeEntries:
   - m_GUID: ee04d0efd040f3f4ca1a9c745f9d5b48
     m_Address: Assets/HotFixAssets/AAAInit/Lua/init.lua

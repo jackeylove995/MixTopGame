@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Game
   m_Data:
     m_SerializedData: []
-  m_GUID: 2fc286318dcb2a44096f431cc9c091fe
+  m_GUID: 6878c03acc9146047b0b225e7691279b
   m_SerializeEntries:
   - m_GUID: 2732224696885404bbc2106e58915d70
     m_Address: Assets/HotFixAssets/Game/Lua/GamePanel.lua
