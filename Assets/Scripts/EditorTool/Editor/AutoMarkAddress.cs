@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
@@ -40,26 +41,26 @@ namespace MTG
 
             foreach (string path in movedFromAssetPaths)
             {
-                Debug.Log("move from " + path);
+                //Debug.Log("move from " + path);
             }
             foreach (string path in importedAssets)
             {
-                Debug.Log("import " + path);
+                //Debug.Log("import " + path);
                 AddNewEntry(path);
             }
             foreach (string path in deletedAssets)
             {
-                Debug.Log("delete " + path);
+                //Debug.Log("delete " + path);
             }
             foreach (string path in movedAssets)
             {
-                Debug.Log("move to " + path);
+                //Debug.Log("move to " + path);
                 AddNewEntry(path);
             }
 
             DeleteUnusedGroups();
 
-            GenerateCodeMap(importedAssets, deletedAssets, movedAssets, movedFromAssetPaths);
+            GenerateCodeMap();
         }
 
         static void AddNewEntry(string path)
@@ -146,25 +147,13 @@ namespace MTG
         /// key : 统一为 文件名_后缀，整个项目不要使用同名资源
         /// value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset
         /// </summary>
-        static void GenerateCodeMap(string[] imports, string[] deletes, string[] moved, string[] moveFrom)
+        static void GenerateCodeMap()
         {
-            if (imports.Length == 0
-            && deletes.Length == 0
-            && moved.Length == 0
-            && moveFrom.Length == 0)
-            {
-                return;
-            }
-
-            string addressMapLuaPath = Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua");
-
-            List<string> content = new List<string>();
-            content.Add("--生成全局代码映射，不用手写地址");
-            content.Add("--映射规则：");
-            content.Add("--key : 统一为 文件名_后缀，整个项目不要使用同名资源");
-            content.Add("--value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset");
-
-            List<string> subContent = new List<string>();
+            StringBuilder content = new StringBuilder();
+            content.AppendLine("--生成全局代码映射，不用手写地址");
+            content.AppendLine("--映射规则：");
+            content.AppendLine("--key : 统一为 文件名_后缀，整个项目不要使用同名资源");
+            content.AppendLine("--value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset");
 
             bool refresh = false;
             if (!Directory.Exists(PathSetting.CodeAddressMapPath))
@@ -173,93 +162,29 @@ namespace MTG
                 Directory.CreateDirectory(PathSetting.CodeAddressMapPath);
             }
 
-            try
+            foreach (var group in settings.groups)
             {
-                //还没这个文件会报错，如果还没这个文件的话直接就用默认值空列表
-                subContent = File.ReadAllLines(addressMapLuaPath).ToList();
-            }
-            catch (Exception ex)
-            {
-                Debug.Log(ex.Message + " Create AddressMap.lua");
-            }
-
-            Func<string, string> getPathKey = (path) =>
-            {
-                string[] addressFilesName = path.Replace("Assets/HotFixAssets/", "").Split('/');
-                string key = addressFilesName[addressFilesName.Length - 1].Replace('.', '_');
-                return key;
-            };
-
-            Func<string, string> getSpecialPath = (path) =>
-            {
-                if (path.EndsWith(".lua"))
+                foreach (var entry in group.entries)
                 {
-                    path = path.Replace(".lua", "").Replace("/", ".");
-                }
-                else
-                {
-                    path = path.Replace("Assets/HotFixAssets/", "");
-                }
-                return path;
-            };
-
-            bool haveChange = false;
-            Action<string> deletePath = (deletePath) =>
-            {
-                for (int i = 0; i < subContent.Count; i++)
-                {
-                    if (subContent[i].Contains(deletePath))
+                    string[] addressFilesName = entry.address.Split('/');
+                    string key = addressFilesName[addressFilesName.Length - 1].Replace('.', '_');
+                    string address = entry.AssetPath.Replace("Assets/HotFixAssets/", "");
+                    if (entry.AssetPath.EndsWith(".lua"))
                     {
-                        subContent.RemoveAt(i);
-                        haveChange = true;
-                        i--;
+                        address = entry.AssetPath.Replace(".lua", "").Replace("/", ".");
                     }
+                    string entryLine = key + " = " + "\"" + address + "\"";
+                    content.AppendLine(entryLine);
                 }
-            };
-
-            Action<string> importPath = (importPath) =>
-            {
-                if (importPath.Contains("Assets/HotFixAssets"))
-                {
-                    string key = getPathKey(importPath);
-                    string value = getSpecialPath(importPath);
-                    //不用format节省时间
-                    string entryLine = key + " = " + "\"" + value + "\"";
-                    subContent.Add(entryLine);
-                    haveChange = true;
-                }
-            };
-
-            foreach (var path in imports)
-            {
-                importPath(path);
-            }
-            foreach (var path in moved)
-            {
-                importPath(path);
-            }
-            foreach (var path in deletes)
-            {
-                deletePath(path);
-            }
-            foreach (var path in moveFrom)
-            {
-                deletePath(path);
             }
 
-            if (haveChange)
-            {
-                content.AddRange(subContent);
-                File.WriteAllLines(Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua"), content);
-                Debug.Log("AddressMap Generate!");
-            }
+            File.WriteAllText(Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua"), content.ToString());
+            Debug.Log("AddressMap Generate!");
 
             if (refresh)
             {
                 new DirectoryInfo(PathSetting.CodeAddressMapPath).Refresh();
             }
-
-            
         }
     }
 }
