@@ -15,12 +15,8 @@ MonoBehaviour:
   m_GroupName: AABase
   m_Data:
     m_SerializedData: []
-  m_GUID: 723a4420b9d049745807d245c2c6cf69
-  m_SerializeEntries:
-  - m_GUID: a006d6bc6a6446b49a6b15198f434c30
-    m_Address: Assets/HotFixAssets/AABase/Prefabs/BasePanel.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_GUID: 0ada318b44ccbf042bd192c132165656
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

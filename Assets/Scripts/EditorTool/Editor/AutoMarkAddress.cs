@@ -76,7 +76,7 @@ namespace MTG
                     return;
                 }
             }
-            settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group).address = path;
+            settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group).address = path.Replace("Assets/HotFixAssets/", "");
         }
 
         static AddressableAssetGroup GetOrCreateGroup(string module)

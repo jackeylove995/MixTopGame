@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Game
+  m_Name: LevelSetting
   m_EditorClassIdentifier: 
-  m_GroupName: Game
+  m_GroupName: LevelSetting
   m_Data:
     m_SerializedData: []
-  m_GUID: 171f737e4ea4bc14ab1856e1090e0bfd
+  m_GUID: 4971e2973ab35064f92b8ee6f424ccb4
   m_SerializeEntries:
-  - m_GUID: 2732224696885404bbc2106e58915d70
-    m_Address: Game/Lua/GamePanel.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 511b41f27ee41c24cb4e37d4daf0387a
-    m_Address: Game/Prefabs/GamePanel.prefab
+  - m_GUID: b4d2ea355625116409b0a1073603203b
+    m_Address: LevelSetting/Lua/LevelSetting.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 9153cc92d527fc94485674556d43f81f, type: 2}
-    - {fileID: 11400000, guid: 71ec342c7de42ba4fb6a576e6da25d1d, type: 2}
+    - {fileID: 11400000, guid: 2696e13496f1e654c93b71f8a66243f8, type: 2}
+    - {fileID: 11400000, guid: fe358422800c97b41a85bb835c726c4e, type: 2}

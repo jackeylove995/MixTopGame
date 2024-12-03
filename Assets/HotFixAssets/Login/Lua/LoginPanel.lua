@@ -1,8 +1,11 @@
-function start()
-    GOLoader.LoadFullPanel("Game", "GamePanel", onCreate)
+local ls = require "HotFixAssets.LevelSetting.Lua.LevelSetting"
+
+local function start()
+    LoadGameObject("GamePanel", GlobalSetting.FullbackPanelContainor ,self.onCreate)
+    Debug.Log("asd" .. ls.testa)
 end
 
-function onCreate(go)
+local function onCreate(go)
     Debug.Log("load " .. go.name .. " success")
     Debug.ShowDebugMes("hotfix at 12/3")
 end
