@@ -58,10 +58,10 @@ namespace XLuaTest
             luaEnv.DoString(luaScript.text, luaScript.name, scriptEnv);
 
             //Action luaAwake = scriptEnv.Get<Axtion>("awake");
-            scriptEnv.Get("awake", out Action luaAwake);
-            scriptEnv.Get("start", out luaStart);
-            scriptEnv.Get("update", out luaUpdate);
-            scriptEnv.Get("ondestroy", out luaOnDestroy);
+            scriptEnv.Get("Awake", out Action luaAwake);
+            scriptEnv.Get("Start", out luaStart);
+            scriptEnv.Get("Update", out luaUpdate);
+            scriptEnv.Get("OnDestroy", out luaOnDestroy);
 
             if (luaAwake != null)
             {

@@ -12,8 +12,17 @@ namespace MTG
 {
     public class AutoMarkAddress : AssetPostprocessor
     {
+
+        public enum ChangeAddressType
+        {
+            NoChange = 0,
+            NewAddress = 1,
+            DeleteAddress = 2,
+            RemoveUnusedGroup = 4
+        }
+
         static AddressableAssetSettings settings;
-        static bool SomeAddressChanged;
+        static string SomeAddressChanged;
         static void OnPostprocessAllAssets(
             string[] importedAssets,
             string[] deletedAssets,
@@ -38,7 +47,7 @@ namespace MTG
                 return;
             }
 
-            SomeAddressChanged = false;
+            SomeAddressChanged = string.Empty;
 
             ///移动a -> a/b,触发movedFromAssetPaths ： path为Assets/...a
             ///                 movedAssets         :   path为Assets/...a/b
@@ -59,15 +68,23 @@ namespace MTG
                 AddNewEntry(path);
             }
 
-            if(deletedAssets != null && deletedAssets.Length > 0)
-            {               
-                SomeAddressChanged = true;
+            if (deletedAssets != null && deletedAssets.Length > 0)
+            {
+                foreach (var path in deletedAssets)
+                {
+                    if (IsAValidAddressPath(path))
+                    {
+                        SomeAddressChangedBy(ChangeAddressType.DeleteAddress);
+                        break;
+                    }
+                }
+
             }
 
             //删除group数据为空的无用组
             DeleteUnusedGroups();
 
-            if (SomeAddressChanged)
+            if (SomeAddressChanged != string.Empty)
             {
                 GenerateCodeMap();
             }
@@ -76,11 +93,11 @@ namespace MTG
 
         static void AddNewEntry(string path)
         {
-            GetAssetAddressPath(path, out string module);
-            if (module == string.Empty)
+            if (!IsAValidAddressPath(path))
             {
                 return;
             }
+            string module = path.Split('/')[2];
             AddressableAssetGroup group = GetGroup(module, true);
 
             foreach (var asset in group.entries)
@@ -91,7 +108,7 @@ namespace MTG
                 }
             }
             Debug.Log("Create Address:" + path);
-            SomeAddressChanged = true;
+            SomeAddressChangedBy(ChangeAddressType.NewAddress);
             settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group).address = path;
         }
 
@@ -127,32 +144,38 @@ namespace MTG
         public static void DeleteUnusedGroups()
         {
             List<AddressableAssetGroup> emptyGroups = settings.groups.Where(a => a.entries.Count == 0 && !a.Default).ToList();
-
+            if (emptyGroups.Count > 0)
+            {
+                SomeAddressChangedBy(ChangeAddressType.RemoveUnusedGroup);
+            }
             foreach (var group in emptyGroups)
             {
                 settings.RemoveGroup(group);
             }
         }
 
-        /// <summary>
-        ///  形如Assets/HotFixAssets/a/b/c...格式，获取a
-        /// </summary>
-        /// <param name="input">原始地址</param>
-        /// <param name="module">所属模块</param>
-        static void GetAssetAddressPath(string input, out string module)
+        static bool IsAValidAddressPath(string path)
         {
-            string pathPrefix = "Assets/HotFixAssets/";
-            if (input.Contains(pathPrefix) && input.Contains('.'))
+            ///位于热更文件夹下
+            ///包含.，表明不是一个文件夹
+            ///路径分割完>3，表明不是HotFixAssets的直系文件，因为只有一个文件夹表明所属module
+            if (path.Contains("Assets/HotFixAssets")
+             && path.Contains('.')
+             && path.Split('/').Length > 3)
             {
-                module = input.Split('/')[2];
+                return true;
             }
-            else
-            {
-                module = string.Empty;
-            }
-
+            return false;
         }
 
+        static void SomeAddressChangedBy(ChangeAddressType changeAddressType)
+        {
+            if (SomeAddressChanged.Contains(changeAddressType.ToString()))
+            {
+                return;
+            }
+            SomeAddressChanged += " " + changeAddressType.ToString();
+        }
         /// <summary>
         /// Auto Generate
         /// 生成全局资源映射，映射完不用手写地址
@@ -193,7 +216,7 @@ namespace MTG
             }
 
             File.WriteAllText(Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua"), content.ToString());
-            Debug.Log("AddressMap Generate!");
+            Debug.Log("AddressMap Generate! By " + SomeAddressChanged);
             new DirectoryInfo(PathSetting.CodeAddressMapPath).Refresh();
         }
     }

@@ -6,8 +6,8 @@ DOTweenUtil = CS.MTG.DOTweenUtil
 AssetLoader = CS.MTG.AssetLoader
 UIUtil = CS.MTG.UIUtil
 GlobalSetting = CS.MTG.GlobalSetting
-
 require("Assets.HotFixAssets.AddressMap.AddressMap")
+
 
 Debug.Log("lua init success")
 
