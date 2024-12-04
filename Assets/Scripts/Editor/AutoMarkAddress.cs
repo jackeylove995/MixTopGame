@@ -86,10 +86,10 @@ namespace MTG
 
             if (SomeAddressChanged != string.Empty)
             {
-                GenerateCodeMap();
+                EditorApplication.delayCall -= GenerateCodeMap;
+                EditorApplication.delayCall += GenerateCodeMap;
             }
         }
-
 
         static void AddNewEntry(string path)
         {
