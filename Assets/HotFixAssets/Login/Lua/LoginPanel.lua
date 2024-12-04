@@ -1,10 +1,11 @@
-local ls = require(LevelSetting_lua)
-function start()
-    LoadGameObject(GamePanel_prefab, GlobalSetting.FullbackPanelContainor ,self.onCreate)
-    Debug.Log("asd" .. ls.testa)
+local LoginPanel = {}
+
+function Start()
+    LoadGameObject(GamePanel_prefab, GlobalSetting.FullbackPanelContainor, onCreate)
 end
 
-function onCreate(go)
+function onCreate(go, gamepanel)
+    Debug.Log(gamepanel.tests)
     Debug.Log("load " .. go.name .. " success")
     Debug.ShowDebugMes("hotfix at 12/3")
 end

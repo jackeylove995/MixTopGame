@@ -17,14 +17,14 @@ namespace XLuaTest
     public class Injection
     {
         public string name;
-        public GameObject value ;
+        public GameObject value;
     }
 
     [LuaCallCSharp]
     public class LuaBehaviour : MonoBehaviour
     {
         public TextAsset luaScript;
-        
+
         public Injection[] injections;
 
         internal static LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
@@ -35,7 +35,7 @@ namespace XLuaTest
         private Action luaUpdate;
         private Action luaOnDestroy;
 
-        private LuaTable scriptEnv;
+        public LuaTable scriptEnv { get; private set; }
 
         private bool hasLuaUpdate;
 
@@ -68,7 +68,7 @@ namespace XLuaTest
                 luaAwake();
             }
 
-            if(luaUpdate != null)
+            if (luaUpdate != null)
             {
                 hasLuaUpdate = true;
             }
