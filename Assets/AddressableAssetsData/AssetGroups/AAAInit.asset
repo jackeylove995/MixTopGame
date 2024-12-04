@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 3df2e8ad6a3f1cd4aa5eedabcb64a067
   m_SerializeEntries:
   - m_GUID: ee04d0efd040f3f4ca1a9c745f9d5b48
-    m_Address: AAAInit/Lua/init.lua
+    m_Address: Assets/HotFixAssets/AAAInit/Lua/init.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

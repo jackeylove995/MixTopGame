@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public void TaskLua()
     {       
         LuaEnv luaEnv = LuaBehaviour.luaEnv;
-        Addressables.LoadAssetAsync<TextAsset>("AAAInit/Lua/init.lua").Completed += (handle)=>
+        Addressables.LoadAssetAsync<TextAsset>("Assets/HotFixAssets/AAAInit/Lua/init.lua").Completed += (handle)=>
         {
             string initCode = handle.Result.text;
             Addressables.Release(handle);

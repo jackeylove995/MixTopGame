@@ -17,7 +17,7 @@ namespace XLuaTest
     public class Injection
     {
         public string name;
-        public GameObject value;
+        public GameObject value ;
     }
 
     [LuaCallCSharp]

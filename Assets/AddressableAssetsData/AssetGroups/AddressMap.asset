@@ -15,10 +15,10 @@ MonoBehaviour:
   m_GroupName: AddressMap
   m_Data:
     m_SerializedData: []
-  m_GUID: 8b18c0a5a01a3214098343a1026f7853
+  m_GUID: de63488ac43e5cf4a810b2bedf98e935
   m_SerializeEntries:
   - m_GUID: da45f56a990d4604bbc509fa013b5935
-    m_Address: AddressMap/AddressMap.lua
+    m_Address: Assets/HotFixAssets/AddressMap/AddressMap.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

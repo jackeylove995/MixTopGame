@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace MTG
     public class AutoMarkAddress : AssetPostprocessor
     {
         static AddressableAssetSettings settings;
-
+        static bool SomeAddressChanged;
         static void OnPostprocessAllAssets(
             string[] importedAssets,
             string[] deletedAssets,
@@ -39,38 +38,50 @@ namespace MTG
                 return;
             }
 
-            foreach (string path in movedFromAssetPaths)
-            {
-                //Debug.Log("move from " + path);
-            }
+            SomeAddressChanged = false;
+
+            ///移动a -> a/b,触发movedFromAssetPaths ： path为Assets/...a
+            ///                 movedAssets         :   path为Assets/...a/b
+            ///修改或导入触发 importedAssets : path 为Assets/下目标文件路径带文件后缀
+            ///删除触发deletedAssets : path 为Assets/下目标文件路径带文件后缀
+            ///删除资源时Addresable自动解除标记
+            ///增加时手动打新标记
+            ///移动时手动打新标记，Addresable会自动移除旧标记
             foreach (string path in importedAssets)
             {
-                //Debug.Log("import " + path);
-                AddNewEntry(path);
-            }
-            foreach (string path in deletedAssets)
-            {
-                //Debug.Log("delete " + path);
+                if (!path.Contains("AddressMap/AddressMap.lua"))
+                {
+                    AddNewEntry(path);
+                }
             }
             foreach (string path in movedAssets)
             {
-                //Debug.Log("move to " + path);
                 AddNewEntry(path);
             }
 
+            if(deletedAssets != null && deletedAssets.Length > 0)
+            {               
+                SomeAddressChanged = true;
+            }
+
+            //删除group数据为空的无用组
             DeleteUnusedGroups();
 
-            GenerateCodeMap();
+            if (SomeAddressChanged)
+            {
+                GenerateCodeMap();
+            }
         }
+
 
         static void AddNewEntry(string path)
         {
-            GetAssetAddressPath(path, out string address, out string module);
-            if (address == string.Empty || module == string.Empty)
+            GetAssetAddressPath(path, out string module);
+            if (module == string.Empty)
             {
                 return;
             }
-            AddressableAssetGroup group = GetOrCreateGroup(module);
+            AddressableAssetGroup group = GetGroup(module, true);
 
             foreach (var asset in group.entries)
             {
@@ -79,19 +90,23 @@ namespace MTG
                     return;
                 }
             }
-            Debug.Log("Create Address:" + address);
-            settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group).address = address;
+            Debug.Log("Create Address:" + path);
+            SomeAddressChanged = true;
+            settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group).address = path;
         }
 
-        static AddressableAssetGroup GetOrCreateGroup(string module)
+        static AddressableAssetGroup GetGroup(string module, bool createNewGroupIfNull)
         {
-
             foreach (var group in settings.groups)
             {
                 if (group.Name == module)
                 {
                     return group;
                 }
+            }
+            if (!createNewGroupIfNull)
+            {
+                return null;
             }
 
             List<AddressableAssetGroupSchema> schemas = new List<AddressableAssetGroupSchema>();
@@ -109,57 +124,56 @@ namespace MTG
         /// <summary>
         /// 删除无数据组
         /// </summary>
-        static void DeleteUnusedGroups()
+        public static void DeleteUnusedGroups()
         {
-            List<AddressableAssetGroup> deleteGroups = settings.groups.Where(a => a.entries.Count == 0 && !a.Default).ToList();
+            List<AddressableAssetGroup> emptyGroups = settings.groups.Where(a => a.entries.Count == 0 && !a.Default).ToList();
 
-            foreach (var group in deleteGroups)
+            foreach (var group in emptyGroups)
             {
                 settings.RemoveGroup(group);
             }
         }
 
         /// <summary>
-        ///  形如Assets/HotFixAssets/a/b/c...格式，获取a/b/c...和a
+        ///  形如Assets/HotFixAssets/a/b/c...格式，获取a
         /// </summary>
         /// <param name="input">原始地址</param>
-        /// <param name="address">去除前缀简化地址</param>
         /// <param name="module">所属模块</param>
-        static void GetAssetAddressPath(string input, out string address, out string module)
+        static void GetAssetAddressPath(string input, out string module)
         {
             string pathPrefix = "Assets/HotFixAssets/";
             if (input.Contains(pathPrefix) && input.Contains('.'))
             {
-                address = input.Replace(pathPrefix, string.Empty);
-                module = address.Split('/')[0];
+                module = input.Split('/')[2];
             }
             else
             {
-                address = string.Empty;
                 module = string.Empty;
             }
 
         }
 
         /// <summary>
-        /// 生成全局代码映射，映射完不用手写地址
+        /// Auto Generate
+        /// 生成全局资源映射，映射完不用手写地址
         /// 映射规则：
         /// key : 统一为 文件名_后缀，整个项目不要使用同名资源
         /// value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset
         /// </summary>
-        static void GenerateCodeMap()
+        public static void GenerateCodeMap()
         {
             StringBuilder content = new StringBuilder();
-            content.AppendLine("--生成全局代码映射，不用手写地址");
+            content.AppendLine("--Auto Generate");
+            content.AppendLine("--生成全局资源映射，不用手写地址");
             content.AppendLine("--映射规则：");
             content.AppendLine("--key : 统一为 文件名_后缀，整个项目不要使用同名资源");
             content.AppendLine("--value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset");
 
-            bool refresh = false;
             if (!Directory.Exists(PathSetting.CodeAddressMapPath))
             {
-                refresh = true;
                 Directory.CreateDirectory(PathSetting.CodeAddressMapPath);
+                File.WriteAllText(Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua"), content.ToString());
+                AddNewEntry("Assets/HotFixAssets/AddressMap/AddressMap.lua");
             }
 
             foreach (var group in settings.groups)
@@ -168,10 +182,10 @@ namespace MTG
                 {
                     string[] addressFilesName = entry.address.Split('/');
                     string key = addressFilesName[addressFilesName.Length - 1].Replace('.', '_');
-                    string address = entry.AssetPath.Replace("Assets/HotFixAssets/", "");
-                    if (entry.AssetPath.EndsWith(".lua"))
+                    string address = entry.address;
+                    if (address.EndsWith(".lua"))
                     {
-                        address = entry.AssetPath.Replace(".lua", "").Replace("/", ".");
+                        address = address.Replace(".lua", "").Replace("/", ".");
                     }
                     string entryLine = key + " = " + "\"" + address + "\"";
                     content.AppendLine(entryLine);
@@ -180,11 +194,7 @@ namespace MTG
 
             File.WriteAllText(Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua"), content.ToString());
             Debug.Log("AddressMap Generate!");
-
-            if (refresh)
-            {
-                new DirectoryInfo(PathSetting.CodeAddressMapPath).Refresh();
-            }
+            new DirectoryInfo(PathSetting.CodeAddressMapPath).Refresh();
         }
     }
 }
