@@ -4,7 +4,8 @@
 
 #lua脚本编写思路及函数访问规则
 1.挂在LuaBehavior上的lua:
-可视为一个Mono，可以在Lua脚本中调用Awake，Start，Update，OnDestroy等函数，实现见LuaBehavior.cs, local前缀为本脚本访问相当于private，不带local前缀为持有此lua对象的其他脚本也可以访问，相当于public
+可视为一个Mono，可以在Lua脚本中调用Awake，Start，Update，OnDestroy等函数， 并且脚本中可以通过self访问自身，调用self.gameObject,self.transform.self:GetComponent()，实现见LuaBehavior.cs
+local前缀为本脚本访问相当于private，不带local前缀为持有此lua对象的其他脚本也可以访问，相当于public
 
 2.不挂在LuaBehavior上的lua:
 不带local前缀为全局访问，可以在任意lua脚本中调用，但注意lua的调用先后顺序，写在前面的全局属性调用不到后面的，所以在项目启动时，初始化了所有全局属性，见init.lua
