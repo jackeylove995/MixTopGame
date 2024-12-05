@@ -517,7 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 860545614}
   m_Layer: 5
-  m_Name: FullbackPanelContainor
+  m_Name: FullScreenPanelContainor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,7 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1122012922}
   m_Layer: 5
-  m_Name: PopPanelContainor
+  m_Name: PopupPanelContainor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

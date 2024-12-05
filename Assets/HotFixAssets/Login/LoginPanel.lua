@@ -1,7 +1,6 @@
-local LoginPanel = {}
 
 function Start()
-    LoadGameObject(GamePanel_prefab, GlobalSetting.FullbackPanelContainor, onCreate)
+    LoadGameObject(GamePanel_prefab, GlobalSetting.FullScreenPanelContainor, onCreate)
 end
 
 function onCreate(go, gamepanel)

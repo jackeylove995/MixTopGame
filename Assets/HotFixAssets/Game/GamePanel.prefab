@@ -108,7 +108,7 @@ PrefabInstance:
     - target: {fileID: 4558339774515978713, guid: a006d6bc6a6446b49a6b15198f434c30, type: 3}
       propertyPath: injections.Array.data[0].value
       value: 
-      objectReference: {fileID: 6602721813161799706}
+      objectReference: {fileID: 7504534952953111287}
     - target: {fileID: 5305581062013334376, guid: a006d6bc6a6446b49a6b15198f434c30, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

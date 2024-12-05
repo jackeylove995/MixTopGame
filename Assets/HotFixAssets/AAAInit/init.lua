@@ -1,13 +1,20 @@
 
---全局属性
---LuaCallCSharp
+require("Assets.HotFixAssets.AddressMap.AddressMap")
+
+--全局属性 LuaCallCSharp
 Debug =  CS.MTG.DebugUtil
 DOTweenUtil = CS.MTG.DOTweenUtil
 AssetLoader = CS.MTG.AssetLoader
 UIUtil = CS.MTG.UIUtil
 GlobalSetting = CS.MTG.GlobalSetting
-require("Assets.HotFixAssets.AddressMap.AddressMap")
+MonoUtil = CS.MTG.MonoUtil
 
+--test
+
+--
+
+local breakSocketHandle,debugXpCall = require(LuaDebug_lua)("localhost", 19923)
+MonoUtil.AddUpdate(breakSocketHandle)
 
 Debug.Log("lua init success")
 
@@ -26,7 +33,7 @@ local function InitEnv()
 end
 
 local function InitGame()
-    LoadGameObject(LoginPanel_prefab, GlobalSetting.FullbackPanelContainor)
+    LoadGameObject(LoginPanel_prefab, GlobalSetting.FullScreenPanelContainor)
 end
 
 InitEnv()
