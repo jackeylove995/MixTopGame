@@ -25,6 +25,14 @@ MonoBehaviour:
     m_Address: Assets/HotFixAssets/AAAInit/LuaDebug.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: cdf1bc5eaab9a594785d0d309312a8c9
+    m_Address: Assets/HotFixAssets/AAAInit/GlobalFunc.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cf4e82dde74b5aa418c60a019fd4b236
+    m_Address: Assets/HotFixAssets/AAAInit/GlobalUtil.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

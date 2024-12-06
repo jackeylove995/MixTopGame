@@ -10,8 +10,6 @@ require(GlobalFunc_lua)
 
 Debug.Log("lua init success")
 
-
-
 --- 进入游戏
 local function Enter()
     LoadGameObject(LoginPanel_prefab, GlobalSetting.FullScreenPanelContainor)

@@ -12,16 +12,24 @@ function LoadGameObject(address, parent, onCreate)
     AssetLoader.LoadGameObject(address, parent, onCreate)
 end
 
---- 发送通知
----@param name 通知名称
+--- 推送消息
+---@param name 消息名称
 ---@param tableParam 参数，table格式
 function Push(name, tableParam)
     EventUtil.Push(name, tableParam)
 end
 
---- 接收通知
----@param name 通知名称
+--- 接收消息
+---@param name 消息名称
 ---@param andDo 接收到后做什么 ，andDo方法带参数，table格式
 function Receive(name, andDo)
     EventUtil.Receive(name, andDo)
+end
+
+function newTable(tableAddess)
+    return require(tableAddess)
+end
+
+function print(mes)
+    Debug.Log(mes)
 end

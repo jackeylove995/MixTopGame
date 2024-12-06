@@ -121,6 +121,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 4dcda54a005a93e4cb2e9ed2ed0d6c98, type: 3}
+    - target: {fileID: 5305581062013334377, guid: a006d6bc6a6446b49a6b15198f434c30, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5305581062013334383, guid: a006d6bc6a6446b49a6b15198f434c30, type: 3}
       propertyPath: m_Name
       value: LoginPanel
