@@ -26,10 +26,7 @@ function Receive(name, andDo)
     EventUtil.Receive(name, andDo)
 end
 
-function newTable(tableAddess)
-    return require(tableAddess)
-end
 
 function print(mes)
-    Debug.Log(mes)
+     Debug.Log(mes)
 end

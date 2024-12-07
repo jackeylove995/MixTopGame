@@ -5,7 +5,7 @@
 ]]
 
 --- GameData
-local GameData = {}
+local GameData = Class("GameData", BaseData_lua)
 
 function GameData:InitData(level, coin)
     self.level = level
