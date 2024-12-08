@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEditor;
+using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
 using Process = System.Diagnostics.Process;
@@ -8,6 +9,7 @@ namespace MTG
 {
     public class AddressableBuild
     {    
+        public string hostingPath = "https://github.com/jackeylove995/MixTopGameNetAssets/raw/main/[UnityEditor.EditorUserBuildSettings.activeBuildTarget]";
         [MenuItem("MTG/Assets/OpenLocalServer")]
         public static void OpenLocalServer()
         {
@@ -20,6 +22,8 @@ namespace MTG
         [MenuItem("MTG/Assets/BuildLocalBundlesToNet")]
         public static void BuildLocalBundlesToNet()
         {
+            var setting = AddressableAssetSettingsDefaultObject.Settings;
+            var s = setting.profileSettings.GetProfileName("Custom");
             //先删除本地存在的bundles
             if (Directory.Exists(PathSetting.LocalServerPath))
             {

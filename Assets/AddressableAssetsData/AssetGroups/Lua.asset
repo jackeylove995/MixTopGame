@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Lua
+  m_EditorClassIdentifier: 
+  m_GroupName: Lua
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3a9092918d290e74ba75c447b809ee92
+  m_SerializeEntries:
+  - m_GUID: 3cf36fc9b31bde44b8dfba43d0740e41
+    m_Address: Lua/AAAInit/StringExtension.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 9b08983aaf70b2e4f9cbeca2ecdb2ef8
+    m_Address: Lua/AAAInit/AppLifeScope.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: cf4e82dde74b5aa418c60a019fd4b236
+    m_Address: Lua/AAAInit/GlobalUtil.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: a0443e3e153b58b448c0d1ff9a5632b5
+    m_Address: Lua/AAAInit/Class.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: cdf1bc5eaab9a594785d0d309312a8c9
+    m_Address: Lua/AAAInit/GlobalFunc.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 5c99506e8647f054588ef16d27057d27
+    m_Address: Lua/AAAInit/TableExtension.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 93c8d6bf47bc330429891af37a7c0b21
+    m_Address: Lua/AAAInit/LuaDebug.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: ee04d0efd040f3f4ca1a9c745f9d5b48
+    m_Address: Lua/AAAInit/main.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 016849843ecced94c9fd814e5fc15870
+    m_Address: Lua/AddressMap/AddressMap.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 89b620254241fab4c9f37fd96beba464
+    m_Address: Lua/Modules/GameData.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 2732224696885404bbc2106e58915d70
+    m_Address: Lua/Modules/GamePanel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 7afc067a95603334eac140c59fdad261
+    m_Address: Lua/Modules/JoyStick.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: d6dfb5cac891d15459f42584aa47526a
+    m_Address: Lua/Modules/Player.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 0d852d8b52979e54fb8329a738aa16c5
+    m_Address: Lua/Modules/BaseData.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 36e9c4be3bbd4294a9a9884bc846dcee
+    m_Address: Lua/Modules/LoginPanel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9252c6cd79dbbc04b85d98dd08d96f6d, type: 2}
+    - {fileID: 11400000, guid: 875974f7e1b201043a49fdca301d5915, type: 2}

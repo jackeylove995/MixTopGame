@@ -27,6 +27,9 @@ namespace MTG
 
             Process.Start(PathSetting.BuildApplicationPath);
             Debug.Log("Build completed location: " + GetLocalBuildPath(target));
+            string adbCMD = "adb install " + GetLocalBuildPath(target);
+            GUIUtility.systemCopyBuffer = adbCMD;
+            Debug.Log("Text copied to clipboard: " + adbCMD);
         }
 
         public static string GetLocalBuildPath(BuildTarget target)

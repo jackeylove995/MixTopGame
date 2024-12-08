@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using XLua;
-using XLuaTest;
 
 namespace MTG
 {
@@ -21,7 +20,7 @@ namespace MTG
 
         public static void DestroyGameObject(UnityEngine.Object obj)
         {
-            if(obj is Component component)
+            if (obj is Component component)
             {
                 GameObject.Destroy(component.gameObject);
             }

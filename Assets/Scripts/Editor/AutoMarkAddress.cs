@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
@@ -85,7 +87,7 @@ namespace MTG
             DeleteUnusedGroups();
 
             if (SomeAddressChanged != string.Empty)
-            {
+            {                
                 EditorApplication.delayCall -= GenerateCodeMap;
                 EditorApplication.delayCall += GenerateCodeMap;
             }
@@ -98,8 +100,7 @@ namespace MTG
                 return;
             }
             string module = path.Split('/')[2];
-            AddressableAssetGroup group = GetGroup(module, true);
-
+            AddressableAssetGroup group = GetGroup(module, true);        
             foreach (var asset in group.entries)
             {
                 if (asset.address == path)
@@ -109,7 +110,12 @@ namespace MTG
             }
             Debug.Log("Create Address:" + path);
             SomeAddressChangedBy(ChangeAddressType.NewAddress);
-            settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group).address = path;
+            var entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group);
+            entry.address = GetAddressByPath(path);
+            if (module.Equals("Lua"))
+            {
+                entry.SetLabel("lua", true, true);
+            }
         }
 
         static AddressableAssetGroup GetGroup(string module, bool createNewGroupIfNull)
@@ -168,6 +174,10 @@ namespace MTG
             return false;
         }
 
+        public static string GetAddressByPath(string path)
+        {
+            return path.Replace("Assets/HotFixAssets/", "");
+        }
         static void SomeAddressChangedBy(ChangeAddressType changeAddressType)
         {
             if (SomeAddressChanged.Contains(changeAddressType.ToString()))
@@ -183,8 +193,11 @@ namespace MTG
         /// key : 统一为 文件名_后缀，整个项目不要使用同名资源
         /// value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset
         /// </summary>
+        [MenuItem("MTG/GenerateCodeMap")]
         public static void GenerateCodeMap()
         {
+            var settings = AddressableAssetSettingsDefaultObject.Settings;
+
             StringBuilder content = new StringBuilder();
             content.AppendLine("--Auto Generate");
             content.AppendLine("--生成全局资源映射，不用手写地址");
@@ -196,7 +209,7 @@ namespace MTG
             {
                 Directory.CreateDirectory(PathSetting.CodeAddressMapPath);
                 File.WriteAllText(Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua"), content.ToString());
-                AddNewEntry("Assets/HotFixAssets/AddressMap/AddressMap.lua");
+                AddNewEntry("Assets/HotFixAssets/Lua/AddressMap/AddressMap.lua");
             }
 
             foreach (var group in settings.groups)
@@ -206,10 +219,9 @@ namespace MTG
                     string[] addressFilesName = entry.address.Split('/');
                     string key = addressFilesName[addressFilesName.Length - 1].Replace('.', '_');
                     string address = entry.address;
-                    if (address.EndsWith(".lua"))
-                    {
-                        address = address.Replace(".lua", "").Replace("/", ".");
-                    }
+                    key = key.Replace(" ", "_");
+                    address = address.Replace(" ", "_");
+
                     string entryLine = key + " = " + "\"" + address + "\"";
                     content.AppendLine(entryLine);
                 }

@@ -11,19 +11,19 @@ namespace MTG
     [LuaCallCSharp]
     public static class EventUtil
     {
-        public static Dictionary<string, List<Action<Dictionary<string, object>>>> EventMap
-            = new Dictionary<string, List<Action<Dictionary<string, object>>>>();
+        public static Dictionary<string, List<Action<LuaTable>>> EventMap
+            = new Dictionary<string, List<Action<LuaTable>>>();
 
         /// <summary>
         /// 推送消息
         /// </summary>
         /// <param name="eventName">事件名</param>
         /// <param name="mapParam">参数，类型为Dictionary<string, object>，Lua中直接传table</param>
-        public static void Push(string eventName, Dictionary<string, object> mapParam = null)
+        public static void Push(string eventName, LuaTable mapParam = null)
         {
             if (EventMap.ContainsKey(eventName))
             {
-                List<Action<Dictionary<string, object>>> actions = EventMap[eventName];
+                var actions = EventMap[eventName];
                 for (int i = 0; i < actions.Count; i++)
                 {
                     try
@@ -49,7 +49,7 @@ namespace MTG
         /// </summary>
         /// <param name="eventName">事件名</param>
         /// <param name="action">回调函数</param>
-        public static void Receive(string eventName, Action<Dictionary<string, object>> action)
+        public static void Receive(string eventName, Action<LuaTable> action)
         {
             if (EventMap.ContainsKey(eventName))
             {
@@ -57,7 +57,7 @@ namespace MTG
             }
             else
             {
-                EventMap[eventName] = new List<Action<Dictionary<string, object>>>
+                EventMap[eventName] = new List<Action<LuaTable>>
                 {
                     action
                 };

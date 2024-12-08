@@ -44,7 +44,7 @@ namespace MTG
         /// <summary>
         /// 自动创建资源映射，避免手动写字符串地址
         /// </summary>
-        public static string CodeAddressMapPath { get => Path.Combine(Application.dataPath, "HotFixAssets", "AddressMap"); }
+        public static string CodeAddressMapPath { get => Path.Combine(Application.dataPath, "HotFixAssets", "Lua" ,"AddressMap"); }
     }
 }
 

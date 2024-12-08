@@ -3,115 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.Assertions.Must;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using XLua;
-using XLuaTest;
 
 namespace MTG
 {
     public class GameManager : MonoBehaviour
     {
+        public List<ITask> StartGameTasks = new List<ITask>();
         private void Awake()
         {
-            TaskLua();
-            //StartCoroutine(TaskDoUpdateAddressadble());
+            StartGameTasks.Add(new LuaInitTask());
+            StartCoroutine(ExecuteStartTasks());
         }
 
-        public void TaskLua()
+        public IEnumerator ExecuteStartTasks()
         {
-            LuaEnv luaEnv = LuaBehaviour.luaEnv;
-            Addressables.LoadAssetAsync<TextAsset>("Assets/HotFixAssets/AAAInit/init.lua").Completed += (handle) =>
+            foreach (ITask task in StartGameTasks)
             {
-                string initCode = handle.Result.text;
-                Addressables.Release(handle);
-                luaEnv.DoString(initCode);
-            };
-        }
-
-        IEnumerator TaskDoUpdateAddressadble()
-        {
-            AsyncOperationHandle<IResourceLocator> initHandle = Addressables.InitializeAsync();
-            yield return initHandle;
-
-            // 检测更新
-            var checkHandle = Addressables.CheckForCatalogUpdates(false);
-            yield return checkHandle;
-            if (checkHandle.Status != AsyncOperationStatus.Succeeded)
-            {
-                OnError("CheckForCatalogUpdates Error\n" + checkHandle.OperationException.ToString());
-                yield break;
+                Debug.Log("Task: " + task.GetType() + " Start");
+                yield return task.DOTask();
             }
-
-            if (checkHandle.Result.Count > 0)
-            {
-                var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, true);
-                yield return updateHandle;
-
-                if (updateHandle.Status != AsyncOperationStatus.Succeeded)
-                {
-                    OnError("UpdateCatalogs Error\n" + updateHandle.OperationException.ToString());
-                    yield break;
-                }
-
-                // 更新列表迭代器
-                List<IResourceLocator> locators = updateHandle.Result;
-                foreach (var locator in locators)
-                {
-                    List<object> keys = new List<object>();
-                    keys.AddRange(locator.Keys);
-                    // 获取待下载的文件总大小
-                    var sizeHandle = Addressables.GetDownloadSizeAsync(keys.GetEnumerator());
-                    yield return sizeHandle;
-                    if (sizeHandle.Status != AsyncOperationStatus.Succeeded)
-                    {
-                        OnError("GetDownloadSizeAsync Error\n" + sizeHandle.OperationException.ToString());
-                        yield break;
-                    }
-
-                    long totalDownloadSize = sizeHandle.Result;
-                    NormalDebug("download size : " + totalDownloadSize);
-                    if (totalDownloadSize > 0)
-                    {
-                        // 下载
-                        var downloadHandle = Addressables.DownloadDependenciesAsync(keys, true);
-                        while (!downloadHandle.IsDone)
-                        {
-                            if (downloadHandle.Status == AsyncOperationStatus.Failed)
-                            {
-                                OnError("DownloadDependenciesAsync Error\n" + downloadHandle.OperationException.ToString());
-                                yield break;
-                            }
-                            // 下载进度
-                            float percentage = downloadHandle.PercentComplete;
-                            NormalDebug(string.Format($"has download: {percentage}"));
-
-                            yield return null;
-                        }
-                        if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
-                        {
-
-                            NormalDebug("down over");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                NormalDebug("check no update");
-            }
-
-            TaskLua();
-        }
-
-        // 异常提示
-        private void OnError(string msg)
-        {
-            DebugUtil.ShowDebugMes(string.Format($"\n{msg}\n retry!"));
-        }
-
-        private void NormalDebug(string msg)
-        {
-            DebugUtil.ShowDebugMes(msg);
         }
     }
 

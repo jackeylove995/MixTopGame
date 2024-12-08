@@ -9,9 +9,8 @@
 using UnityEngine;
 using XLua;
 using System;
-using System.IO;
 
-namespace XLuaTest
+namespace MTG
 {
     [System.Serializable]
     public class Injection

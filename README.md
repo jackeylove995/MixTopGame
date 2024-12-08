@@ -23,11 +23,21 @@ local funcB()
     funcA()  --你过关
 end
 
-所以在C#我们的方法在一个类的想怎么写怎么写，但是在Lua里，自定义方法要写在生命周期之前了，否则Start()是获取不到的
+所以在C#我们的方法在一个类的想怎么写怎么写，但是在Lua里，自定义方法要写在生命周期之前了，否则Start()是获取不到的，不带local不存在这个问题
 
 4.unity与lua实现对比
 MonoBehavior  <>  挂载LuaBehavior -> 编写lua 实现start，update ...
 C#中不带Mono的数据类  <>  通过Class.lua实现类与继承
+
+
+#Lua通过Addressable加载热更资源
+1.Lua加载GameObject或者图片
+通过LuaCallCSharp直接访问AddressableAPI
+
+2.Lua加载其他Lua代码
+通过lua提供的require方法加载
+但是在编辑器中，require可以访问到工程文件，所以编辑器可用，但是到了真机上会发现加载不出来lua，这是因为手机里没有电脑的环境，lua使用require无法加载到Addressable中的资源，解决办法是添加Lua的CustomLoader，通过XLuaAPI的AddLoader方法，添加新的加载方法，在这个CustomLoader中传入AddressableKey，加载好Lua资源后返回byte[]即可，详见LuaInitTask.cs
+
 
 #项目内的HotFixAssets为可热更资源
 凡是在里面创建的资源都会自动打Address标记，实现以及规则见AutoMarkAddress.cs

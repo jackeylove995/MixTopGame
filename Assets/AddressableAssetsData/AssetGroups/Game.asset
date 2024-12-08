@@ -17,12 +17,28 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 2bf7810f5a46d24498700a454ef7640e
   m_SerializeEntries:
-  - m_GUID: 2732224696885404bbc2106e58915d70
-    m_Address: Assets/HotFixAssets/Game/GamePanel.lua
+  - m_GUID: 511b41f27ee41c24cb4e37d4daf0387a
+    m_Address: Game/GamePanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 511b41f27ee41c24cb4e37d4daf0387a
-    m_Address: Assets/HotFixAssets/Game/GamePanel.prefab
+  - m_GUID: ce9d1a24178ec0c4c95306c59df9d3e9
+    m_Address: Game/Art/Game_Bg.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b26b879d2fb5d9141855d27ec311bc42
+    m_Address: Game/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 07d868e0fd2a23942bd04c6dffb76ed7
+    m_Address: Game/Art/Circle green.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e019cd8c6a958a74bb226a0fd85030d6
+    m_Address: Game/Art/Circle blue full.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: de31feca82a11e048bed1809152f5d2c
+    m_Address: Game/JoyStick.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

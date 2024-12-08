@@ -20,6 +20,11 @@ namespace MTG
             rttransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
             rttransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
         }
+
+        public static void LocalMove(Transform transform, float x, float y)
+        {
+            transform.localPosition +=  new Vector3(x, y);
+        }
     }
 }
 
