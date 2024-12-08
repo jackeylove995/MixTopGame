@@ -6,23 +6,9 @@
 
 --- Player
 
-local speed = 5
-
+local speed = 1
+local speedExtra = 0.1
 function Move(dir)
-    Debug.Log("玩家向"..dir.x .." " .. dir.y .. "方向移动")
-    UIUtil.LocalMove(self.transform, dir.x * speed , dir.y * speed)
+    UnityUtil.LocalMove(self.transform, dir.x * speed * speedExtra , dir.y * speed * speedExtra)
 end
 
---- Use this for initialization
-function Start()
-    
-end
-
---- Update is called once per frame
-function Update()
-    
-end
-
-function OnDestroy()
-    
-end

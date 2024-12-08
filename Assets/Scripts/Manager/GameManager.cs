@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.AddressableAssets.ResourceLocators;
-using UnityEngine.Assertions.Must;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace MTG
 {
@@ -24,6 +20,7 @@ namespace MTG
                 Debug.Log("Task: " + task.GetType() + " Start");
                 yield return task.DOTask();
             }
+            Debug.Log("All tasks executed successfully!");
         }
     }
 

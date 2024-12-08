@@ -1,12 +1,11 @@
-require(GameData_lua)
 
 function Start()
-    LoadGameObject(GamePanel_prefab, GlobalSetting.FullScreenPanelContainor)
+    LoginSuccess()
 end
 
-function onCreate(go, gamepanel)
-    Debug.Log("load " .. go.name .. " success")
-    Debug.ShowDebugMes("hotfix at 12/3")
+
+function LoginSuccess()
+    require(GameController_lua):OpenGame()
 end
 
 
