@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 
 namespace MTG
 {
-    public interface ITask 
+    public interface IAppInitTask 
     {
         public IEnumerator DOTask();
     }

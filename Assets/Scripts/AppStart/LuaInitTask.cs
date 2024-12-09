@@ -6,9 +6,9 @@ using static XLua.LuaEnv;
 
 namespace MTG
 {
-    public class LuaInitTask : ITask
+    public class LuaInitTask : IAppInitTask
     {
-        string MainLuaPath = "Lua/AAAInit/main.lua";
+        public string MainLuaPath = "Lua/AAAInit/main.lua";
         public IEnumerator DOTask()
         {
             bool taskOver = false;
