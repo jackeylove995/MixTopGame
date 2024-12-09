@@ -6,9 +6,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
+using System;
 using UnityEngine;
 using XLua;
-using System;
 
 namespace MTG
 {
@@ -28,15 +28,17 @@ namespace MTG
 
         internal static LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
         internal static float lastGCTime = 0;
-        internal const float GCInterval = 1;//1 second 
+        internal const float GCInterval = 1; //1 second
 
         private Action luaStart;
         private Action luaUpdate;
+        private Actopm luaFixedUpdate;
         private Action luaOnDestroy;
 
         public LuaTable scriptEnv { get; private set; }
 
         private bool hasLuaUpdate;
+        private bool hasLuaFixedUpdate;
 
         void Awake()
         {
@@ -60,6 +62,7 @@ namespace MTG
             scriptEnv.Get("Awake", out Action luaAwake);
             scriptEnv.Get("Start", out luaStart);
             scriptEnv.Get("Update", out luaUpdate);
+            scriptEnv.Get("FixedUpdate", out luaFixedUpdate);
             scriptEnv.Get("OnDestroy", out luaOnDestroy);
 
             if (luaAwake != null)
@@ -70,6 +73,11 @@ namespace MTG
             if (luaUpdate != null)
             {
                 hasLuaUpdate = true;
+            }
+
+            if (luaFixedUpdate != null)
+            {
+                hasLuaFixedUpdate = true;
             }
         }
 
@@ -93,6 +101,14 @@ namespace MTG
             {
                 luaEnv.Tick();
                 LuaBehaviour.lastGCTime = Time.time;
+            }
+        }
+
+        void FixedUpdate()
+        {
+            if (hasLuaFixedUpdate)
+            {
+                luaFixedUpdate();
             }
         }
 

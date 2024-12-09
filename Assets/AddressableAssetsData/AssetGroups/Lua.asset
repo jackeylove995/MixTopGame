@@ -62,38 +62,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 89b620254241fab4c9f37fd96beba464
-    m_Address: Lua/Modules/GameData.lua
+  - m_GUID: b88e02e21cc2f3d419ba5ad4eaea58b9
+    m_Address: Lua/Game/Model/FlyModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 2732224696885404bbc2106e58915d70
-    m_Address: Lua/Modules/GamePanel.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: 7afc067a95603334eac140c59fdad261
-    m_Address: Lua/Modules/JoyStick.lua
+    m_Address: Lua/Game/ViewController/GamePanel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: d6dfb5cac891d15459f42584aa47526a
-    m_Address: Lua/Modules/Player.lua
+    m_Address: Lua/Game/ViewController/Player.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 0d852d8b52979e54fb8329a738aa16c5
-    m_Address: Lua/Modules/BaseData.lua
+  - m_GUID: 9e6d6aa26cb6360469e2243c31bed385
+    m_Address: Lua/Game/ViewController/Fly.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 36e9c4be3bbd4294a9a9884bc846dcee
-    m_Address: Lua/Modules/LoginPanel.lua
+    m_Address: Lua/Login/ViewController/LoginPanel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: bb8ea5848d2b8de49a365b576a91f54c
-    m_Address: Lua/Modules/GameController.lua
+    m_Address: Lua/Game/ViewController/GameController.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua

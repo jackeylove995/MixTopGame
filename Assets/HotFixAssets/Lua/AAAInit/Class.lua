@@ -19,12 +19,15 @@ function Class(name, implement)
         c.Implement = table.last(string.split(implement, "."))
         setmetatable(c, { __index = require(implement) })   
     end
-  
+   
+    if rawget(c, "Constructor") ==nil then
+        c.Constructor = function() end
+    end
     return c
 end
 
 --- 创建一个类对象
-function newClass(className)
+function newClass(classAddress, ...)
     if #classCache > maxClassCacheCount then
         for k, v in pairs(classCache) do
             v = nil
@@ -33,11 +36,12 @@ function newClass(className)
         classCache = {}
     end
 
-    if classCache.className == nil then
-        classCache.className = require(className)
+    if rawget(classCache, classAddress) == nil then
+        classCache.classAddress = require(classAddress)
     end
-
-    return deepCopy(classCache.className)
+    local newItem = deepCopy(classCache.classAddress)
+    newItem:Constructor(...)
+    return newItem
 end
 
 -- 函数用于深拷贝一个 table
