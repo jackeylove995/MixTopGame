@@ -1,11 +1,14 @@
+local LoginPanel = Class("LoginPanel", MonoBehaviour_lua)
 
-function Start()
-    LoginSuccess()
+function LoginPanel:Start()
+    self:LoginSuccess()
 end
 
 
-function LoginSuccess()
+function LoginPanel:LoginSuccess()
     newClass(GameController_lua):OpenGame()
 end
+
+return LoginPanel
 
 

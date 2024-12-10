@@ -4,7 +4,10 @@
     desc: 游戏主页面
 ]]
 
-function Start()
+local GamePanel = Class("GamePanel", MonoBehaviour_lua)
+
+function GamePanel:Start()
     Debug.ShowDebugMes("enter game")
 end
 
+return GamePanel

@@ -32,11 +32,12 @@ function GameController:OnPlayerCreate(go, lua)
     self.start = true
     UnityUtil.SetLocalZ(go.transform, -1)
     FollowUtil.FollowTargetXY(GlobalSetting.TMainCamera, go.transform)
+    lua:GenerateFlys(3)
 end
 
 function GameController:OnPlayMove(dir)    
     if self.start then
-        self.playerlua.Move(dir)
+        self.playerlua:Move(dir)
     end
 end
 

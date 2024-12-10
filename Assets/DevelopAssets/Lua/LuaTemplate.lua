@@ -4,18 +4,6 @@
     desc: 
 ]]
 
---- NewLua
+local NewLua = Class("NewLua", MonoBehaviour_lua)
 
---- Use this for initialization
-function Start()
-    
-end
-
---- Update is called once per frame
-function Update()
-    
-end
-
-function OnDestroy()
-    
-end
+return NewLua

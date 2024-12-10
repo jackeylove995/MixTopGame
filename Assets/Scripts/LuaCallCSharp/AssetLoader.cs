@@ -14,7 +14,7 @@ namespace MTG
             Addressables.InstantiateAsync(address, parent).Completed += (handle) =>
             {
                 GameObject gameObject = handle.Result;
-                back?.Invoke(gameObject, gameObject.GetComponent<LuaBehaviour>().scriptEnv);
+                back?.Invoke(gameObject, gameObject.GetComponent<LuaBehaviour>().scriptTable);
             };
         }
 

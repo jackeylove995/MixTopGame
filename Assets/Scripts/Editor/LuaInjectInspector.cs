@@ -31,6 +31,13 @@ namespace MTG
             position.y += position.height + EditorGUIUtility.standardVerticalSpacing;
             position.height = EditorGUI.GetPropertyHeight(valueProperty);
             DrawValueProperty(position, valueProperty);
+
+            if (valueProperty.objectReferenceValue != null && nameProperty.stringValue.Equals(string.Empty))
+            {
+                nameProperty.stringValue = valueProperty.objectReferenceValue.name;
+                nameProperty.serializedObject.ApplyModifiedProperties();
+
+            }
         }
 
         protected void DrawValueProperty(Rect position, SerializedProperty property)
@@ -107,7 +114,7 @@ namespace MTG
             public void Apply()
             {
                 m_Property.objectReferenceValue = m_Target;
-                m_Property.serializedObject.ApplyModifiedProperties();
+                m_Property.serializedObject.ApplyModifiedProperties();          
             }
         }
     }

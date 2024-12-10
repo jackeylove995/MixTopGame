@@ -30,55 +30,55 @@ namespace MTG
         internal static float lastGCTime = 0;
         internal const float GCInterval = 1; //1 second
 
-        private Action luaStart;
-        private Action luaUpdate;
-        private Actopm luaFixedUpdate;
-        private Action luaOnDestroy;
+        private Action<LuaTable> luaStart;
+        private Action<LuaTable> luaUpdate;
+        private Action<LuaTable> luaFixedUpdate;
+        private Action<LuaTable> luaOnDestroy;
 
-        public LuaTable scriptEnv { get; private set; }
+        //created new empty,set __index = __indexTable
+        public LuaTable scriptTable { get; private set; } 
+
+        //read .lua asset
+        public LuaTable __indexTable { get; private set; }  
 
         private bool hasLuaUpdate;
         private bool hasLuaFixedUpdate;
 
         void Awake()
         {
-            scriptEnv = luaEnv.NewTable();
+            scriptTable = luaEnv.NewTable();
 
-            // 为每个脚本设置一个独立的环境，可一定程度上防止脚本间全局变量、函数冲突
-            LuaTable meta = luaEnv.NewTable();
-            meta.Set("__index", luaEnv.Global);
-            scriptEnv.SetMetaTable(meta);
-            meta.Dispose();
-
-            scriptEnv.Set("self", this);
-            foreach (var injection in injections)
+            __indexTable = luaEnv.DoString(luaScript.text, luaScript.name)[0] as LuaTable;
+            if(__indexTable.Get<object>("isMonobehavior") == null)
             {
-                scriptEnv.Set(injection.name, injection.value);
+                Debug.LogError(luaScript.name + " binded must implement Monobehavior.lua");
             }
 
-            luaEnv.DoString(luaScript.text, luaScript.name, scriptEnv);
+            LuaTable meta = luaEnv.NewTable();
+            meta.Set("__index", __indexTable);
+            scriptTable.SetMetaTable(meta);
+            meta.Dispose();
 
-            //Action luaAwake = scriptEnv.Get<Axtion>("awake");
-            scriptEnv.Get("Awake", out Action luaAwake);
-            scriptEnv.Get("Start", out luaStart);
-            scriptEnv.Get("Update", out luaUpdate);
-            scriptEnv.Get("FixedUpdate", out luaFixedUpdate);
-            scriptEnv.Get("OnDestroy", out luaOnDestroy);
+            scriptTable.Set("self", this);
+            scriptTable.Set("transform", transform);
+            foreach (var injection in injections)
+            {
+                scriptTable.Set(injection.name, injection.value);
+            }       
+
+            scriptTable.Get("Awake", out Action<LuaTable> luaAwake);
+            scriptTable.Get("Start", out luaStart);
+            scriptTable.Get("Update", out luaUpdate);
+            scriptTable.Get("FixedUpdate", out luaFixedUpdate);
+            scriptTable.Get("OnDestroy", out luaOnDestroy);
 
             if (luaAwake != null)
             {
-                luaAwake();
+                luaAwake(scriptTable);
             }
 
-            if (luaUpdate != null)
-            {
-                hasLuaUpdate = true;
-            }
-
-            if (luaFixedUpdate != null)
-            {
-                hasLuaFixedUpdate = true;
-            }
+            hasLuaUpdate = luaUpdate != null;
+            hasLuaFixedUpdate = luaFixedUpdate != null;
         }
 
         // Use this for initialization
@@ -86,7 +86,7 @@ namespace MTG
         {
             if (luaStart != null)
             {
-                luaStart();
+                luaStart(scriptTable);
             }
         }
 
@@ -95,7 +95,7 @@ namespace MTG
         {
             if (hasLuaUpdate)
             {
-                luaUpdate();
+                luaUpdate(scriptTable);
             }
             if (Time.time - LuaBehaviour.lastGCTime > GCInterval)
             {
@@ -108,7 +108,7 @@ namespace MTG
         {
             if (hasLuaFixedUpdate)
             {
-                luaFixedUpdate();
+                luaFixedUpdate(scriptTable);
             }
         }
 
@@ -116,12 +116,14 @@ namespace MTG
         {
             if (luaOnDestroy != null)
             {
-                luaOnDestroy();
+                luaOnDestroy(scriptTable);
             }
             luaOnDestroy = null;
             luaUpdate = null;
             luaStart = null;
-            scriptEnv.Dispose();
+            luaFixedUpdate = null;
+            __indexTable.Dispose();
+            scriptTable.Dispose();
             injections = null;
         }
     }

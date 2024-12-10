@@ -3,12 +3,10 @@
 #热更及xLua使用说明
 
 #lua脚本编写思路及函数访问规则
+
 1.挂在LuaBehavior脚本上的lua:
 LuaBehavior脚本将Lua脚本转换到Mono的使用方式
-可以在Lua脚本中调用Awake，Start，Update，OnDestroy等函数， 并且脚本中可以通过self访问自身，可调用self.gameObject,self.transform.self:GetComponent()，
-
-local前缀为本脚本访问相当于private，不带local前缀为持有此lua对象的其他脚本也可以访问，相当于public
-调用LoadGameObject时可以返回占有的lua脚本
+可以在Lua脚本中调用Awake，Start，Update，OnDestroy等函数
 
 2.不挂在LuaBehavior上的lua:
 不带local前缀为全局访问，可以在任意lua脚本中调用，但注意lua的调用先后顺序，写在前面的全局属性调用不到后面的，所以在项目启动时，初始化了所有全局属性，见init.lua
@@ -22,13 +20,70 @@ end
 local funcB() 
     funcA()  --你过关
 end
-
-所以在C#我们的方法在一个类的想怎么写怎么写，但是在Lua里，自定义方法要写在生命周期之前了，否则Start()是获取不到的，不带local不存在这个问题
+如果两个方法都在一个table里则不存在先后问题
 
 4.unity与lua实现对比
-MonoBehavior  <>  挂载LuaBehavior -> 编写lua 实现start，update ...
-C#中不带Mono的数据类  <>  通过Class.lua实现类与继承
+为了使Lua编写更符合Mono的习惯，添加了Class.lua，实现类的声明，继承，创建
 
+Class("name", implement)
+函数第一个为本身，第二个为继承谁
+如果是挂在LuaBehaviour上的最终要继承Mono
+如果是不挂在LuaBehaviour上的根据需求继承
+
+4.1 声明一个Mono类
+C#中为
+public class Player : MonoBehaviour
+{
+    void Awake(){}
+    void Start(){}
+    void Update()
+    {
+        MyFunc();
+    }
+    void FixedUpdate(){}
+    void OnDestroy(){}
+    void MyFunc(){}
+}
+
+lua中为
+local Player = Class("Player", MonoBehaviour.lua)
+
+function Player:Awake() end
+function Player:Start() end
+
+function Player:Update()
+    self:MyFunc()
+end
+
+function Player:FixedUpdate() end
+function Player:OnDestroy() end
+function Player:MyFunc() end
+
+return Player
+
+4.2声明一个不继承Mono的类，例如Model层
+C#为
+public class PlayerData
+{
+    public string name;
+    public void Play()
+    {
+        Debug.Log(name);
+    }
+}
+
+lua为
+local PlayerData = Class("PlayerData")
+
+PlayerData.name = "name"
+
+function PlayerData:Play()
+    Debug.Log(self.name)
+end
+
+return PlayerData
+
+5.了解以上后，查看LuaBehaviour.cs脚本来看以上具体实现方式会快很多
 
 #Lua通过Addressable加载热更资源
 1.Lua加载GameObject或者图片
@@ -52,5 +107,5 @@ PathSetting.cs : 记录工具类需要的各种路径
 LuaInjectInspector ： Lua挂载选择Component功能
 
 #游戏实现思路
-C#调用init.lua脚本，由init.lua实现lua系统和游戏的初始化
+C#调用main.lua脚本，由main.lua实现lua系统和游戏的初始化
 可以放在lua的逻辑一律放在lua

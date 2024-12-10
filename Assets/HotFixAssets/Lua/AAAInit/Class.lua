@@ -15,18 +15,22 @@ function Class(name, implement)
         c = nil
     end
 
+    local isMono
     if implement ~= nil then
-        c.Implement = table.last(string.split(implement, "."))
+        c.Implement = c.Implement or ""
+        c.Implement = c.Implement .. " " .. table.last(string.split(implement, "/")) 
+        isMono = string.find(c.Implement, "MonoBehaviour") ~= nil
         setmetatable(c, { __index = require(implement) })   
     end
    
-    if rawget(c, "Constructor") ==nil then
+    --Mono has no constructor
+    if not isMono and rawget(c, "Constructor") == nil then
         c.Constructor = function() end
     end
     return c
 end
 
---- 创建一个类对象
+--- 创建一个类对象，不要创建继承了MonoBehaviour的
 function newClass(classAddress, ...)
     if #classCache > maxClassCacheCount then
         for k, v in pairs(classCache) do
@@ -44,7 +48,7 @@ function newClass(classAddress, ...)
     return newItem
 end
 
--- 函数用于深拷贝一个 table
+--- 函数用于深拷贝一个 table
 function deepCopy(original)
     local copy
     if type(original) == 'table' then

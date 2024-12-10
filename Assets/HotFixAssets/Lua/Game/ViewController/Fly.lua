@@ -5,31 +5,20 @@
 ]]
 
 --- Fly
-
-fly = false
+local Fly = Class("Fly", MonoBehaviour_lua)
 
 --- 设置哪个玩家所拥有
 ---@param owner 玩家
-function SetOwner(owner)
-    
+function Fly:SetOwner(owner)
+    self.owner = owner 
+    self.transform:SetParent(owner.FlyContainer)
+    self.transform.localPosition = Vector3(1,0,0)
 end
 
 --- 设置飞行物数据
 ---@param flyModel 飞行物数据据
-function SetFlyModel(flyModel)
+function Fly:SetFlyModel(flyModel)
     self.flyModel = flyModel
 end
 
-function StartFly()
-    fly = true
-end
-
-function FixedUpdate()
-    if fly then
-        
-    end
-end
-
-function OnDestroy()
-    
-end
+return Fly

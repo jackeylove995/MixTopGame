@@ -27,6 +27,7 @@ namespace MTG
 
         public void Init()
         {
+            transform.RotateAround(transform.position, Vector3.back, 0.025f);
             StartCoroutine(ExecuteStartTasks());
         }
 
