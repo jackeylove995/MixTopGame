@@ -28,3 +28,5 @@ Vector3 = CS.UnityEngine.Vector3
 Time = CS.UnityEngine.Time
 --- 旋转
 Quaternion = CS.UnityEngine.Quaternion
+--- 数学
+Math = CS.System.Math

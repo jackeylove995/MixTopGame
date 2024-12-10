@@ -19,18 +19,20 @@ end
 --- 生成飞行物
 ---@param count 数量
 function Player:GenerateFlys(count)
+    local everyAddEuler = 360 / count
+    local distance = 1
+
     for i = 1, count, 1 do
+        local hudu = (i* everyAddEuler* Math.PI) / 180
+        local x = Math.Sin(hudu) * distance
+        local y = Math.Cos(hudu) * distance
+        
         LoadGameObject(Fly_prefab, self.FlyContainer, function(g, l)
             table.insert(flys, l)
-            UnityUtil.SetLocalPosition(g.transform,1, 0, -1)
-
-            local targetDirection = g.transform.localPosition
-            targetDirection.z = 0
-            -- 计算朝向指定方向的旋转
-            local targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+            UnityUtil.SetLocalPosition(g.transform, x, y, -1)
 
             -- 使物体的Y轴指向指定方向
-            g.transform.rotation = targetRotation;
+            g.transform.localRotation = Quaternion.Euler(x, y, 0)
 
             if #flys == count then
                 --canFly = true
