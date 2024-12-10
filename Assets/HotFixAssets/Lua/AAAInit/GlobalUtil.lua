@@ -16,9 +16,6 @@ DOTweenUtil = CS.MTG.DOTweenUtil
 AssetLoader = CS.MTG.AssetLoader
 --- Unity基础方法工具
 UnityUtil = CS.MTG.UnityUtil
---- 全局属性
-GlobalSetting = CS.MTG.GlobalSetting
-GlobalSetting.InitSetting()
 --- Mono工具
 MonoUtil = CS.MTG.MonoUtil
 --- 事件工具
@@ -29,3 +26,5 @@ FollowUtil = CS.MTG.FollowUtil
 Vector3 = CS.UnityEngine.Vector3
 --- Time
 Time = CS.UnityEngine.Time
+--- 旋转
+Quaternion = CS.UnityEngine.Quaternion

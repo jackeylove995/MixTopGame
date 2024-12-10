@@ -10,10 +10,10 @@ function GameController:OpenGame()
     Receive("PlayerMove", function(dir)
         self:OnPlayMove(dir)
     end)
-    LoadGameObject(GamePanel_prefab, GlobalSetting.FullScreenPanelContainor, function(g, l)
+    LoadGameObject(GamePanel_prefab, FullScreenPanelContainor, function(g, l)
         self:OnBgCreate(g , l)
     end)
-    LoadGameObject(Player_prefab, GlobalSetting.Sprite3DContainor, function(g, l)
+    LoadGameObject(Player_prefab, Sprite3DContainor, function(g, l)
         self:OnPlayerCreate(g , l)
     end)
 end
@@ -30,8 +30,8 @@ function GameController:OnPlayerCreate(go, lua)
     self.playergo = go
     self.playerlua = lua
     self.start = true
-    UnityUtil.SetLocalZ(go.transform, -1)
-    FollowUtil.FollowTargetXY(GlobalSetting.TMainCamera, go.transform)
+    UnityUtil.SetZ(go.transform, PlayerZDepth)
+    FollowUtil.FollowTargetXY(TMainCamera, go.transform)
     lua:GenerateFlys(3)
 end
 

@@ -24,24 +24,35 @@ namespace MTG
 
         public static void LocalMove(Transform transform, float x, float y, float z)
         {
-            transform.localPosition +=  new Vector3(x, y, z);
+            transform.localPosition += new Vector3(x, y, z);
         }
 
-        public static void SetLocalPostion(Transform transform, float x, float y, float z)
+        public static void SetLocalPosition(Transform transform, float x, float y, float z)
         {
             transform.localPosition = new Vector3(x, y, z);
         }
 
-        public static void SetLocalPostion(Transform transform, float x, float y)
+        public static void SetLocalPosition(Transform transform, float x, float y)
         {
             transform.localPosition = new Vector3(x, y);
         }
 
+        public static void SetPosition(Transform transform, float x, float y, float z)
+        {
+            transform.position = new Vector3(x, y, z);
+        }
         public static void SetLocalZ(Transform transform, float z)
         {
             var pos = transform.localPosition;
             pos.z = z;
             transform.localPosition = pos;
+        }
+
+        public static void SetZ(Transform transform, float z)
+        {
+            var pos = transform.position;
+            pos.z = z;
+            transform.position = pos;
         }
     }
 }
