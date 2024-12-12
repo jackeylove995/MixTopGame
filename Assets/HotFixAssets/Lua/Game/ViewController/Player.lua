@@ -27,7 +27,7 @@ function Player:GenerateFlys(count)
         local x = Math.Sin(hudu) * distance
         local y = Math.Cos(hudu) * distance
 
-        local fly = IOC.InjectNew(Fly_lua, self.FlyContainer)
+        local fly = IOC.Inject(Fly_lua, self.FlyContainer)
         table.insert(flys, fly)
         UnityUtil.SetLocalPosition(fly.transform, x, y, -1)
         -- 使物体的Y轴指向指定方向

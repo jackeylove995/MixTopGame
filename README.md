@@ -86,7 +86,7 @@ return PlayerData
 5.了解以上后，查看LuaBehaviour.cs脚本来看以上具体实现方式会快很多
 
 6.采用IOC(依赖注入容器)和Factory(工厂)联合搭建游戏框架
-流程：编写IOC Install，通过BindClass绑定各种类，以及通过FromInstance，FromNewPrefab，FromFactory实现InjectNew时的方式
+流程：编写IOC Install，通过BindClass绑定各种类，以及通过FromInstance，FromNewPrefab，FromFactory实现Inject时的方式
 因为全部采用InjectClass注入Class，所以没有BindClass的类将无法调用，强行实现模块化
 
 

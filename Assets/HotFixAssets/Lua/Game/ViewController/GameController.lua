@@ -11,9 +11,9 @@ function GameController:OpenGame()
         self:OnPlayMove(x, y)
     end)
 
-    IOC.InjectNew(GamePanel_lua,  FullScreenPanelContainor)
+    IOC.Inject(GamePanel_lua,  FullScreenPanelContainor)
 
-    local player = IOC.InjectNew(Player_lua, Sprite3DContainor)
+    local player = IOC.Inject(Player_lua, Sprite3DContainor)
     self:OnPlayerCreate(player)
 end
 

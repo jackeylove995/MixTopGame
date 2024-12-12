@@ -14,7 +14,7 @@ IOC.BindClass(GameController_lua).FromInstance()
 IOC.BindClass(FlyModel_lua)
 
 IOC.BindStartMethod(function()
-    IOC.InjectNew(LoginPanel_lua, FullScreenPanelContainor)
+    IOC.Inject(LoginPanel_lua, FullScreenPanelContainor)
 end)
 
 

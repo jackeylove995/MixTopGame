@@ -12,10 +12,7 @@ IOC.Containor = {}
 bindItem:
     bindClass
     implement
-
-    fromNewPrefab
-    fromFactory
-    fromInstance
+    getter
 ]]
 
 --- 绑定Class到Containor
@@ -41,14 +38,20 @@ function IOC.BindMonoClass(classAddress)
     return IOC
 end
 
+function IOC.FromInstance()
+    local bindItem = IOC.Containor[IOC.lockClassAddressKey]
+    bindItem.getter = new(bindItem.bindClass)
+end
+
 function IOC.FromNewPrefab(prefabAddress)
     local bindItem = IOC.Containor[IOC.lockClassAddressKey]
-    bindItem.fromNewPrefab = prefabAddress
+    bindItem.getter = function(prefabAddress, ...)
+        AssetLoader.LoadGameObjectSync(prefabAddress, ({...})[1])
+    end
 end
 
 function IOC.FromFactory(prefabAddress)
     local bindItem = IOC.Containor[IOC.lockClassAddressKey]
-    bindItem.fromFactory = true
     
     --三种情况
     --绑定了MonoClass，那么创建预制体并获取物体
@@ -65,38 +68,28 @@ function IOC.FromFactory(prefabAddress)
         end)
     else
         Factory.AddScriptAssemblyLine(IOC.lockClassAddressKey, function(...)
-            local dd= new(bindItem.bindClass, ...)
-            return dd
+            return new(bindItem.bindClass, ...)
         end)
     end
-end
 
-function IOC.FromInstance()
-    local bindItem = IOC.Containor[IOC.lockClassAddressKey]
-    bindItem.fromInstance = new(bindItem.bindClass)
+    bindItem.getter = function()
+        return Factory.Get(IOC.lockClassAddressKey)
+    end 
 end
 
 function IOC.InjectClass(classAddress)
     local bindItem = IOC.Containor[classAddress]
-    local className = bindItem.bindClass
-    local classImplement = bindItem.implement
-    return Class(className, classImplement)
+    return Class(bindItem.bindClass, bindItem.implement)
 end
 
-function IOC.InjectInstance(classAddress)
-    local bindItem = IOC.Containor[classAddress]
-    local instance = bindItem.fromInstance
-    return instance
-end
-
-function IOC.InjectNew(address, ...)
+function IOC.Inject(address, ...)
     local bindItem = IOC.Containor[address]
-    if bindItem.fromFactory then
-        --工厂获取
-        return Factory.Get(address, ...)
-    elseif bindItem.fromNewPrefab then
-        --new prefab获取
-        return AssetLoader.LoadGameObjectSync(bindItem.fromNewPrefab, ({...})[1])
+    if bindItem.getter then
+        if type(bindItem.getter) == "function" then
+            return bindItem.getter(...)
+        else
+            return bindItem.getter
+        end
     else
         --最低优先级，什么都没绑定，只有BindClass，那么new一个Class
         return new(bindItem.bindClass, ...)
