@@ -7,13 +7,18 @@
 --- Player
 local Player = IOC.InjectClass(Player_lua)
 
-local speed = 1
 local speedExtra = 0.1
 local flys = {}
 local canFly
 
 function Player:Move(x, y)
-    UnityUtil.LocalMove(self.transform, x * speed * speedExtra , y * speed * speedExtra)
+    UnityUtil.LocalMove(self.transform, x * self.data.speed * speedExtra , y * self.data.speed * speedExtra)
+end
+
+function Player:SetData(data)
+    self.data = data
+    UnityUtil.SetLocalPosition(self.transform, data.pos)
+    self:GenerateFlys(data.flyCount) 
 end
 
 --- 生成飞行物

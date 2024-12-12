@@ -65,7 +65,6 @@ namespace MTG
             {
                 scriptTable.Set(injection.name, injection.value);
             }       
-
             scriptTable.Get("Awake", out Action<LuaTable> luaAwake);
             scriptTable.Get("Start", out luaStart);
             scriptTable.Get("Update", out luaUpdate);

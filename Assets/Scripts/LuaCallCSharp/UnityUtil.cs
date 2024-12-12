@@ -32,6 +32,11 @@ namespace MTG
             transform.localPosition = new Vector3(x, y, z);
         }
 
+        public static void SetLocalPosition(Transform transform, Vector3 pos)
+        {
+            transform.localPosition = pos;
+        }
+
         public static void SetLocalPosition(Transform transform, float x, float y)
         {
             transform.localPosition = new Vector3(x, y);

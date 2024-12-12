@@ -7,7 +7,11 @@ namespace MTG
 {
     public static class AssetLoader
     {
-        public static void LoadGameObjectAsync(string address, Transform parent, Action<LuaTable> onCreate)
+        public static void LoadGameObjectAsync(
+            string address,
+            Transform parent,
+            Action<LuaTable> onCreate
+        )
         {
             Action<LuaTable> back = onCreate;
             Addressables.InstantiateAsync(address, parent).Completed += (handle) =>
@@ -18,11 +22,9 @@ namespace MTG
 
         public static LuaTable LoadGameObjectSync(string address, Transform parent)
         {
-            var handle = Addressables.LoadAssetAsync<GameObject>(address);
+            var handle = Addressables.InstantiateAsync(address, parent);
             handle.WaitForCompletion();
-            GameObject go = GameObject.Instantiate(handle.Result);
-            go.transform.SetParent(parent);
-            return go.GetComponent<LuaBehaviour>().scriptTable;
+            return handle.Result.GetComponent<LuaBehaviour>().scriptTable;
         }
 
         public static void DestroyGameObject(UnityEngine.Object obj)
@@ -34,4 +36,3 @@ namespace MTG
         }
     }
 }
-

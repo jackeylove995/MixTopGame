@@ -18,7 +18,7 @@ function Class(name, implement)
     local isMono
     if implement ~= nil then
         c.Implement = c.Implement or ""
-        c.Implement = c.Implement .. " " .. table.last(string.split(implement, "/")) 
+        c.Implement = c.Implement .. " " .. GetClassNameByAddress(implement)
         isMono = string.find(c.Implement, "MonoBehaviour") ~= nil
         setmetatable(c, { __index = require(implement) })   
     end
@@ -49,11 +49,14 @@ function new(classAddress, ...)
 end
 
 
-function IsMono(luaClassTable)
-    local classEntity = require(luaClassTable)
+function IsMono(classAddress)
+    local classEntity = require(classAddress)
     if classEntity.Implement ~= nil then
         return string.find(classEntity.Implement, "MonoBehaviour") ~= nil
     end
     return false
 end
 
+function GetClassNameByAddress(address)
+    return table.last(string.split(address, "/"))
+end

@@ -7,8 +7,8 @@ Factory = {}
 
 Factory.AssemblyLineMap = {} -- 流水线
 
-function Factory.AddScriptAssemblyLine(scriptKey, getter)
-    if Factory.AssemblyLineMap[scriptKey] ~= nil then
+function Factory.AddScriptAssemblyLine(keyInFactory, getter)
+    if Factory.AssemblyLineMap[keyInFactory] ~= nil then
         return
     end
 
@@ -17,30 +17,22 @@ function Factory.AddScriptAssemblyLine(scriptKey, getter)
     factoryLine.pKey = 0
     factoryLine.inUse = {}
     factoryLine.noUse = {}
-    Factory.AssemblyLineMap[scriptKey] = factoryLine
+    Factory.AssemblyLineMap[keyInFactory] = factoryLine
 end
 
-function Factory.Get(scriptKey, ...)
-    local factoryLine = Factory.AssemblyLineMap[scriptKey]
+function Factory.Get(keyInFactory, ...)
+    local factoryLine = Factory.AssemblyLineMap[keyInFactory]
     local hasCache = #factoryLine.noUse ~= 0
     local obj = hasCache and table.remove(factoryLine.noUse) or factoryLine.getter(...)
-    local pKey = factoryLine.pKey + 1
-    factoryLine.pKey = pKey
-    table.insert(factoryLine.inUse, pKey, obj)
-    obj.pKey = pKey
-    obj.scriptKey = scriptKey
-    if rawget(obj, "OnUse") then
-        Debug.Log("get from factory")
-        obj:OnUse(...)
-    end
+    factoryLine.pKey = factoryLine.pKey + 1
+    table.insert(factoryLine.inUse, factoryLine.pKey, obj)
+    obj.pKeyInFactory = factoryLine.pKey
+    obj.keyInFactory = keyInFactory
     return obj
 end
 
 function Factory.Take(obj)
-    if rawget(obj, "OnUnUse") then
-        obj:OnUnUse()
-    end
-    local factoryLine = Factory.AssemblyLineMap[obj.scriptKey]
-    table.insert(factoryLine.noUse, table.remove(factoryLine.inUse, obj.pKey))
+    local factoryLine = Factory.AssemblyLineMap[obj.keyInFactory]
+    table.insert(factoryLine.noUse, table.remove(factoryLine.inUse, obj.pKeyInFactory))
 end
 

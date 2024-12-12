@@ -7,7 +7,7 @@ require(GlobalUtil_lua)             --全局工具，多数为C#
 require(GlobalFunc_lua)             --全局方法
 require(GlobalParams_lua)           --全局参数
 require(Class_lua)                  --类
-require(Factory_lua)
+require(Factory_lua)                --工厂模式
 require(IOC_lua)                    --DI框架
 require(AppLifeScope_lua)           --游戏生命周期，无APP OPEN，因为APP OPEN在C#
 
