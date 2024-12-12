@@ -5,7 +5,7 @@
 ]]
 
 --- Fly
-local Fly = Class("Fly", MonoBehaviour_lua)
+local Fly = IOC.InjectClass(Fly_lua)
 
 --- 设置哪个玩家所拥有
 ---@param owner 玩家

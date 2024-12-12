@@ -41,10 +41,6 @@ MonoBehaviour:
     m_Address: Game/JoyStick.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 90e717bc03d77464583d4cfc0a4d00df
-    m_Address: Game/Art/SwordWood.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 5df34926aeebbf64ca03faad92a65444
     m_Address: Game/Fly.prefab
     m_ReadOnly: 0

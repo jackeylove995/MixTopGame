@@ -1,12 +1,9 @@
-local LoginPanel = Class("LoginPanel", MonoBehaviour_lua)
+local LoginPanel = IOC.InjectClass(LoginPanel_lua)
+
+local GameController = IOC.InjectInstance(GameController_lua)
 
 function LoginPanel:Start()
-    self:LoginSuccess()
-end
-
-
-function LoginPanel:LoginSuccess()
-    newClass(GameController_lua):OpenGame()
+    GameController:OpenGame()
 end
 
 return LoginPanel

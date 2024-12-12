@@ -4,40 +4,30 @@
     desc: 游戏管理器
 ]]
 
-local GameController = Class("GameController")
+local GameController = IOC.InjectClass(GameController_lua)
 
 function GameController:OpenGame()
-    Receive("PlayerMove", function(dir)
-        self:OnPlayMove(dir)
+    CS.JoyStick.OnJoyStickMove("+", function(x, y)
+        self:OnPlayMove(x, y)
     end)
-    LoadGameObject(GamePanel_prefab, FullScreenPanelContainor, function(g, l)
-        self:OnBgCreate(g , l)
-    end)
-    LoadGameObject(Player_prefab, Sprite3DContainor, function(g, l)
-        self:OnPlayerCreate(g , l)
-    end)
+
+    IOC.InjectNew(GamePanel_lua,  FullScreenPanelContainor)
+
+    local player = IOC.InjectNew(Player_lua, Sprite3DContainor)
+    self:OnPlayerCreate(player)
 end
 
-function GameController:OnGamePanelCreate(go, lua)
-    
+
+function GameController:OnPlayerCreate(player)
+    self.playerlua = player
+    UnityUtil.SetZ(player.transform, PlayerZDepth)
+    FollowUtil.FollowTargetXY(TMainCamera, player.transform)
+    player:GenerateFlys(3)
 end
 
-function GameController:OnBgCreate(g, l)
-    
-end
-
-function GameController:OnPlayerCreate(go, lua)
-    self.playergo = go
-    self.playerlua = lua
-    self.start = true
-    UnityUtil.SetZ(go.transform, PlayerZDepth)
-    FollowUtil.FollowTargetXY(TMainCamera, go.transform)
-    lua:GenerateFlys(3)
-end
-
-function GameController:OnPlayMove(dir)    
-    if self.start then
-        self.playerlua:Move(dir)
+function GameController:OnPlayMove(x, y)    
+    if self.playerlua then
+        self.playerlua:Move(x, y)
     end
 end
 

@@ -1,10 +1,8 @@
 using TMPro;
 using UnityEngine;
-using XLua;
 
 namespace MTG
 {
-    [LuaCallCSharp]
     public static class DebugUtil
     {
         public static TextMeshProUGUI debugText;

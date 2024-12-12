@@ -8,7 +8,6 @@ namespace MTG
     /// <summary>
     /// lua发布的消息，Unity也能够接收到
     /// </summary>
-    [LuaCallCSharp]
     public static class EventUtil
     {
         public static Dictionary<string, List<Action<LuaTable>>> EventMap

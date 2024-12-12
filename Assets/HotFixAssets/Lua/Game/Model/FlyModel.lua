@@ -4,7 +4,7 @@
     desc: 飞行物数据类
 ]]
 
-local FlyModel = Class("FlyModel")
+local FlyModel = IOC.InjectClass("FlyModel")
 
 function FlyModel:Constructor(flyType)
     self.flyType = flyType

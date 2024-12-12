@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using XLua;
 
 namespace MTG
 {
     /// <summary>
     /// 跟随工具
     /// </summary>
-    [LuaCallCSharp]
     public static class FollowUtil
     {
         /// <summary>

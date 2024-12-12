@@ -1,11 +1,8 @@
 
-using System;
 using UnityEngine;
-using XLua;
 
 namespace MTG
 {
-    [LuaCallCSharp]
     public static class UnityUtil
     {
         public static void Size(GameObject gameObject, float width, float height)

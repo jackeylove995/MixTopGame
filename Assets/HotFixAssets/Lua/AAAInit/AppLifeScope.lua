@@ -5,7 +5,7 @@
 ]]
 --- Lua启动时，也是整个游戏正式开始时
 local function OnLuaStart()
-    LoadGameObject(LoginPanel_prefab, FullScreenPanelContainor)
+    IOC.LoadInstaller(GameInstaller_lua)
 end
 
 

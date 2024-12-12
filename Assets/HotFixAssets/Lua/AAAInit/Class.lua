@@ -31,7 +31,7 @@ function Class(name, implement)
 end
 
 --- 创建一个类对象，不要创建继承了MonoBehaviour的
-function newClass(classAddress, ...)
+function new(classAddress, ...)
     if #classCache > maxClassCacheCount then
         for k, v in pairs(classCache) do
             v = nil
@@ -48,17 +48,12 @@ function newClass(classAddress, ...)
     return newItem
 end
 
---- 函数用于深拷贝一个 table
-function deepCopy(original)
-    local copy
-    if type(original) == 'table' then
-        copy = {}
-        for k, v in next, original, nil do
-            copy[deepCopy(k)] = deepCopy(v)
-        end
-        setmetatable(copy, deepCopy(getmetatable(original)))
-    else
-        copy = original
+
+function IsMono(luaClassTable)
+    local classEntity = require(luaClassTable)
+    if classEntity.Implement ~= nil then
+        return string.find(classEntity.Implement, "MonoBehaviour") ~= nil
     end
-    return copy
+    return false
 end
+

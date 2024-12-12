@@ -4,7 +4,7 @@
     desc: 游戏主页面
 ]]
 
-local GamePanel = Class("GamePanel", MonoBehaviour_lua)
+local GamePanel = IOC.InjectClass(GamePanel_lua)
 
 function GamePanel:Start()
     Debug.ShowDebugMes("enter game")

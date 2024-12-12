@@ -2,15 +2,7 @@
     author:author
     create:2024/12/5 21:12:38
     desc: 全局方法
-]]
-
---- 创建GameObject
----@param address 资源在HotFixAssets文件夹下地址
----@param parent 父物体
----@param onCreate 创建成功携带GameObject和Lua脚本的回调
-function LoadGameObject(address, parent, onCreate)
-    AssetLoader.LoadGameObject(address, parent, onCreate)
-end
+]] 
 
 --- 推送消息
 ---@param name 消息名称
@@ -26,7 +18,21 @@ function Receive(name, andDo)
     EventUtil.Receive(name, andDo)
 end
 
+--- 函数用于深拷贝一个 table
+function deepCopy(original)
+    local copy
+    if type(original) == 'table' then
+        copy = {}
+        for k, v in next, original, nil do
+            copy[deepCopy(k)] = deepCopy(v)
+        end
+        setmetatable(copy, deepCopy(getmetatable(original)))
+    else
+        copy = original
+    end
+    return copy
+end
 
 function print(mes)
-     Debug.Log(mes)
+    Debug.Log(mes)
 end

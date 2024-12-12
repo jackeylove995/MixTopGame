@@ -1,9 +1,7 @@
 using System;
-using XLua;
 
 namespace MTG
 {
-    [LuaCallCSharp]
     public static class MonoUtil
     {
         public static void AddUpdate(Action action)

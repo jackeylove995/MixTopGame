@@ -1,9 +1,7 @@
-using XLua;
 using DG.Tweening;
 
 namespace MTG
 {
-    [LuaCallCSharp]
     public static class DOTweenUtil
     {
         /// <summary>

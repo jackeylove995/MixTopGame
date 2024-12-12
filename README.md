@@ -85,13 +85,18 @@ return PlayerData
 
 5.了解以上后，查看LuaBehaviour.cs脚本来看以上具体实现方式会快很多
 
+6.采用IOC(依赖注入容器)和Factory(工厂)联合搭建游戏框架
+流程：编写IOC Install，通过BindClass绑定各种类，以及通过FromInstance，FromNewPrefab，FromFactory实现InjectNew时的方式
+因为全部采用InjectClass注入Class，所以没有BindClass的类将无法调用，强行实现模块化
+
+
 #Lua通过Addressable加载热更资源
 1.Lua加载GameObject或者图片
 通过LuaCallCSharp直接访问AddressableAPI
 
 2.Lua加载其他Lua代码
 通过lua提供的require方法加载
-但是在编辑器中，require可以访问到工程文件，所以编辑器可用，但是到了真机上会发现加载不出来lua，这是因为手机里没有电脑的环境，lua使用require无法加载到Addressable中的资源，解决办法是添加Lua的CustomLoader，通过XLuaAPI的AddLoader方法，添加新的加载方法，在这个CustomLoader中传入AddressableKey，加载好Lua资源后返回byte[]即可，详见LuaInitTask.cs
+但是在编辑器中，require可以访问到工程文件，所以编辑器可用，但是到了真机上会发现加载不出来lua，这是因为手机里没有电脑的环境，lua使用require无法加载到Addressable中的资源，解决办法是添加Lua的CustomLoader，通过XLuaAPI的AddLoader方法，添加新的加载方法，在这个CustomLoader中传入AddressableKey，加载好Lua资源后返回byte[]即可，也就是require添加了Addressable的加载方式，最终还是addressable加载，详见LuaInitTask.cs
 
 
 #项目内的HotFixAssets为可热更资源

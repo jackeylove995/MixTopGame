@@ -5,17 +5,24 @@ using XLua;
 
 namespace MTG
 {
-    [LuaCallCSharp]
     public static class AssetLoader
     {
-        public static void LoadGameObject(string address, Transform parent, Action<GameObject, LuaTable> onCreate)
+        public static void LoadGameObjectAsync(string address, Transform parent, Action<LuaTable> onCreate)
         {
-            Action<GameObject, LuaTable> back = onCreate;
+            Action<LuaTable> back = onCreate;
             Addressables.InstantiateAsync(address, parent).Completed += (handle) =>
             {
-                GameObject gameObject = handle.Result;
-                back?.Invoke(gameObject, gameObject.GetComponent<LuaBehaviour>().scriptTable);
+                back?.Invoke(handle.Result.GetComponent<LuaBehaviour>().scriptTable);
             };
+        }
+
+        public static LuaTable LoadGameObjectSync(string address, Transform parent)
+        {
+            var handle = Addressables.LoadAssetAsync<GameObject>(address);
+            handle.WaitForCompletion();
+            GameObject go = GameObject.Instantiate(handle.Result);
+            go.transform.SetParent(parent);
+            return go.GetComponent<LuaBehaviour>().scriptTable;
         }
 
         public static void DestroyGameObject(UnityEngine.Object obj)

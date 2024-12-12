@@ -13,7 +13,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
     private Vector2 touchPosition;
     private Vector2 inputDircetion;
-
+    public static event Action<float, float> OnJoyStickMove;
     private void Awake()
     {
         tableDirection = LuaBehaviour.luaEnv.NewTable();
@@ -24,7 +24,8 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     {
         if (inputDircetion != Vector2.zero)
         {
-            PushDir();
+            //PushDir();
+            OnJoyStickMove?.Invoke(inputDircetion.x, inputDircetion.y);
         }
     }
 
