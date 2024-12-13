@@ -8,9 +8,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 {
     private RectTransform background; // 摇杆背景
     private RectTransform handle; // 摇杆手柄
-
     private LuaTable tableDirection;
-
     private Vector2 touchPosition;
     private Vector2 inputDircetion;
     public static event Action<float, float> OnJoyStickMove;
@@ -24,7 +22,6 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     {
         if (inputDircetion != Vector2.zero)
         {
-            //PushDir();
             OnJoyStickMove?.Invoke(inputDircetion.x, inputDircetion.y);
         }
     }
@@ -57,13 +54,5 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
         // 重置摇杆位置和输入方向
         handle.anchoredPosition = Vector2.zero;
         inputDircetion = Vector2.zero;
-        PushDir();
-    }
-
-    private void PushDir()
-    {
-        tableDirection.Set("x", inputDircetion.x);
-        tableDirection.Set("y", inputDircetion.y);
-        EventUtil.Push("PlayerMove", tableDirection);
     }
 }

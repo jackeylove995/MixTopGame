@@ -2,7 +2,7 @@
     author:author
     create:2024/12/12 14:55:08
     desc: 工厂
-    工厂包含产品流水线，根据产品名key来定位具体流水线，然后操作流水线中的inuse和unuse数据
+    工厂包含产品流水线，根据产品名key来定位具体流水线，然后操作流水线中的inuse和nouse数据
 ]]
 Factory = {}
 

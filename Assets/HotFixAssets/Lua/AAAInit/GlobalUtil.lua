@@ -17,7 +17,8 @@ AssetLoader = CS.MTG.AssetLoader
 --- Unity基础方法工具
 UnityUtil = CS.MTG.UnityUtil
 --- Mono工具
-MonoUtil = CS.MTG.MonoManager.Instance
+MonoUtil = CS.MTG.MonoUtil
+MonoUtil.Init()
 --- 事件工具
 EventUtil = CS.MTG.EventUtil
 --- 跟随工具
