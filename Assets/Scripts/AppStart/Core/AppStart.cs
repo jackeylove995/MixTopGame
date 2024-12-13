@@ -34,13 +34,17 @@ namespace MTG
         public IEnumerator ExecuteStartTasks()
         {
             Debug.Log("App Start Init ...");
+            
+            List<IAppInitTask> tasks = new List<IAppInitTask>();
             foreach(var taskType in AppInitTasks)
             {
                 IAppInitTask task = Activator.CreateInstance(Map[taskType]) as IAppInitTask;
+                tasks.Add(task);
                 yield return task.DOTask();
                 Debug.Log("Task:" + task.GetType());
             }
             Debug.Log("App Init Successfully!");
+            tasks.ForEach( task => task.OnAllTasksInitSuccessfully());
             Destroy(gameObject);
         }
     }

@@ -6,7 +6,7 @@
 
 local PlayerData = IOC.InjectClass(PlayerData_lua)
 
-function PlayerData:Constructor(pos, speed, flyCount)
+function PlayerData:OnUse(pos, speed, flyCount)
     self.pos = pos
     self.speed = speed
     self.flyCount = flyCount

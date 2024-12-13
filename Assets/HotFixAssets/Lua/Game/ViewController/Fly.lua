@@ -7,6 +7,10 @@
 --- Fly
 local Fly = IOC.InjectClass(Fly_lua)
 
+function Fly:OnUse(parent)
+    self.transform:SetParent(parent)
+end
+
 --- 设置哪个玩家所拥有
 ---@param owner 玩家
 function Fly:SetOwner(owner)

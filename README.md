@@ -25,8 +25,8 @@ end
 4.unity与lua实现对比
 为了使Lua编写更符合Mono的习惯，添加了Class.lua，实现类的声明，继承，创建
 
-Class("name", implement)
-函数第一个为本身，第二个为继承谁
+Class("name", ...)
+函数第一个为本身，第二个为继承谁, 此处可变参数可实现多种继承，传入lua地址或require后的table都可以
 如果是挂在LuaBehaviour上的最终要继承Mono
 如果是不挂在LuaBehaviour上的根据需求继承
 

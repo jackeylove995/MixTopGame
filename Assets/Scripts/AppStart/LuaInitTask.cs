@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using XLua;
 using static XLua.LuaEnv;
 
 namespace MTG
@@ -9,6 +10,14 @@ namespace MTG
     public class LuaInitTask : IAppInitTask
     {
         public string MainLuaPath = "Lua/AAAInit/main.lua";
+
+        private string mainTxt;
+
+        public void OnAllTasksInitSuccessfully()
+        {
+            LuaBehaviour.luaEnv.DoString(mainTxt);
+        }
+
         public IEnumerator DOTask()
         {
             bool taskOver = false;
@@ -25,7 +34,7 @@ namespace MTG
 
             Addressables.LoadAssetAsync<TextAsset>(MainLuaPath).Completed += (handle) =>
             {
-                LuaBehaviour.luaEnv.DoString(handle.Result.text);
+                mainTxt = handle.Result.text;
                 Addressables.Release(handle);
                 taskOver = true;
             };

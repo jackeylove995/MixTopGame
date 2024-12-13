@@ -2,13 +2,12 @@
     author:author
     create:2024/12/7 16:27:14
     desc: 类方法
-]]
-
+]] 
 local classCache = {}
 local maxClassCacheCount = 5
 
 --- 声明一个Class
-function Class(name, implement)
+function Class(name, ...)
     local c = {}
     c.ClassName = name
     c.Dispose = function()
@@ -16,16 +15,31 @@ function Class(name, implement)
     end
 
     local isMono
-    if implement ~= nil then
+    local implements = {...}
+    if implements ~= nil then
         c.Implement = c.Implement or ""
-        c.Implement = c.Implement .. " " .. GetClassNameByAddress(implement)
-        isMono = string.find(c.Implement, "MonoBehaviour") ~= nil
-        setmetatable(c, { __index = require(implement) })   
+        for i, implement in ipairs(implements) do
+            if type(implement) == "string" then
+                --表明是类地址
+                local class = require(implement)
+                c.Implement = c.Implement .. class.ClassName .. " " .. (class.Implement or "")  .. " "              
+                setmetatable(c, {
+                    __index = class
+                })
+            else
+                --表明是table 
+                c.Implement = c.Implement .. implement.ClassName .. " " .. (implement.Implement or "") .. " "               
+                setmetatable(c, {
+                    __index = implement
+                })
+            end
+        end   
     end
-   
-    --Mono has no constructor
+    isMono = string.find(c.Implement, "MonoBehaviour") ~= nil
+    -- Mono has no constructor
     if not isMono and rawget(c, "Constructor") == nil then
-        c.Constructor = function() end
+        c.Constructor = function()
+        end
     end
     return c
 end
@@ -47,7 +61,6 @@ function new(classAddress, ...)
     newItem:Constructor(...)
     return newItem
 end
-
 
 function IsMono(classAddress)
     local classEntity = require(classAddress)

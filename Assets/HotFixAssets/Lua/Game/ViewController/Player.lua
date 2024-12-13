@@ -11,23 +11,24 @@ local speedExtra = 0.1
 local flys = {}
 local canFly
 
+function Player:OnUse(parent, data)
+    self.transform:SetParent(parent)
+    self.data = data
+    UnityUtil.SetLocalPosition(self.transform, data.pos)
+    self:GenerateFlys()
+end
+
 function Player:Move(x, y)
     UnityUtil.LocalMove(self.transform, x * self.data.speed * speedExtra , y * self.data.speed * speedExtra)
 end
 
-function Player:SetData(data)
-    self.data = data
-    UnityUtil.SetLocalPosition(self.transform, data.pos)
-    self:GenerateFlys(data.flyCount) 
-end
-
 --- 生成飞行物
 ---@param count 数量
-function Player:GenerateFlys(count)
-    local everyAddEuler = 360 / count
+function Player:GenerateFlys()
+    local everyAddEuler = 360 / self.data.flyCount
     local distance = 1
 
-    for i = 1, count, 1 do
+    for i = 1, self.data.flyCount, 1 do
         local hudu = (i* everyAddEuler* Math.PI) / 180
         local x = Math.Sin(hudu) * distance
         local y = Math.Cos(hudu) * distance
@@ -37,8 +38,9 @@ function Player:GenerateFlys(count)
         UnityUtil.SetLocalPosition(fly.transform, x, y, -1)
         -- 使物体的Y轴指向指定方向
         fly.transform.localRotation = Quaternion.Euler(0, 0, - i * everyAddEuler)
-        canFly = true
     end
+
+    canFly = true
 end
 
 function Player:FixedUpdate()

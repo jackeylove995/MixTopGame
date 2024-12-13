@@ -15,14 +15,16 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class MTGMonoUtilWrap 
+    public class MTGMonoManagerWrap 
     {
         public static void __Register(RealStatePtr L)
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			System.Type type = typeof(MTG.MonoUtil);
-			Utils.BeginObjectRegister(type, L, translator, 0, 0, 0, 0);
+			System.Type type = typeof(MTG.MonoManager);
+			Utils.BeginObjectRegister(type, L, translator, 0, 2, 0, 0);
 			
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "AddUpdate", _m_AddUpdate);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "RemoveUpdate", _m_RemoveUpdate);
 			
 			
 			
@@ -31,13 +33,12 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 3, 0, 0);
-			Utils.RegisterFunc(L, Utils.CLS_IDX, "AddUpdate", _m_AddUpdate_xlua_st_);
-            Utils.RegisterFunc(L, Utils.CLS_IDX, "RemoveUpdate", _m_RemoveUpdate_xlua_st_);
-            
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 1, 1, 0);
+			
 			
             
-			
+			Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "Instance", _g_get_Instance);
+            
 			
 			
 			Utils.EndClassRegister(type, L, translator);
@@ -46,7 +47,24 @@ namespace XLua.CSObjectWrap
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int __CreateInstance(RealStatePtr L)
         {
-            return LuaAPI.luaL_error(L, "MTG.MonoUtil does not have a constructor!");
+            
+			try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+				if(LuaAPI.lua_gettop(L) == 1)
+				{
+					
+					var gen_ret = new MTG.MonoManager();
+					translator.Push(L, gen_ret);
+                    
+					return 1;
+				}
+				
+			}
+			catch(System.Exception gen_e) {
+				return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+			}
+            return LuaAPI.luaL_error(L, "invalid arguments to MTG.MonoManager constructor!");
+            
         }
         
 		
@@ -57,19 +75,21 @@ namespace XLua.CSObjectWrap
         
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _m_AddUpdate_xlua_st_(RealStatePtr L)
+        static int _m_AddUpdate(RealStatePtr L)
         {
 		    try {
             
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
             
             
+                MTG.MonoManager gen_to_be_invoked = (MTG.MonoManager)translator.FastGetCSObj(L, 1);
+            
             
                 
                 {
-                    System.Action _action = translator.GetDelegate<System.Action>(L, 1);
+                    System.Action _action = translator.GetDelegate<System.Action>(L, 2);
                     
-                    MTG.MonoUtil.AddUpdate( _action );
+                    gen_to_be_invoked.AddUpdate( _action );
                     
                     
                     
@@ -83,19 +103,21 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _m_RemoveUpdate_xlua_st_(RealStatePtr L)
+        static int _m_RemoveUpdate(RealStatePtr L)
         {
 		    try {
             
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
             
             
+                MTG.MonoManager gen_to_be_invoked = (MTG.MonoManager)translator.FastGetCSObj(L, 1);
+            
             
                 
                 {
-                    System.Action _action = translator.GetDelegate<System.Action>(L, 1);
+                    System.Action _action = translator.GetDelegate<System.Action>(L, 2);
                     
-                    MTG.MonoUtil.RemoveUpdate( _action );
+                    gen_to_be_invoked.RemoveUpdate( _action );
                     
                     
                     
@@ -110,6 +132,18 @@ namespace XLua.CSObjectWrap
         
         
         
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_Instance(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    translator.Push(L, MTG.MonoManager.Instance);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
         
         
         

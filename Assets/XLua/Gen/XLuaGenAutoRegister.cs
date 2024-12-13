@@ -40,7 +40,7 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(MTG.FollowUtil), MTGFollowUtilWrap.__Register);
         
         
-            translator.DelayWrapLoader(typeof(MTG.MonoUtil), MTGMonoUtilWrap.__Register);
+            translator.DelayWrapLoader(typeof(MTG.MonoManager), MTGMonoManagerWrap.__Register);
         
         
             translator.DelayWrapLoader(typeof(MTG.UnityUtil), MTGUnityUtilWrap.__Register);

@@ -15,27 +15,20 @@ function GameController:OpenGame()
     end)
     IOC.Inject(GamePanel_lua,  FullScreenPanelContainor)
 
-
     local mainPlayerData = GameDataManager.GetPlayerData()
-    local mainPlayer = IOC.Inject(Player_lua, Sprite3DContainor)
-    self.playerlua = mainPlayer
-    Debug.Log(TMainCamera.name .. mainPlayer.transform.name)
+    local mainPlayer = IOC.Inject(Player_lua, Sprite3DContainor, mainPlayerData)
+    self.mainPlayer = mainPlayer
     FollowUtil.FollowTargetXY(TMainCamera, mainPlayer.transform)
-    mainPlayer:SetData(mainPlayerData)
 
     local botsData = GameDataManager.GetBotsData()
     for i, v in ipairs(botsData) do
-        local botPlayer = IOC.Inject(Player_lua, Sprite3DContainor)
-        botPlayer:SetData(v)
+        local botPlayer = IOC.Inject(Player_lua, Sprite3DContainor, v)
     end
-
-    local s = IOC
-    local ss = Factory
 end
 
 function GameController:OnPlayMove(x, y)    
-    if self.playerlua then
-        self.playerlua:Move(x, y)
+    if self.mainPlayer then
+        self.mainPlayer:Move(x, y)
     end
 end
 

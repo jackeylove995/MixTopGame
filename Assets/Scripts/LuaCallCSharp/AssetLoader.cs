@@ -9,8 +9,8 @@ namespace MTG
     {
         public static void LoadGameObjectAsync(
             string address,
-            Transform parent,
-            Action<LuaTable> onCreate
+            Transform parent = null,
+            Action<LuaTable> onCreate = null
         )
         {
             Action<LuaTable> back = onCreate;
@@ -20,10 +20,10 @@ namespace MTG
             };
         }
 
-        public static LuaTable LoadGameObjectSync(string address, Transform parent)
+        public static LuaTable LoadGameObjectSync(string address, Transform parent = null)
         {
             var handle = Addressables.InstantiateAsync(address, parent);
-            handle.WaitForCompletion();
+            handle.WaitForCompletion();    
             return handle.Result.GetComponent<LuaBehaviour>().scriptTable;
         }
 

@@ -16,7 +16,7 @@ namespace MTG
             typeof(DOTweenUtil),
             typeof(EventUtil),
             typeof(FollowUtil),
-            typeof(MonoUtil),
+            typeof(MonoManager),
             typeof(UnityUtil),
             typeof(JoyStick)
         };

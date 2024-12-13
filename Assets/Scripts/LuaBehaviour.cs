@@ -30,28 +30,29 @@ namespace MTG
         internal static float lastGCTime = 0;
         internal const float GCInterval = 1; //1 second
 
+        private Action<LuaTable> luaAwake;
         private Action<LuaTable> luaStart;
         private Action<LuaTable> luaUpdate;
         private Action<LuaTable> luaFixedUpdate;
         private Action<LuaTable> luaOnDestroy;
 
         //created new empty,set __index = __indexTable
-        public LuaTable scriptTable { get; private set; } 
+        public LuaTable scriptTable { get; private set; }
 
         //read .lua asset
-        public LuaTable __indexTable { get; private set; }  
+        public LuaTable __indexTable { get; private set; }
 
         private bool hasLuaUpdate;
         private bool hasLuaFixedUpdate;
-
         void Awake()
         {
             scriptTable = luaEnv.NewTable();
 
             __indexTable = luaEnv.DoString(luaScript.text, luaScript.name)[0] as LuaTable;
-            if(__indexTable.Get<object>("isMonobehavior") == null)
+            string implement = __indexTable.Get<string>("Implement");
+            if (implement == null || !implement.Contains("MonoBehaviour"))
             {
-                Debug.LogError(luaScript.name + " binded must implement Monobehavior.lua");
+                Debug.LogError(luaScript.name + " binded must implement MonoBehaviour.lua");
             }
 
             LuaTable meta = luaEnv.NewTable();
@@ -64,18 +65,13 @@ namespace MTG
             foreach (var injection in injections)
             {
                 scriptTable.Set(injection.name, injection.value);
-            }       
-            scriptTable.Get("Awake", out Action<LuaTable> luaAwake);
+            }
+            scriptTable.Get("Awake", out luaAwake);
             scriptTable.Get("Start", out luaStart);
             scriptTable.Get("Update", out luaUpdate);
             scriptTable.Get("FixedUpdate", out luaFixedUpdate);
             scriptTable.Get("OnDestroy", out luaOnDestroy);
-
-            if (luaAwake != null)
-            {
-                luaAwake(scriptTable);
-            }
-
+            luaAwake?.Invoke(scriptTable);
             hasLuaUpdate = luaUpdate != null;
             hasLuaFixedUpdate = luaFixedUpdate != null;
         }

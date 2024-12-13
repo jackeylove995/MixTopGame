@@ -9,7 +9,7 @@
 		<type fullname="MTG.DOTweenUtil" preserve="all"/>
 		<type fullname="MTG.EventUtil" preserve="all"/>
 		<type fullname="MTG.FollowUtil" preserve="all"/>
-		<type fullname="MTG.MonoUtil" preserve="all"/>
+		<type fullname="MTG.MonoManager" preserve="all"/>
 		<type fullname="MTG.UnityUtil" preserve="all"/>
 		<type fullname="JoyStick" preserve="all"/>
 		<type fullname="MTG.LuaBehaviour" preserve="all"/>

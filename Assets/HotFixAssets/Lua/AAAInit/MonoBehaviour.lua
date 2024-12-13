@@ -1,11 +1,11 @@
 --[[
     author:author
     create:2024/12/10 14:37:21
-    desc: Monobehavior标记，区分Mono和普通类
+    desc: MonoBehaviour标记，区分Mono和普通类
 ]]
 
-local MonoBehavior = {}
+local MonoBehaviour = Class("MonoBehaviour")
 
-MonoBehavior.isMonobehavior = true
+MonoBehaviour.isMonoBehaviour = true
 
-return MonoBehavior
+return MonoBehaviour
