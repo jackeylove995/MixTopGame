@@ -13,10 +13,9 @@ namespace MTG
             Action<LuaTable> onCreate = null
         )
         {
-            Action<LuaTable> back = onCreate;
             Addressables.InstantiateAsync(address, parent).Completed += (handle) =>
             {
-                back?.Invoke(handle.Result.GetComponent<LuaBehaviour>().scriptTable);
+                onCreate?.Invoke(handle.Result.GetComponent<LuaBehaviour>().scriptTable);
             };
         }
 

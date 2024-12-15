@@ -73,15 +73,15 @@ Getter是代码，你可以实现很多效果，比如按名字空间配置，�
 
 xLua只会生成加了该配置的类型，不会自动生成其父类的适配代码，当访问子类对象的父类方法，如果该父类加了LuaCallCSharp配置，则执行父类的适配代码，否则会尝试用反射来访问。
 
-反射访问除了性能不佳之外，在il2cpp下还有可能因为代码剪裁而导致无法访问，后者可以通过下面介绍的ReflectionUse标签来避免。
+反射访问除了性能不佳之外，在il2cpp下还有可能因为代码剪裁而导致无法访问，后者可以通过下面介绍的ReflectiOnGetOrCreate标签来避免。
 
-### XLua.ReflectionUse
+### XLua.ReflectiOnGetOrCreate
 
 一个C#类型类型加了这个配置，xLua会生成link.xml阻止il2cpp的代码剪裁。
 
-对于扩展方法，必须加上LuaCallCSharp或者ReflectionUse才可以被访问到。
+对于扩展方法，必须加上LuaCallCSharp或者ReflectiOnGetOrCreate才可以被访问到。
 
-建议所有要在Lua访问的类型，要么加LuaCallCSharp，要么加上ReflectionUse，这才能够保证在各平台都能正常运行。
+建议所有要在Lua访问的类型，要么加LuaCallCSharp，要么加上ReflectiOnGetOrCreate，这才能够保证在各平台都能正常运行。
 
 ### XLua.DoNotGen
 
@@ -89,7 +89,7 @@ xLua只会生成加了该配置的类型，不会自动生成其父类的适配�
 
 只能标准Dictionary<Type, List<string>>的field或者property。key指明的是生效的类，value是一个列表，配置的是不生成代码的函数、字段、属性的名字。
 
-和ReflectionUse的区别是：1、ReflectionUse指明的是整个类；2、当第一次访问一个函数（字段、属性）时，ReflectionUse会把整个类都wrap，而DoNotGen只wrap该函数（字段、属性），换句话DoNotGen更lazy一些；
+和ReflectiOnGetOrCreate的区别是：1、ReflectiOnGetOrCreate指明的是整个类；2、当第一次访问一个函数（字段、属性）时，ReflectiOnGetOrCreate会把整个类都wrap，而DoNotGen只wrap该函数（字段、属性），换句话DoNotGen更lazy一些；
 
 和BlackList的区别是：1、BlackList配了就不能用；2、BlackList能指明某重载函数，DoNotGen不能；
 

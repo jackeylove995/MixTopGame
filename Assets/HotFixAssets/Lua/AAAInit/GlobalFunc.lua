@@ -7,14 +7,14 @@
 --- 推送消息
 ---@param name 消息名称
 ---@param tableParam 参数，table格式
-function Push(name, tableParam)
+function push(name, tableParam)
     EventUtil.Push(name, tableParam)
 end
 
 --- 接收消息
 ---@param name 消息名称
 ---@param andDo 接收到后做什么 ，andDo方法带参数，table格式
-function Receive(name, andDo)
+function receive(name, andDo)
     EventUtil.Receive(name, andDo)
 end
 
@@ -35,4 +35,11 @@ end
 
 function print(mes)
     Debug.Log(mes)
+end
+
+
+function safeInvoke(func, ...)
+    if func then
+        func(...)
+    end
 end

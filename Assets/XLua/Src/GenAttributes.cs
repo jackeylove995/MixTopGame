@@ -73,7 +73,7 @@ namespace XLua
     }
 
     //如果想在反射下使用，加这个标签
-    public class ReflectionUseAttribute : Attribute
+    public class ReflectiOnGetOrCreateAttribute : Attribute
     {
 
     }

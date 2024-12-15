@@ -340,7 +340,7 @@ namespace XLua
 				{
 					Type type = enumerator.Current;
 					if (type.IsDefined(typeof(ExtensionAttribute), false) && (
-							type.IsDefined(typeof(ReflectionUseAttribute), false)
+							type.IsDefined(typeof(ReflectiOnGetOrCreateAttribute), false)
 #if UNITY_EDITOR || XLUA_GENERAL
 							|| type.IsDefined(typeof(LuaCallCSharpAttribute), false)
 #endif
@@ -355,7 +355,7 @@ namespace XLua
 					for (int i = 0; i < fields.Length; i++)
 					{
 						var field = fields[i];
-						if ((field.IsDefined(typeof(ReflectionUseAttribute), false)
+						if ((field.IsDefined(typeof(ReflectiOnGetOrCreateAttribute), false)
 #if UNITY_EDITOR || XLUA_GENERAL
 							|| field.IsDefined(typeof(LuaCallCSharpAttribute), false)
 #endif
@@ -370,7 +370,7 @@ namespace XLua
 					for (int i = 0; i < props.Length; i++)
 					{
 						var prop = props[i];
-						if ((prop.IsDefined(typeof(ReflectionUseAttribute), false)
+						if ((prop.IsDefined(typeof(ReflectiOnGetOrCreateAttribute), false)
 #if UNITY_EDITOR || XLUA_GENERAL
 							|| prop.IsDefined(typeof(LuaCallCSharpAttribute), false)
 #endif

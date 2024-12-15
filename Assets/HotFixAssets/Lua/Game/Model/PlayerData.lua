@@ -6,10 +6,12 @@
 
 local PlayerData = IOC.InjectClass(PlayerData_lua)
 
-function PlayerData:OnUse(pos, speed, flyCount)
-    self.pos = pos
-    self.speed = speed
-    self.flyCount = flyCount
+function PlayerData:OnGetOrCreate(param)
+    self.team = param.team
+    self.pos = param.pos
+    self.speed = param.speed
+    self.flyCount = param.flyCount
+    self.flyModel = param.flyModel
 end
 
 return PlayerData

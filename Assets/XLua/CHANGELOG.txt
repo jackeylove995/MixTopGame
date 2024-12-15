@@ -294,7 +294,7 @@ bug修复
 
 v2.1.4 2016年11月29日
 新增特性
-1、加了ReflectionUse会自动生成到link.xml，可以防止il2cpp下因stripping导致的反射不可用；
+1、加了ReflectiOnGetOrCreate会自动生成到link.xml，可以防止il2cpp下因stripping导致的反射不可用；
 2、开放生成引擎，可二次开发自己生成插件，生成所需的代码或配置；
 3、GetInPath和SetInPath无C# gc优化；
 4、一个lua table自动转换为带GCOptimize标签的复杂类型以及该复杂类型的一维数组不使用反射，如果这复杂类型是纯值类型，无c# gc；
@@ -346,7 +346,7 @@ v2.1.2 2016年10月08日
 
 变更
 1、lua内部只有带符号的64整数类型，并增加无符号数库
-2、如果不想对Extension Method生成代码，又希望在反射下用，需要添加ReflectionUse；
+2、如果不想对Extension Method生成代码，又希望在反射下用，需要添加ReflectiOnGetOrCreate；
 
 bug修复
 1、对ObjectPool已经Destroy的UnityEngine.Object的引用自动解除功能的内存泄漏问题；

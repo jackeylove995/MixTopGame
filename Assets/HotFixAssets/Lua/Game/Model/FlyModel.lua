@@ -4,10 +4,15 @@
     desc: 飞行物数据类
 ]]
 
-local FlyModel = IOC.InjectClass("FlyModel")
+local FlyModel = IOC.InjectClass(FlyModel_lua)
 
-function FlyModel:Constructor(flyType)
-    self.flyType = flyType
+--- 数据模型
+---@param echo: 回震系数
+function FlyModel:OnGetOrCreate(param)
+    self.flyType = param.flyType
+    self.attack = param.attack
+    self.speed = param.speed
+    self.echo = param.echo
 end
 
 return FlyModel

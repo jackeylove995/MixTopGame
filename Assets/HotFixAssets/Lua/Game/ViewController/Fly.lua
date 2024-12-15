@@ -7,22 +7,19 @@
 --- Fly
 local Fly = IOC.InjectClass(Fly_lua)
 
-function Fly:OnUse(parent)
-    self.transform:SetParent(parent)
+function Fly:OnGetOrCreate(param)
+    self.transform:SetParent(param.parent)
+    self.gameObject:SetActive(true)
+    self.player = param.player
+    self.enter = param.enter
 end
 
---- 设置哪个玩家所拥有
----@param owner 玩家
-function Fly:SetOwner(owner)
-    self.owner = owner 
-    self.transform:SetParent(owner.FlyContainer)
-    self.transform.localPosition = Vector3(1,0,0)
+function Fly:OnOtherFlyEnter(other)
+    self.enter(self, other)
 end
 
---- 设置飞行物数据
----@param flyModel 飞行物数据据
-function Fly:SetFlyModel(flyModel)
-    self.flyModel = flyModel
+function Fly:OnRecycle()
+    self.gameObject:SetActive(false)
 end
 
 return Fly

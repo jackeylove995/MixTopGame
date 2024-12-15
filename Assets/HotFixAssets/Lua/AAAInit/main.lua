@@ -21,4 +21,4 @@ AttachToLua()
 Debug.Log("on lua start")
 
 --- 进入游戏
-Push("OnLuaStart")
+push("OnLuaStart")

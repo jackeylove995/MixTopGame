@@ -117,6 +117,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
+  - m_GUID: cc3b57177efddae4098b92ca30d7f0a7
+    m_Address: Lua/Game/Model/PlayerData.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: d93cea708e6baef4d8f5766969faab08
+    m_Address: Lua/Game/Model/GameDataManager.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: b6fd765e5acaa3149a69cc4103a64121
+    m_Address: Lua/AAAInit/IFactory.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

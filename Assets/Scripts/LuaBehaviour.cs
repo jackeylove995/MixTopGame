@@ -44,6 +44,7 @@ namespace MTG
 
         private bool hasLuaUpdate;
         private bool hasLuaFixedUpdate;
+
         void Awake()
         {
             scriptTable = luaEnv.NewTable();
@@ -62,6 +63,7 @@ namespace MTG
 
             scriptTable.Set("self", this);
             scriptTable.Set("transform", transform);
+            scriptTable.Set("gameObject", gameObject);
             foreach (var injection in injections)
             {
                 scriptTable.Set(injection.name, injection.value);

@@ -161,7 +161,7 @@ The premise is that hotfix_id_map.lua.txt is in a directory that can be referenc
 * Add the Hotfix flag to all types that are most likely to be modified.
 * It is recommended that you use reflection to find all delegate types involved in the function parameters, fields, properties and events, and then add CSharpCallLua.
 * Add LuaCallCSharp to business code, engine APIs, system APIs, and the types to which the Lua hotfix requires high-performance access.
-* Engine APIs and system APIs may be stripped by code (those not referenced by C# will be stripped). If you think you may add API calls other than C# codes, these APIs are added to either LuaCallCSharp or ReflectionUse.
+* Engine APIs and system APIs may be stripped by code (those not referenced by C# will be stripped). If you think you may add API calls other than C# codes, these APIs are added to either LuaCallCSharp or ReflectiOnGetOrCreate.
 
 ## Patching
 

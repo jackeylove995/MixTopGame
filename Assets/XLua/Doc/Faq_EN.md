@@ -24,7 +24,7 @@ Why does the Lua source code (including examples) of xLua use the txt extension?
 
 By default, il2cpp will strip code, such as engine code, C# system APIs, and third-party dlls. In simple terms, functions in these places will not be compiled into your final release package if your C# code does not access them.
 
-Solution: Add a reference (for example, configuring it to LuaCallCSharp, or adding access to that function to your C# code), or use the link.xml configuration (When ReflectionUse is configured, xLua will automatically configure it for you in link.xml) to tell il2cpp not to strip a certain type of code.
+Solution: Add a reference (for example, configuring it to LuaCallCSharp, or adding access to that function to your C# code), or use the link.xml configuration (When ReflectiOnGetOrCreate is configured, xLua will automatically configure it for you in link.xml) to tell il2cpp not to strip a certain type of code.
 
 ## Where can I find Plugins source code and how can I use it?
 
@@ -126,7 +126,7 @@ There are two restrictions on iOS: 1. no JIT; 2. code stripping;
 
 When C# calls Lua via delegates or interfaces, using reflection emit instead of the generated code relies on JIT, so this is currently only available in the editor mode.
 
-If Lua calls C#, it will be mainly affected by code stripping. In this case, you can configure ReflectionUse (but not LuaCallSharp), and execute "Generate Code". No package code except link.xml will be generated for the type this time. Set this type to 'not to be stripped'.
+If Lua calls C#, it will be mainly affected by code stripping. In this case, you can configure ReflectiOnGetOrCreate (but not LuaCallSharp), and execute "Generate Code". No package code except link.xml will be generated for the type this time. Set this type to 'not to be stripped'.
 
 In short, only CSharpCallLua is necessary (a little code of this type is generated), and reflection can be used in LuaCallSharp generation.
 
@@ -185,7 +185,7 @@ In this case, you can write an extension method for UnityEngine.Object.
 
 ~~~csharp
 [LuaCallCSharp]
-[ReflectionUse]
+[ReflectiOnGetOrCreate]
 public static class UnityEngineObjectExtention
 {
     public static bool IsNull(this UnityEngine.Object o) // 或者名字叫IsDestroyed等等

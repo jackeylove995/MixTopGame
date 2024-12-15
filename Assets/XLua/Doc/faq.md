@@ -32,7 +32,7 @@ xLua提供了强大的动态配置，让你可以结合反射实现任意的自�
 
 il2cpp默认会对诸如引擎、c#系统api，第三方dll等等进行代码剪裁。简单来说就是这些地方的函数如果你C#代码没访问到的就不编译到你最终发布包。
 
-解决办法：增加引用（比如配置到LuaCallCSharp，或者你自己C#代码增加那函数的访问），或者通过link.xml配置（当配置了ReflectionUse后，xlua会自动帮你配置到link.xml）告诉il2cpp别剪裁某类型。
+解决办法：增加引用（比如配置到LuaCallCSharp，或者你自己C#代码增加那函数的访问），或者通过link.xml配置（当配置了ReflectiOnGetOrCreate后，xlua会自动帮你配置到link.xml）告诉il2cpp别剪裁某类型。
 
 ## Unity 2018及以上版本兼容性问题解决
 
@@ -170,7 +170,7 @@ ios下的限制有两个：1、没有jit；2、代码剪裁（stripping）；
 
 对于C#通过delegate或者interface调用lua，如果不生成代码是用反射的emit，这依赖jit，所以这目前只在编辑器可用。
 
-对于lua调用C#，主要会被代码剪裁影响，这时你可以配置ReflectionUse（不要配LuaCallSharp），执行“Generate Code”，这时不会对该类生成封装代码，而是生成link.xml把该类配置为不剪裁。
+对于lua调用C#，主要会被代码剪裁影响，这时你可以配置ReflectiOnGetOrCreate（不要配LuaCallSharp），执行“Generate Code”，这时不会对该类生成封装代码，而是生成link.xml把该类配置为不剪裁。
 
 简而言之，除了CSharpCallLua是必须的（这类生成代码往往不多），LuaCallSharp生成都可以改为用反射。
 
@@ -277,7 +277,7 @@ print(dic:get_Item('b'))
 
 ~~~csharp
 [LuaCallCSharp]
-[ReflectionUse]
+[ReflectiOnGetOrCreate]
 public static class UnityEngineObjectExtention
 {
     public static bool IsNull(this UnityEngine.Object o) // 或者名字叫IsDestroyed等等

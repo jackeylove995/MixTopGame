@@ -13,7 +13,7 @@ IOC.BindMonoClass(Fly_lua).FromFactory(Fly_prefab)
 IOC.BindClass(GameController_lua).FromInstance()
 IOC.BindClass(GameDataManager_lua).FromInstance()
 IOC.BindClass(PlayerData_lua).FromFactory()
-IOC.BindClass(FlyModel_lua)
+IOC.BindClass(FlyModel_lua).FromFactory()
 
 IOC.Bind("BotCount", 5)
 

@@ -6,7 +6,7 @@
 
 local IFactory = Class("IFactory")
 
-function IFactory:OnUse()
+function IFactory:OnGetOrCreate()
     
 end
 

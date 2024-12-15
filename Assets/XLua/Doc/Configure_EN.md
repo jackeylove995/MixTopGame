@@ -67,15 +67,15 @@ Adding this configuration to the Extension Methods of a type will also generate 
 
 XLua will only generate the type loaded with this configuration. It will not automatically generate the adaptation code of its parent type. When accessing the parent type method of the child type object, if the parent type has the LuaCallCSharp configuration, the parent type's adaptation code will be executed. Otherwise it will try to gain access using the reflection mode.
 
-The reflection mode access not only has poor performance, but also may cause failed access on the il2cpp due to code stripping. This problem can be avoided through the ReflectionUse tag, which is described below.
+The reflection mode access not only has poor performance, but also may cause failed access on the il2cpp due to code stripping. This problem can be avoided through the ReflectiOnGetOrCreate tag, which is described below.
 
-### XLua.ReflectionUse
+### XLua.ReflectiOnGetOrCreate
 
 When adding this configuration to a C# type, xLua generates a link.xml to block code stripping on the il2cpp.
 
-For extension methods, you must add LuaCallCSharp or ReflectionUse to make them accessible.
+For extension methods, you must add LuaCallCSharp or ReflectiOnGetOrCreate to make them accessible.
 
-It is recommended that all types to be accessed in Lua have the LuaCallCSharp or ReflectionUse tag, to insure their proper operation on all platforms.
+It is recommended that all types to be accessed in Lua have the LuaCallCSharp or ReflectiOnGetOrCreate tag, to insure their proper operation on all platforms.
 
 ### XLua.DoNotGen
 
@@ -83,7 +83,7 @@ This indicates that some of the functions, fields, and properties in a type do n
 
 Only the fields or properties in the standard Dictionary<Type, List<string>> can be used. The key indicates the effective type. Value is a list. The name of the functions, fields, and properties with no code generated are configured.
 
-The differences from ReflectionUse are: 1. ReflectionUse specifies the entire type; 2. Upon the first access to a function (field, property), ReflectionUse will wrap the entire type, while DoNotGen will only wrap the function (field, property). In other words, DoNotGen is lazier.
+The differences from ReflectiOnGetOrCreate are: 1. ReflectiOnGetOrCreate specifies the entire type; 2. Upon the first access to a function (field, property), ReflectiOnGetOrCreate will wrap the entire type, while DoNotGen will only wrap the function (field, property). In other words, DoNotGen is lazier.
 
 The differences from BlackList are: 1. BlackList cannot be used when it is configured. 2. BlackList can specify an overloaded function, while DoNotGen cannot.
 

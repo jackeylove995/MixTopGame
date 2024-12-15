@@ -72,7 +72,7 @@ namespace CSObjectWrapEditor
     {
         public IEnumerable<Type> LuaCallCSharp;
         public IEnumerable<Type> CSharpCallLua;
-        public IEnumerable<Type> ReflectionUse;
+        public IEnumerable<Type> ReflectiOnGetOrCreate;
     }
 
     public class GenCodeMenuAttribute : Attribute
@@ -1128,7 +1128,7 @@ namespace CSObjectWrapEditor
                                     select makeGenericMethodIfNeeded(method))
                                     .Where(method => !lookup.ContainsKey(method.GetParameters()[0].ParameterType));
 
-            var extension_methods = (from t in ReflectionUse
+            var extension_methods = (from t in ReflectiOnGetOrCreate
                                      where isDefined(t, typeof(ExtensionAttribute))
                                      from method in t.GetMethods(BindingFlags.Static | BindingFlags.Public)
                                      where isDefined(method, typeof(ExtensionAttribute)) && !isObsolete(method)
@@ -1281,7 +1281,7 @@ namespace CSObjectWrapEditor
 
         public static Dictionary<Type, List<string>> AdditionalProperties = null;
 
-        public static List<Type> ReflectionUse = null;
+        public static List<Type> ReflectiOnGetOrCreate = null;
 
         public static Dictionary<Type, HotfixFlag> HotfixCfg = null;
 
@@ -1372,9 +1372,9 @@ namespace CSObjectWrapEditor
             {
                 AddToList(GCOptimizeList, get_cfg, GetCustomAttribute(test, typeof(GCOptimizeAttribute)));
             }
-            if (isDefined(test, typeof(ReflectionUseAttribute)))
+            if (isDefined(test, typeof(ReflectiOnGetOrCreateAttribute)))
             {
-                AddToList(ReflectionUse, get_cfg, GetCustomAttribute(test, typeof(ReflectionUseAttribute)));
+                AddToList(ReflectiOnGetOrCreate, get_cfg, GetCustomAttribute(test, typeof(ReflectiOnGetOrCreateAttribute)));
             }
             if (isDefined(test, typeof(HotfixAttribute)))
             {
@@ -1466,7 +1466,7 @@ namespace CSObjectWrapEditor
 
             AdditionalProperties = new Dictionary<Type, List<string>>();
 
-            ReflectionUse = new List<Type>();
+            ReflectiOnGetOrCreate = new List<Type>();
 
             BlackList = new List<List<string>>()
             {
@@ -1517,7 +1517,7 @@ namespace CSObjectWrapEditor
             GCOptimizeList = GCOptimizeList.Distinct()
                 .Where(type => IsPublic(type) && !isObsolete(type) && !type.IsGenericTypeDefinition)
                 .ToList();
-            ReflectionUse = ReflectionUse.Distinct()
+            ReflectiOnGetOrCreate = ReflectiOnGetOrCreate.Distinct()
                 .Where(type => !isObsolete(type) && !type.IsGenericTypeDefinition)
                 .ToList();
         }
@@ -1748,7 +1748,7 @@ namespace CSObjectWrapEditor
             foreach (var gen_task in get_tasks(luaenv, new UserConfig() {
                 LuaCallCSharp = LuaCallCSharp,
                 CSharpCallLua = CSharpCallLua,
-                ReflectionUse = ReflectionUse
+                ReflectiOnGetOrCreate = ReflectiOnGetOrCreate
             }))
             {
                 LuaTable meta = luaenv.NewTable();
