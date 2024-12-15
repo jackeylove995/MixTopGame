@@ -14,9 +14,7 @@ bindItem:
     className       类名
     implement       继承的类
     getter          获取方式,除非是常量，否则使用function 返回值，因为如果使用new直接赋值会调用里面的Inject方法
-    fromFactory     从工厂获取
-    fromInstance
-    fromNewPrefab
+    getType         获取方式
     async
     sync
 ]]

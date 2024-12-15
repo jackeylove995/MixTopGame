@@ -2,7 +2,8 @@
     author:author
     create:2024/12/12 21:06:07
     desc: 
-]] local GameDataManager = IOC.InjectClass(GameDataManager_lua)
+]] 
+local GameDataManager = IOC.InjectClass(GameDataManager_lua)
 
 function GameDataManager:GetPlayerData()
     local flyModel = IOC.Inject(FlyModel_lua, {
