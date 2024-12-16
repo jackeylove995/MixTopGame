@@ -37,7 +37,8 @@ function print(mes)
     Debug.Log(mes)
 end
 
-
+--- 安全调用方法，如果为nil，则不调用
+---@param func 传入方法
 function safeInvoke(func, ...)
     if func then
         func(...)

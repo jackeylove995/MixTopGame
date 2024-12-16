@@ -8,14 +8,17 @@ local GameController = IOC.InjectClass(GameController_lua)
 local GameDataManager = IOC.Inject(GameDataManager_lua)
 
 function GameController:OpenGame()
+    
     CS.JoyStick.OnJoyStickMove("+", function(x, y)
-        self:OnPlayMove(x, y)
+        if self.mainPlayer then
+            self.mainPlayer:Move(x, y)
+        end
     end)
+
     IOC.Inject(GamePanel_lua, FullScreenPanelContainor)
 
     local mainPlayerData = GameDataManager.GetPlayerData()
-    IOC.Inject(Player_lua, {parent = Sprite3DContainor, data = mainPlayerData}, function(player)
-        local mainPlayer = player
+    IOC.Inject(Player_lua, {parent = Sprite3DContainor, data = mainPlayerData}, function(mainPlayer)
         self.mainPlayer = mainPlayer
         FollowUtil.FollowTargetXY(TMainCamera, mainPlayer.transform)
     end)
@@ -23,12 +26,6 @@ function GameController:OpenGame()
     local botsData = GameDataManager.GetBotsData()
     for i, v in ipairs(botsData) do
         IOC.Inject(Player_lua,{ parent = Sprite3DContainor, data = v })
-    end
-end
-
-function GameController:OnPlayMove(x, y)
-    if self.mainPlayer then
-        self.mainPlayer:Move(x, y)
     end
 end
 

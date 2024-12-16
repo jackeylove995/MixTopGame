@@ -1,8 +1,8 @@
---[[
-    author:author
-    create:2024/12/7 16:27:14
-    desc: 类方法
-]] 
+--- author:author
+--- create:2024/12/7 16:27:14
+--- desc: 类方法
+
+---@class Class
 local classCache = {}
 local maxClassCacheCount = 5
 

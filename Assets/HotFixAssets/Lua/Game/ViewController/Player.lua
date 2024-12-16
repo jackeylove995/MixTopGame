@@ -1,8 +1,7 @@
---[[
-    author:author
-    create:2024/12/7 20:35:32
-    desc: 玩家控制
-]] --- Player
+--- author:author
+--- create:2024/12/7 20:35:32
+--- desc: 玩家控制
+---Player
 local Player = IOC.InjectClass(Player_lua)
 
 local speedExtra = 0.1

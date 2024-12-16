@@ -3,7 +3,8 @@
     create:2024/12/11 15:43:13
     desc: 依赖注入（DI：Dependency Injection）
 ]]
-    
+   
+---@class IOC
 IOC = {}
 
 IOC.Containor = {}
