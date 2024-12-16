@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
@@ -12,7 +10,7 @@ using UnityEngine;
 
 namespace MTG
 {
-    public class AutoMarkAddress : AssetPostprocessor
+    public class AutoMarkAddress 
     {
 
         public enum ChangeAddressType
@@ -25,7 +23,7 @@ namespace MTG
 
         static AddressableAssetSettings settings;
         static string SomeAddressChanged;
-        static void OnPostprocessAllAssets(
+        public static void OnPostprocessAllAssets(
             string[] importedAssets,
             string[] deletedAssets,
             string[] movedAssets,
