@@ -14,6 +14,8 @@ namespace MTG
         {
             ExcelToLuaConfig.OnPostprocessAllAssets(importedAssets, deletedAssets, movedAssets, movedFromAssetPaths);
             AutoMarkAddress.OnPostprocessAllAssets(importedAssets, deletedAssets, movedAssets, movedFromAssetPaths);       
+            // 刷新Unity编辑器资源
+            AssetDatabase.Refresh();
         }
     }
 }
