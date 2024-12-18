@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,6 +9,10 @@ using UnityEngine;
 
 namespace MTG
 {
+    /// <summary>
+    /// When change the excel asset in DevelopAssets/Excels folder
+    /// auto generate lua table relative to the excel
+    /// </summary>
     public class ExcelToLuaConfig
     {
         public static void OnPostprocessAllAssets(
@@ -63,94 +68,120 @@ namespace MTG
         static void AddExcel(string add)
         {
             PathSetting.SafeCreateDirectory(PathSetting.ExcelsToLuaOutputPath);
-            ConvertExcelToLua(add, ConvertExcelToLuaPath(add));
+            ConvertExcelToLua(add);
         }
 
+        static string[] luaConfigPaths;
         static void DelExcel(string del)
         {
-            File.Delete(ConvertExcelToLuaPath(del));
+            if (luaConfigPaths == null)
+            {
+                luaConfigPaths = Directory.GetFiles(PathSetting.ExcelsToLuaOutputPath);              
+            }
+            string configName = Path.GetFileName(del).Replace(".xlsx", "");
+            foreach(var config in luaConfigPaths)
+            {
+                if(Path.GetFileName(config).StartsWith(configName))
+                {
+                    File.Delete(config);
+                }
+            }
         }
-
-        static string ConvertExcelToLuaPath(string excelPath)
-        {
-            return excelPath.Replace("DevelopAssets", "HotFixAssets/Lua").Replace(".xlsx", ".lua");
-        }
-
 
         static bool CheckIsExcelPath(string path)
         {
             return path.Contains("DevelopAssets") && path.Contains("Excels");
         }
-        static void ConvertExcelToLua(string excelFilePath, string txtFilePath)
+        static void ConvertExcelToLua(string excelFilePath)
         {
             File.SetAttributes(excelFilePath, FileAttributes.Normal);
             FileInfo excelFile = new FileInfo(excelFilePath);
-            Debug.Log("excel path:" + excelFile);
-            using (ExcelPackage package = new ExcelPackage(excelFile))
+
+            string excelName = Path.GetFileName(excelFilePath).Replace(".xlsx", "");
+            try
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets["sheet1"]; // 第一个工作表
-                string tableName = Path.GetFileName(excelFilePath).Replace(".xlsx", "") + "_" + "sheet1";
-
-                //第一行名称
-                //第二行类型
-                //第三行描述
-                int rowCount = worksheet.Dimension.Rows;
-                int colCount = worksheet.Dimension.Columns;
-                if (rowCount < 4)
+                ExcelPackage package = new ExcelPackage(excelFile);
+                foreach (var worksheet in package.Workbook.Worksheets)
                 {
-                    return;
-                }
+                    string sheetName = (worksheet.Name == "Sheet1") ? "" : ("_" + worksheet.Name);
+                    string tableName = excelName + sheetName;
+                    string sheetPath = Path.Combine(PathSetting.ExcelsToLuaOutputPath, tableName + ".lua");
 
-                //第一行名称
-                string[] names = new string[colCount + 1];
-                for (int i = 1; i <= colCount; i++)
-                {
-                    names[i] = worksheet.Cells[1, i].Value.ToString();
-                }
-
-                //第二行类型
-                string[] types = new string[colCount + 1];
-                for (int i = 1; i <= colCount; i++)
-                {
-                    types[i] = worksheet.Cells[2, i].Value.ToString();
-                }
-
-                StringBuilder tableString = new StringBuilder();
-                tableString.AppendLine("local " + tableName + " =");
-                tableString.AppendLine("{");
-                for (int row = 4; row <= rowCount; row++)
-                {
-                    tableString.AppendLine(Space() + "[" + worksheet.Cells[row, 1].Value.ToString() + "] =");
-                    tableString.AppendLine(Space() + "{");
-                    for (int col = 2; col <= colCount; col++)
+                    //第一行名称
+                    //第二行类型
+                    //第三行描述
+                    int rowCount = worksheet.Dimension.Rows;
+                    int colCount = worksheet.Dimension.Columns;
+                    if (rowCount < 4)
                     {
-                        string value = worksheet.Cells[row, col].Value.ToSafeString();
-                        switch (types[col])
-                        {
-                            case "int":
-                                value = value;
-                                break;
-                            case "string":
-                                value = "\"" + value + "\"";
-                                break;
-                            case "bool":
-                                value = value == "1" ? "true" : "false";
-                                break;
-                        }
-                        tableString.AppendLine(Space(2) + names[col] + " = " + value + ",");
+                        return;
                     }
-                    tableString.AppendLine(Space() + "},");
+
+                    //第一行名称
+                    string[] names = new string[colCount + 1];
+                    for (int i = 1; i <= colCount; i++)
+                    {
+                        names[i] = worksheet.Cells[1, i].Value.ToString();
+                    }
+
+                    //第二行类型
+                    string[] types = new string[colCount + 1];
+                    for (int i = 1; i <= colCount; i++)
+                    {
+                        types[i] = worksheet.Cells[2, i].Value.ToString();
+                    }
+
+                    StringBuilder tableString = new StringBuilder();
+                    tableString.AppendLine("-- Auto Generate By " + excelFilePath + "\n");
+                    tableString.AppendLine("local " + tableName + " =");
+                    tableString.AppendLine("{");
+                    for (int row = 4; row <= rowCount; row++)
+                    {
+                        tableString.AppendLine(Space() + "[" + worksheet.Cells[row, 1].Value.ToString() + "] =");
+                        tableString.AppendLine(Space() + "{");
+                        for (int col = 2; col <= colCount; col++)
+                        {
+                            string value = worksheet.Cells[row, col].Value.ToSafeString();
+                            if (value.Equals("(null)"))
+                            {
+                                value = "nil";
+                            }
+                            else
+                            {
+                                switch (types[col])
+                                {
+                                    /*case "int":
+                                        value = value;
+                                        break;*/
+                                    case "string":
+                                        value = "\"" + value + "\"";
+                                        break;
+                                    case "bool":
+                                        value =
+                                            (value.Equals("1") ||
+                                             value.ToLower().Equals("true"))
+                                            ? "true" : "false";
+                                        break;
+                                }
+                            }
+
+                            tableString.AppendLine(Space(2) + names[col] + " = " + value + ",");
+                        }
+                        tableString.AppendLine(Space() + "},");
+                    }
+                    tableString.AppendLine("}\n");
+                    tableString.AppendLine("return " + tableName);
+
+                    File.WriteAllText(sheetPath, tableString.ToString());
+                    Debug.Log("Excel data has been successfully converted to " + sheetPath);
                 }
-                tableString.AppendLine("}");
-                tableString.AppendLine("return " + tableName);
-
-                File.WriteAllText(txtFilePath, tableString.ToString());
-
+                package.Dispose();
             }
-
-            Debug.Log("Excel data has been successfully converted to " + txtFilePath);
+            catch (Exception e)
+            {
+                Debug.LogWarning("Error when convert xlsx " + "\n" + e.Message + "\n" + e.StackTrace);
+            }
         }
-
 
         static Dictionary<int, string> spaceCache;
         static string Space(int count = 1)

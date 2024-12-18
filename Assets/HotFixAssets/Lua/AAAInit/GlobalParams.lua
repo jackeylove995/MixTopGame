@@ -1,9 +1,8 @@
---[[
-    author:author
-    create:2024/12/10 22:10:08
-    desc: 全局参数
-]] 
+--- author:author
+--- create:2024/12/10 22:10:08
+--- desc: 全局参数 
     
+null = nil
 local GameObject = CS.UnityEngine.GameObject
 local Camera = CS.UnityEngine.Camera
 UIRoot = UIRoot or GameObject.Find("UIRoot").transform;

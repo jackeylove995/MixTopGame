@@ -1,8 +1,7 @@
---[[
-    author:author
-    create:2024/12/8 20:06:24
-    desc: 游戏管理器
-]] 
+--- author:author
+--- create:2024/12/8 20:06:24
+--- desc: 游戏管理器
+
 local GameController = IOC.InjectClass(GameController_lua)
 
 local GameDataManager = IOC.Inject(GameDataManager_lua)

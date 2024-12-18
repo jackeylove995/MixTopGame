@@ -1,8 +1,6 @@
---[[
-    author:author
-    create:2024/12/9 20:51:32
-    desc: 飞行物
-]]
+--- author:author
+--- create:2024/12/9 20:51:32
+--- desc: 飞行物
 
 --- Fly
 local Fly = IOC.InjectClass(Fly_lua)

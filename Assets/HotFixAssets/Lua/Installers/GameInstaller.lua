@@ -15,7 +15,9 @@ IOC.BindClass(GameDataManager_lua).FromInstance()
 IOC.BindClass(PlayerData_lua).FromFactory()
 IOC.BindClass(FlyModel_lua).FromFactory()
 
-IOC.Bind("BotCount", 5)
+IOC.BindClass(LevelConfig_lua).FromInstance()
+IOC.BindClass(RolesConfig_lua).FromInstance()
+IOC.BindClass(WeaponsConfig_lua).FromInstance()
 
 IOC.BindStartMethod(function()
     IOC.Inject(LoginPanel_lua, FullScreenPanelContainor)

@@ -1,6 +1,4 @@
-
 using UnityEditor;
-
 
 namespace MTG
 {

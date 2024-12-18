@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace MTG
 {
+    /// <summary>
+    /// When import or remove the asset in HotFixAssets Folder，
+    /// auto add addresable mark on the asset
+    /// </summary>
     public class AutoMarkAddress 
     {
 
