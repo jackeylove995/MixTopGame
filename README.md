@@ -81,7 +81,7 @@ return Player
 C#为
 
 ```
-public class PlayerData
+public class PlayerModel
 {
     public string name;
     public void Play()
@@ -94,14 +94,14 @@ public class PlayerData
 lua为
 
 ```
-local PlayerData = Class("PlayerData")
-PlayerData.name = "name"
+local PlayerModel = Class("PlayerModel")
+PlayerModel.name = "name"
 
-function PlayerData:Play()
+function PlayerModel:Play()
      Debug.Log(self.name)
 end
 
-return PlayerData
+return PlayerModel
 ```
 
 

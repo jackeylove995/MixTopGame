@@ -57,7 +57,7 @@ function new(classAddress, ...)
     if rawget(classCache, classAddress) == nil then
         classCache.classAddress = require(classAddress)
     end
-    local newItem = deepCopy(classCache.classAddress)
+    local newItem = DeepCopy(classCache.classAddress)
     newItem:Constructor(...)
     return newItem
 end
@@ -71,5 +71,5 @@ function IsMono(classAddress)
 end
 
 function GetClassNameByAddress(address)
-    return table.last(string.split(address, "/"))
+    return table.Last(string.split(address, "/"))
 end

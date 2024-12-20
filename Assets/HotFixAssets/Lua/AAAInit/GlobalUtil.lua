@@ -8,8 +8,8 @@
 
 --[[LuaCallCSharp]]
 
---- 日志工具
-Debug =  CS.MTG.DebugUtil
+--- 日志
+Debug =  CS.UnityEngine.Debug
 --- Dotween工具
 DOTweenUtil = CS.MTG.DOTweenUtil
 --- 资源加载器
@@ -31,3 +31,6 @@ Time = CS.UnityEngine.Time
 Quaternion = CS.UnityEngine.Quaternion
 --- 数学
 Math = CS.System.Math
+---钟表
+Clock = CS.MTG.Clock
+Clock.Init()

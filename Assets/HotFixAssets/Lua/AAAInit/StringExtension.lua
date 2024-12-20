@@ -1,19 +1,16 @@
---[[
-    author:author
-    create:2024/12/7 17:34:45
-    desc: string操作
-]]
-    
-function string.split(input, delimiter)
-    input = tostring(input)
-    delimiter = tostring(delimiter)
-    if delimiter == '' then return false end
-    local pos, arr = 0, {}
-    -- for each divider found
-    for st, sp in function() return string.find(input, delimiter, pos, true) end do
-        table.insert(arr, string.sub(input, pos, st - 1))
-        pos = sp + 1
+--- author:author
+--- create:2024/12/7 17:34:45
+--- desc: string操作
+function string.split(inputstr, sep)
+    if inputstr == nil or inputstr == "" then
+        return ""
     end
-    table.insert(arr, string.sub(input, pos))
-    return arr
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {} -- 用来存放分割后的结果
+    for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+        table.insert(t, str)
+    end
+    return t
 end

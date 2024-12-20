@@ -12,19 +12,20 @@ namespace MTG
         public static List<Type> LuaCallCSharp = new List<Type>()
         {
             typeof(AssetLoader),
-            typeof(DebugUtil),
             typeof(DOTweenUtil),
             typeof(EventUtil),
             typeof(FollowUtil),
             typeof(MonoUtil),
             typeof(UnityUtil),
-            typeof(JoyStick)
+            typeof(JoyStick),
+            typeof(Clock)
         };
 
         [CSharpCallLua]
         public static List<Type> CSharpCallLua = new List<Type>()
         {
-            typeof(Action<float, float>)
+            typeof(Action<float, float>),
+            typeof(Action<float>)
         };
 
     }

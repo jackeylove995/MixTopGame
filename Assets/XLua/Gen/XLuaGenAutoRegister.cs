@@ -28,9 +28,6 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(MTG.AssetLoader), MTGAssetLoaderWrap.__Register);
         
         
-            translator.DelayWrapLoader(typeof(MTG.DebugUtil), MTGDebugUtilWrap.__Register);
-        
-        
             translator.DelayWrapLoader(typeof(MTG.DOTweenUtil), MTGDOTweenUtilWrap.__Register);
         
         
@@ -47,6 +44,9 @@ namespace XLua.CSObjectWrap
         
         
             translator.DelayWrapLoader(typeof(JoyStick), JoyStickWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(MTG.Clock), MTGClockWrap.__Register);
         
         
             translator.DelayWrapLoader(typeof(MTG.LuaBehaviour), MTGLuaBehaviourWrap.__Register);

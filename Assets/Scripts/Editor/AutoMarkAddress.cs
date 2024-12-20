@@ -102,10 +102,11 @@ namespace MTG
                 return;
             }
             string module = path.Split('/')[2];
-            AddressableAssetGroup group = GetGroup(module, true);        
+            AddressableAssetGroup group = GetGroup(module, true);     
+            string addressPath = GetAddressByPath(path);   
             foreach (var asset in group.entries)
             {
-                if (asset.address == path)
+                if (asset.address == addressPath)
                 {
                     return;
                 }
@@ -113,7 +114,7 @@ namespace MTG
             Debug.Log("Create Address:" + path);
             SomeAddressChangedBy(ChangeAddressType.NewAddress);
             var entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group);
-            entry.address = GetAddressByPath(path);
+            entry.address = addressPath;
             if (module.Equals("Lua"))
             {
                 entry.SetLabel("lua", true, true);

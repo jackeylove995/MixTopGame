@@ -5,7 +5,7 @@
 local GamePanel = IOC.InjectClass(GamePanel_lua)
 
 function GamePanel:Start()
-    Debug.ShowDebugMes("enter game")
+    Log("enter game")
 end
 
 return GamePanel

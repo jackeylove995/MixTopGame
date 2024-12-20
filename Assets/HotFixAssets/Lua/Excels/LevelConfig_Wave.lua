@@ -4,25 +4,25 @@ local LevelConfig_Wave =
 {
 	[1] =
 	{
-		count = 5,
-		timeToNext = 30,
 		enemyId = 1,
+		enemyCount = 5,
+		timeToNext = 30,
 		isElite = nil,
 		isBoss = nil,
 	},
 	[2] =
 	{
-		count = 1,
-		timeToNext = 30,
 		enemyId = 1,
+		enemyCount = 1,
+		timeToNext = 30,
 		isElite = true,
 		isBoss = nil,
 	},
 	[3] =
 	{
-		count = 1,
-		timeToNext = 30,
 		enemyId = 1,
+		enemyCount = 1,
+		timeToNext = 30,
 		isElite = nil,
 		isBoss = true,
 	},

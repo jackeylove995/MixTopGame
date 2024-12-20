@@ -62,11 +62,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: b88e02e21cc2f3d419ba5ad4eaea58b9
-    m_Address: Lua/Game/Model/FlyModel.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
   - m_GUID: 2732224696885404bbc2106e58915d70
     m_Address: Lua/Game/ViewController/GamePanel.lua
     m_ReadOnly: 0
@@ -129,6 +124,26 @@ MonoBehaviour:
     - lua
   - m_GUID: b6fd765e5acaa3149a69cc4103a64121
     m_Address: Lua/AAAInit/IFactory.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 0ce5649791ac3454f87fec48acfa5b05
+    m_Address: Lua/Excels/RolesConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: f83a4136626e5554d96b3fd272c8b9bb
+    m_Address: Lua/Excels/LevelConfig_Wave.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 41f454f264b3e9a46a952548281096f7
+    m_Address: Lua/Excels/WeaponsConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: f9348a914394fdc4e85905941733ff7b
+    m_Address: Lua/Excels/LevelConfig.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua

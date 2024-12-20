@@ -8,5 +8,5 @@ local function OnLuaStart()
 end
 
 
-receive("OnLuaStart", OnLuaStart)
+Receive("OnLuaStart", OnLuaStart)
 

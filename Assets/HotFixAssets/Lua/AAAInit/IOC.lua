@@ -1,8 +1,6 @@
---[[
-    author:author
-    create:2024/12/11 15:43:13
-    desc: 依赖注入（DI：Dependency Injection）
-]]
+--- author:author
+--- create:2024/12/11 15:43:13
+--- desc: 依赖注入（DI：Dependency Injection）
    
 ---@class IOC
 IOC = {}
@@ -38,6 +36,15 @@ IOC.TypeGetter = {
     end
 }
 
+--- 通用绑定方法
+---@param key 绑定的key
+---@param getter 方式，function或常量都可以传
+function IOC.Bind(key, getter)
+    local bindItem = {}
+    bindItem.getter = getter
+    IOC.Containor[key] = bindItem
+end
+
 --- 绑定Class到Containor
 ---@param classAddress 绑定classAddress
 ---@param . 继承类, 可传入多个参数实现多重继承
@@ -61,6 +68,19 @@ function IOC.BindMonoClass(classAddress)
     bindItem.implement = MonoBehaviour_lua
     IOC.Containor[classAddress] = bindItem
     return IOC
+end
+
+--- 通过Require绑定lua为一个Instance，通常为一个table
+---@param addressKey any
+function IOC.BindInstanceByRequire(addressKey)
+    local bindItem = {}
+    bindItem.getter = function()
+        if bindItem.instance == nil then
+            bindItem.instance = require(addressKey)
+        end
+        return bindItem.instance
+    end
+    IOC.Containor[addressKey] = bindItem
 end
 
 --- Inject时总获取绑定的唯一对象
@@ -131,7 +151,7 @@ end
 function IOC.FactoryGetter(bindItem)
     -- 没绑定Class, 工厂内不可以加入不带脚本的流水线
     if bindItem.classAddress == nil then
-        Debug.LogError("Factory item must be a lua table, which item is " .. IOC.lockClassAddressKey)
+        LogError("Factory item must be a lua table, which item is " .. IOC.lockClassAddressKey)
         return
     end
 
@@ -166,15 +186,6 @@ function IOC.FactoryGetter(bindItem)
             return Factory.GetSync(bindItem.className, param)
         end
     end
-end
-
---- 通用绑定方法
----@param key 绑定的key
----@param getter 方式，function或常量都可以传
-function IOC.Bind(key, getter)
-    local bindItem = {}
-    bindItem.getter = getter
-    IOC.Containor[key] = bindItem
 end
 
 function IOC.InjectClass(classAddress)
@@ -232,7 +243,7 @@ function IOC.LoadInstaller(address)
     if IOC.Start then
         IOC.Start()
     else
-        Debug.LogError(
+        LogError(
             "Installer must have BindStartByMethod, which is the start action of the scope! The installer address:" ..
                 address)
     end

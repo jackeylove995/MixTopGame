@@ -1,10 +1,10 @@
 --- author:author
 --- create:2024/12/7 20:35:32
 --- desc: 玩家控制
----Player
+
+---@class Player
 local Player = IOC.InjectClass(Player_lua)
 
-local speedExtra = 0.1
 local flys = {}
 local canFly
 
@@ -16,7 +16,7 @@ function Player:OnGetOrCreate(param)
 end
 
 function Player:Move(x, y)
-    UnityUtil.LocalMove(self.transform, x * self.data.speed * speedExtra, y * self.data.speed * speedExtra)
+    UnityUtil.LocalMove(self.transform, x * self.data:GetMoveSpeed(), y * self.data:GetMoveSpeed())
 end
 
 --- 生成飞行物
@@ -61,7 +61,7 @@ end
 
 function Player:FixedUpdate()
     if canFly then
-        self.FlyContainer:Rotate(0, 0, Time.fixedDeltaTime * 10 * self.data.flyModel.speed)
+        self.FlyContainer:Rotate(0, 0, Time.fixedDeltaTime * self.data:GetWeaponSpeed())
     end
 end
 
@@ -73,8 +73,8 @@ function Player:OnOtherFlyEnter(fly, other)
 
     -- 1.比较攻击力
     -- 2.攻击力相同，触发回震系数
-    local thisFlyAttack = self.data.flyModel.attack
-    local otherFlyAttack = otherPlayer.data.flyModel.attack
+    local thisFlyAttack = self.data:GetAttack()
+    local otherFlyAttack = otherPlayer.data:GetAttack()
     if thisFlyAttack > otherFlyAttack then
         otherPlayer:DestroyFly(other)
     elseif otherFlyAttack > thisFlyAttack then

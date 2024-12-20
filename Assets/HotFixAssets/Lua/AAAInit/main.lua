@@ -18,7 +18,7 @@ local function AttachToLua()
 end
 AttachToLua()
 
-Debug.Log("on lua start")
+Log("on lua start")
 
 --- 进入游戏
-push("OnLuaStart")
+Push("OnLuaStart")

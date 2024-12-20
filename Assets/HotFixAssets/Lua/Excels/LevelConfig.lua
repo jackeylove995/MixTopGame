@@ -4,7 +4,7 @@ local LevelConfig =
 {
 	[1] =
 	{
-		config = nil,
+		config = "1:1-1,5:2-1,6:1-1,10:3-1",
 	},
 	[2] =
 	{
