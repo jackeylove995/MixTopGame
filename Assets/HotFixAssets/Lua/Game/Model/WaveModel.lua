@@ -15,7 +15,11 @@ function WaveModel:GetTimeToNext()
 end
 
 function WaveModel:GetEnemyIdAndCount()
-    return self.config.enemyId, self.config.count
+    return self.config.enemyId, self.config.enemyCount
+end
+
+function WaveModel:GetIncreaseConfig()
+    return self.increaseConfig
 end
 
 function WaveModel:IsElite()

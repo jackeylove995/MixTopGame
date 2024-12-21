@@ -47,7 +47,24 @@ namespace XLua.CSObjectWrap
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int __CreateInstance(RealStatePtr L)
         {
-            return LuaAPI.luaL_error(L, "MTG.MonoUtil does not have a constructor!");
+            
+			try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+				if(LuaAPI.lua_gettop(L) == 1)
+				{
+					
+					var gen_ret = new MTG.MonoUtil();
+					translator.Push(L, gen_ret);
+                    
+					return 1;
+				}
+				
+			}
+			catch(System.Exception gen_e) {
+				return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+			}
+            return LuaAPI.luaL_error(L, "invalid arguments to MTG.MonoUtil constructor!");
+            
         }
         
 		
@@ -91,9 +108,10 @@ namespace XLua.CSObjectWrap
             
                 
                 {
-                    System.Action _action = translator.GetDelegate<System.Action>(L, 1);
+                    string _name = LuaAPI.lua_tostring(L, 1);
+                    System.Action _action = translator.GetDelegate<System.Action>(L, 2);
                     
-                    MTG.MonoUtil.AddUpdate( _action );
+                    MTG.MonoUtil.AddUpdate( _name, _action );
                     
                     
                     
@@ -111,15 +129,13 @@ namespace XLua.CSObjectWrap
         {
 		    try {
             
-                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-            
             
             
                 
                 {
-                    System.Action _action = translator.GetDelegate<System.Action>(L, 1);
+                    string _name = LuaAPI.lua_tostring(L, 1);
                     
-                    MTG.MonoUtil.RemoveUpdate( _action );
+                    MTG.MonoUtil.RemoveUpdate( _name );
                     
                     
                     

@@ -1,22 +1,57 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace MTG
 {
-    public static class MonoUtil 
+    public class MonoUtil : MonoBehaviour
     {
         public static void Init()
         {
-            var instance = MonoManager.Instance;
+            GameObject go = new GameObject("MonoUtil");
+            DontDestroyOnLoad(go);
+            go.AddComponent<MonoUtil>();
+            mUpdateMap = new Dictionary<string, Action>();
         }
 
-        public static void AddUpdate(Action action)
+        private static Dictionary<string, Action> mUpdateMap;
+        private static Action mUpdate;
+
+        public static void AddUpdate(string name, Action action)
         {
-            MonoManager.Instance.AddUpdate(action);
+            if(mUpdateMap.ContainsKey(name))
+            {
+                Debug.LogError("There already a same key in update, which name is " + name);
+                return;
+            }
+            mUpdate += action;
+            mUpdateMap.Add(name, action);
         }
 
-        public static void RemoveUpdate(Action action)
+        public static void RemoveUpdate(string name)
         {
-            MonoManager.Instance.RemoveUpdate(action);
+            if (mUpdateMap.TryGetValue(name, out Action action))
+            {
+                mUpdate -= action;
+                mUpdateMap.Remove(name);
+            }
+
+        }
+
+        void Update()
+        {
+            mUpdate?.Invoke();
+        }
+
+        void FixedUpdate()
+        {
+            foreach (var fow in FollowUtil.followMap)
+            {
+                var z = fow.Key.position.z;
+                var newPos = fow.Value.position;
+                newPos.z = z;
+                fow.Key.position = newPos;
+            }
         }
     }
 }

@@ -20,9 +20,6 @@ namespace MTG
 
         public static void LocalMove(Transform transform, float x, float y, float z)
         {
-            //Math.Cos()
-            /*transform.localRotation = Quaternion.Euler(x, y,)
-            Vector3 local = Quaternion.Euler();*/
             transform.localPosition += new Vector3(x, y, z);
         }
 

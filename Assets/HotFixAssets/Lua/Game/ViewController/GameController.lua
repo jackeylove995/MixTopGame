@@ -5,7 +5,14 @@ local GameController = IOC.InjectClass(GameController_lua)
 
 local GameDataManager = IOC.Inject(GameDataManager_lua)
 
+function GameController:Update()
+    print("Asd")
+end
+
 function GameController:OpenGame()
+    MonoUtil.AddUpdate("GameController", function()
+        self:Update()
+    end)
     self:InitJoyStick()
     self:InitPanel()
     self:InitPlayer()
@@ -45,11 +52,33 @@ function GameController:StartWaveLoop()
     self.waveModel = self.levelModel:GetNextWave()
 
     local enemyId, enemyCount = self.waveModel:GetEnemyIdAndCount()
+
+    for i = 1, enemyCount, 1 do
+        local enemyModel = IOC.Inject(EnemyModel_lua, {
+            config = GameDataManager.GetEnemyConfigById(enemyId),
+            increaseConfig = self.waveModel:GetIncreaseConfig()
+        })
+        IOC.Inject(Enemy_lua, {
+            parent = Sprite3DContainor,
+            model = enemyModel
+        }, function(enemy)
+            self:OnEnemyCreate(enemy, enemyCount)
+        end)
+    end
+
     -- 生成enemy
     local timeToNext = self.waveModel:GetTimeToNext()
     Clock.StartTimer(timeToNext, 0, -1, function(t)
         Log("Time to " .. tostring(t))
     end)
+end
+
+function GameController:OnEnemyCreate(enemy, enemyCount)
+    self.enemys = self.enemys or {}
+    table.insert(self.enemys, enemy)
+    if #self.enemys == enemyCount then
+        Log("all enemy created")
+    end
 end
 
 return GameController

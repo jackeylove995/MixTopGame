@@ -190,7 +190,7 @@ end
 
 function IOC.InjectClass(classAddress)
     local bindItem = IOC.Containor[classAddress]
-    if bindItem.fromFactory then
+    if bindItem.getType == IOC.FromType.FromFactory then
         if bindItem.implement then
             return Class(bindItem.className, bindItem.implement, IFactory_lua)
         else
@@ -210,8 +210,8 @@ end
 --- 异步：第一个参数为父物体，第二个参数传入带lua脚本的回调
 ---
 --- FromFactory
---- 同步：参数为单个对象param(推荐使用table格式)，返回lua脚本
---- 异步：第一个参数为param，第二个参数为带lua脚本的回调
+--- 同步：可变参数为单个对象param(推荐使用table格式)，返回lua脚本
+--- 异步：可变参数第一个为param，第二个为带lua脚本的回调
 --- param会传递到生成lua的OnGetOrCreate方法中
 ---@param key 通过BindXXX()方法绑定的key
 function IOC.Inject(key, ...)

@@ -51,6 +51,6 @@ function LogError(mes)
     Debug.LogError("LUA:" .. mes)
 end
 
-function LogTable(t)
-    print(table.ToString(t))
+function LogTable(table, tableName)
+    print(table.ToString(table, tableName))
 end

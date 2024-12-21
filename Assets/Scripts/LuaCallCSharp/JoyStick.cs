@@ -1,20 +1,16 @@
 using System;
-using MTG;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XLua;
 
 public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
     private RectTransform background; // 摇杆背景
     private RectTransform handle; // 摇杆手柄
-    private LuaTable tableDirection;
     private Vector2 touchPosition;
     private Vector2 inputDircetion;
     public static event Action<float, float> OnJoyStickMove;
     private void Awake()
     {
-        tableDirection = LuaBehaviour.luaEnv.NewTable();
         background = GetComponent<RectTransform>();
         handle = transform.GetChild(0).GetComponent<RectTransform>(); // 摇杆手柄是背景的子元素
     }

@@ -113,7 +113,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: cc3b57177efddae4098b92ca30d7f0a7
-    m_Address: Lua/Game/Model/PlayerData.lua
+    m_Address: Lua/Game/Model/PlayerModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -144,6 +144,26 @@ MonoBehaviour:
     - lua
   - m_GUID: f9348a914394fdc4e85905941733ff7b
     m_Address: Lua/Excels/LevelConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: f2b8f1c2ea6cfa04fae286af2c75f202
+    m_Address: Lua/Excels/EnemyConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: c13ebef8b3e873c46b24fbc2b4641942
+    m_Address: Lua/Game/Model/WaveModel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 5c98f8b9f3b0e5a4ebada457875043c2
+    m_Address: Lua/Game/Model/LevelModel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: c341392994ed94f4a95d8b8d8af29e9d
+    m_Address: Lua/Excels/LevelConfig_EnemyIncrease.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua

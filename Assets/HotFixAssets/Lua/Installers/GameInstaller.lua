@@ -11,11 +11,13 @@ IOC.BindMonoClass(LoginPanel_lua).FromNewPrefab(LoginPanel_prefab)
 IOC.BindMonoClass(GamePanel_lua).FromNewPrefab(GamePanel_prefab)
 IOC.BindMonoClass(Player_lua).FromFactory(Player_prefab)
 IOC.BindMonoClass(Fly_lua).FromFactory(Fly_prefab)
+IOC.BindMonoClass(Enemy_lua).FromFactory(Enemy_prefab)
 
 --Model
 IOC.BindClass(PlayerModel_lua).FromFactory()
-IOC.BindClass(LevelModel_lua)
-IOC.BindClass(WaveModel_lua)
+IOC.BindClass(LevelModel_lua).FromFactory()
+IOC.BindClass(WaveModel_lua).FromFactory()
+IOC.BindClass(EnemyModel_lua).FromFactory()
 
 --Config
 IOC.BindInstanceByRequire(LevelConfig_lua)
