@@ -32,12 +32,13 @@ function GameDataManager:GetLevelModel()
     return levelModel
 end
 
-function GameDataManager:InitLevelData()
-    self.levelModel = self:GetLevelModel()
+function GameDataManager:ToNextWave()
+    self.levelModel = self.levelModel or self:GetLevelModel()
     self.waveModel = self.levelModel:GetNextWave()
+    return self.waveModel ~= nil
 end
 
-function GameDataManager:GetCurrentLevelEnemyModels()
+function GameDataManager:GetCurrentWaveEnemyModels()
     local enemyId, enemyCount = self.waveModel:GetEnemyIdAndCount()
 
     local ret = {}

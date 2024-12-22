@@ -12,6 +12,7 @@ local EnemyIncreaseConfig = IOC.Inject(LevelConfig_EnemyIncrease_lua)
 function LevelModel:SetAndResolveConfig(config)
     local waves = string.split(config, ",")
     self.waveModels = {}
+    self.maxWaveIndex = 1
     for i, v in ipairs(waves) do
         local oneWaveConfig = string.split(v, ":")
         local waveId = tonumber(oneWaveConfig[1])
@@ -24,6 +25,7 @@ function LevelModel:SetAndResolveConfig(config)
         waveModel:Init(WavesConfig[waveConfigId] , EnemyIncreaseConfig[waveIncreaseConfigId])
 
         self.waveModels[waveId] = waveModel
+        self.maxWaveIndex = waveId
     end
     self.waveIndex = 1
     self.lastWave = nil
@@ -37,13 +39,19 @@ function LevelModel:GetNextWave()
         self.lastWave = self.waveModels[self.waveIndex]
         return self.waveModels[self.waveIndex]
     end
-    
+    --最后一个波次
+    if self.maxWaveIndex == self.waveIndex then
+        return nil
+    end
+
     self.waveIndex = self.waveIndex + 1
+
     --如果波次找不到，那么沿用上次的
     if self.waveModels[self.waveIndex] == nil then
         return self.lastWave
     end
 
+    --正常返回波次
     return self.waveModels[self.waveIndex] 
 end
 

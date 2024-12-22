@@ -6,7 +6,7 @@ local LevelConfig_Wave =
 	{
 		enemyId = 1,
 		enemyCount = 5,
-		timeToNext = 30,
+		timeToNext = 10,
 		isElite = nil,
 		isBoss = nil,
 	},

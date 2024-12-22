@@ -14,7 +14,6 @@ function GameController:FixedUpdate()
 end
 
 function GameController:OpenGame()
-    GameDataManager:InitLevelData()
     MonoUtil.AddFixedUpdate("GameController", function()
         self:FixedUpdate()
     end)
@@ -53,7 +52,10 @@ end
 
 --- 开始关卡波次轮替
 function GameController:StartWaveLoop()
-    local enemyModels = GameDataManager:GetCurrentLevelEnemyModels()
+    if GameDataManager:ToNextWave() == nil then
+        print("Game Over")
+    end
+    local enemyModels = GameDataManager:GetCurrentWaveEnemyModels()
     for i, v in ipairs(enemyModels) do
         IOC.Inject(Enemy_lua, {
             parent = Sprite3DContainor,
@@ -67,14 +69,15 @@ function GameController:StartWaveLoop()
     local timeToNext = GameDataManager:GetTimeToNext()
     Clock.StartTimer(timeToNext, 0, -1, function(t)
         self.time = t
-        Log("Time to " .. tostring(t))
         self.gamePanel:SetTime(tostring(t))
+        if self.time and self.time == 0 then
+            self:StartWaveLoop()
+        end
     end)
 end
 
 function GameController:CheckWaveOver()
-    if self.time and self.time == 0 then
-    end
+    
 end
 
 function GameController:OnEnemyCreate(enemy, enemyCount)

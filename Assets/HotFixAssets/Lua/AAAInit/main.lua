@@ -16,7 +16,7 @@ local function AttachToLua()
     local breakSocketHandle,debugXpCall = require(LuaDebug_lua)("localhost", 7003)
     MonoUtil.AddUpdate("LuaDebug", breakSocketHandle)
 end
---AttachToLua()
+AttachToLua()
 
 Log("on lua start")
 
