@@ -33,42 +33,6 @@ MonoBehaviour:
     m_Address: Assets/New Universal Render Pipeline Asset.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 5d01f13eac8a104448615e61e2f19711
-    m_Address: Game/Art/Sword1/Textures/Sword1_Normal.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9643e59550d809440966e8232bcfa56d
-    m_Address: Game/Art/Sword1/Textures/Sword1_Metallic.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e6aa6524c0c2d5b4bbc4535009532562
-    m_Address: Game/Art/Sword1/Textures/Sword1_Emission.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 78b98abe328cb624e876de012f40f5ce
-    m_Address: Game/Art/Sword1/Textures/Sword1_Albedo_Silver.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: eb1d4f04b03d83249ab8fa1746e34c20
-    m_Address: Game/Art/Sword1/Textures/Sword1_Albedo_Gold.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 22f89556adfcc3f45a131e6be1a00e7d
-    m_Address: Game/Art/Sword1/Textures/Sword1_Albedo_Bronze.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: fa5baed6be3065a459482872af5d2796
-    m_Address: Game/Art/Sword1/Sword1_Material_Silver.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 76ec0f7c7d6c188409b0ddd47bd763d8
-    m_Address: Game/Art/Sword1/Sword1_Material_Gold.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1af6c9d4792b975498541f34267aefc6
-    m_Address: Game/Art/Sword1/Sword1_FBX.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
     m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
     m_ReadOnly: 0

@@ -5,13 +5,18 @@ local GameController = IOC.InjectClass(GameController_lua)
 
 local GameDataManager = IOC.Inject(GameDataManager_lua)
 
-function GameController:Update()
-    print("Asd")
+function GameController:FixedUpdate()
+    if self.enemys and self.mainPlayer then
+        for i, v in ipairs(self.enemys) do
+            v:MoveTo(self.mainPlayer)
+        end
+    end
 end
 
 function GameController:OpenGame()
-    MonoUtil.AddUpdate("GameController", function()
-        self:Update()
+    GameDataManager:InitLevelData()
+    MonoUtil.AddFixedUpdate("GameController", function()
+        self:FixedUpdate()
     end)
     self:InitJoyStick()
     self:InitPanel()
@@ -30,7 +35,7 @@ end
 
 --- 初始化游戏Panel
 function GameController:InitPanel()
-    IOC.Inject(GamePanel_lua, FullScreenPanelContainor)
+    self.gamePanel = IOC.Inject(GamePanel_lua, FullScreenPanelContainor)
 end
 
 --- 初始化玩家
@@ -48,29 +53,28 @@ end
 
 --- 开始关卡波次轮替
 function GameController:StartWaveLoop()
-    self.levelModel = GameDataManager:GetLevelModel()
-    self.waveModel = self.levelModel:GetNextWave()
-
-    local enemyId, enemyCount = self.waveModel:GetEnemyIdAndCount()
-
-    for i = 1, enemyCount, 1 do
-        local enemyModel = IOC.Inject(EnemyModel_lua, {
-            config = GameDataManager.GetEnemyConfigById(enemyId),
-            increaseConfig = self.waveModel:GetIncreaseConfig()
-        })
+    local enemyModels = GameDataManager:GetCurrentLevelEnemyModels()
+    for i, v in ipairs(enemyModels) do
         IOC.Inject(Enemy_lua, {
             parent = Sprite3DContainor,
-            model = enemyModel
+            model = v
         }, function(enemy)
-            self:OnEnemyCreate(enemy, enemyCount)
+            self:OnEnemyCreate(enemy, #enemyModels)
         end)
     end
 
     -- 生成enemy
-    local timeToNext = self.waveModel:GetTimeToNext()
+    local timeToNext = GameDataManager:GetTimeToNext()
     Clock.StartTimer(timeToNext, 0, -1, function(t)
+        self.time = t
         Log("Time to " .. tostring(t))
+        self.gamePanel:SetTime(tostring(t))
     end)
+end
+
+function GameController:CheckWaveOver()
+    if self.time and self.time == 0 then
+    end
 end
 
 function GameController:OnEnemyCreate(enemy, enemyCount)

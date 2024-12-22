@@ -8,7 +8,7 @@ IOC.BindClass(GameDataManager_lua).FromInstance()
 
 --View
 IOC.BindMonoClass(LoginPanel_lua).FromNewPrefab(LoginPanel_prefab)
-IOC.BindMonoClass(GamePanel_lua).FromNewPrefab(GamePanel_prefab)
+IOC.BindMonoClass(GamePanel_lua).FromNewPrefab(GamePanel_prefab).Sync()
 IOC.BindMonoClass(Player_lua).FromFactory(Player_prefab)
 IOC.BindMonoClass(Fly_lua).FromFactory(Fly_prefab)
 IOC.BindMonoClass(Enemy_lua).FromFactory(Enemy_prefab)

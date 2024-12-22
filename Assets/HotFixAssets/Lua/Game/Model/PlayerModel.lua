@@ -5,7 +5,7 @@
 local PlayerModel = IOC.InjectClass(PlayerModel_lua)
 
 local moveSpeedExtra = 0.1
-local weaponSpeedExtra = 10
+local weaponSpeedExtra = 100
 function PlayerModel:OnGetOrCreate(param)
     self.team = param.team
     self.pos = param.pos

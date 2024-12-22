@@ -6,7 +6,7 @@ local EnemyConfig =
 	{
 		attack = 1,
 		defense = 1,
-		moveSpeed = 1,
+		moveSpeed = 0.2,
 	},
 }
 

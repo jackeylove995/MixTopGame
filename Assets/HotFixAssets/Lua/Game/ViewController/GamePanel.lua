@@ -8,4 +8,8 @@ function GamePanel:Start()
     Log("enter game")
 end
 
+function GamePanel:SetTime(timeStr)
+    self.CountDown.text = timeStr
+end
+
 return GamePanel

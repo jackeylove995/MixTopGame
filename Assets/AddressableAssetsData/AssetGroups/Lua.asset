@@ -167,6 +167,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
+  - m_GUID: 282492c6093f0c64c8f73883c07a3598
+    m_Address: Lua/Game/Model/EnemyModel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: af98a9a504da0044bab1f1cad1e3a2d5
+    m_Address: Lua/Game/ViewController/Enemy.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

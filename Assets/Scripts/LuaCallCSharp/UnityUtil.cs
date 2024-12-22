@@ -55,6 +55,12 @@ namespace MTG
             pos.z = z;
             transform.position = pos;
         }
+
+        public static void MoveToTargetBySpeed(Transform mover, Transform target, float speed)
+        {
+            Vector3 normal = (target.position-mover.position).normalized;
+            mover.position += normal * speed;
+        }
     }
 }
 

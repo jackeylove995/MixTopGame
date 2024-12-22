@@ -29,8 +29,6 @@ Vector3 = CS.UnityEngine.Vector3
 Time = CS.UnityEngine.Time
 --- 旋转
 Quaternion = CS.UnityEngine.Quaternion
---- 数学
-Math = CS.System.Math
 ---钟表
 Clock = CS.MTG.Clock
 Clock.Init()

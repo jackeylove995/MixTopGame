@@ -31,10 +31,12 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 4, 0, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 6, 0, 0);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "Init", _m_Init_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "AddUpdate", _m_AddUpdate_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "RemoveUpdate", _m_RemoveUpdate_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "AddFixedUpdate", _m_AddFixedUpdate_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "RemoveFixedUpdate", _m_RemoveFixedUpdate_xlua_st_);
             
 			
             
@@ -136,6 +138,57 @@ namespace XLua.CSObjectWrap
                     string _name = LuaAPI.lua_tostring(L, 1);
                     
                     MTG.MonoUtil.RemoveUpdate( _name );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_AddFixedUpdate_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    string _name = LuaAPI.lua_tostring(L, 1);
+                    System.Action _action = translator.GetDelegate<System.Action>(L, 2);
+                    
+                    MTG.MonoUtil.AddFixedUpdate( _name, _action );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_RemoveFixedUpdate_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    string _name = LuaAPI.lua_tostring(L, 1);
+                    
+                    MTG.MonoUtil.RemoveFixedUpdate( _name );
                     
                     
                     

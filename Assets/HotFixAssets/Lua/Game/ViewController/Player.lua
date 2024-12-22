@@ -4,7 +4,7 @@
 
 ---@class Player
 local Player = IOC.InjectClass(Player_lua)
-
+Player.tag = "Player"
 local flys = {}
 local canFly
 
@@ -15,16 +15,13 @@ function Player:OnGetOrCreate(param)
     self:GenerateFlys()
 end
 
-function Player:Move(x, y)
+function Player:Move(x, y) 
     UnityUtil.LocalMove(self.transform, x * self.data:GetMoveSpeed(), y * self.data:GetMoveSpeed())
 end
 
 --- 生成飞行物
 ---@param count 数量
 function Player:GenerateFlys()
-    local everyAddEuler = 360 / self.data.flyCount
-    local distance = 1
-
     for i = 1, self.data.flyCount, 1 do
         IOC.Inject(Fly_lua, {
             parent = self.FlyContainer,
@@ -41,7 +38,7 @@ function Player:GenerateFlys()
 
     end
 
-    canFly = true
+    
 end
 
 function Player:FlyOver()
@@ -49,14 +46,15 @@ function Player:FlyOver()
     local distance = 1
 
     for i = 1, self.data.flyCount, 1 do
-        local hudu = (i * everyAddEuler * Math.PI) / 180
-        local x = Math.Sin(hudu) * distance
-        local y = Math.Cos(hudu) * distance
+        local hudu = (i * everyAddEuler * math.pi) / 180
+        local x = math.sin(hudu) * distance
+        local y = math.cos(hudu) * distance
         local fly = flys[i]
-        UnityUtil.SetLocalPosition(fly.transform, x, y, -1)
+        UnityUtil.SetPosition(fly.transform, x, y, FlyZDepth)
         -- 使物体的Y轴指向指定方向
         fly.transform.localRotation = Quaternion.Euler(0, 0, -i * everyAddEuler)
     end
+    canFly = true
 end
 
 function Player:FixedUpdate()
@@ -66,7 +64,18 @@ function Player:FixedUpdate()
 end
 
 function Player:OnOtherFlyEnter(fly, other)
-    local otherPlayer = other.player
+    if other.tag == "Player" then
+        self:OnFlyWithPlayerCollider(fly, other.player)
+    end
+
+    if other.tag == "Enemy" then
+        self:OnFlyWithEnemyCollider(fly, other)
+    end
+    
+end
+
+function Player:OnFlyWithPlayerCollider(fly, otherPlayer)
+    local otherPlayer = otherPlayer.player
     if self.data.team == otherPlayer.data.team then
         return
     end
@@ -76,13 +85,17 @@ function Player:OnOtherFlyEnter(fly, other)
     local thisFlyAttack = self.data:GetAttack()
     local otherFlyAttack = otherPlayer.data:GetAttack()
     if thisFlyAttack > otherFlyAttack then
-        otherPlayer:DestroyFly(other)
+        otherPlayer:DestroyFly(otherPlayer)
     elseif otherFlyAttack > thisFlyAttack then
         self:DestroyFly(fly)
     else
         otherPlayer:DestroyFly(other)
         self:DestroyFly(fly)
     end
+end
+
+function Player:OnFlyWithEnemyCollider(fly, enemy)
+    print("飞行物撞击敌人")
 end
 
 function Player:DestroyFly(fly)

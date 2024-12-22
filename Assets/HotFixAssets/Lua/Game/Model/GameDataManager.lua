@@ -32,6 +32,30 @@ function GameDataManager:GetLevelModel()
     return levelModel
 end
 
+function GameDataManager:InitLevelData()
+    self.levelModel = self:GetLevelModel()
+    self.waveModel = self.levelModel:GetNextWave()
+end
+
+function GameDataManager:GetCurrentLevelEnemyModels()
+    local enemyId, enemyCount = self.waveModel:GetEnemyIdAndCount()
+
+    local ret = {}
+    for i = 1, enemyCount, 1 do
+        local enemyModel = IOC.Inject(EnemyModel_lua, {
+            config = self:GetEnemyConfigById(enemyId),
+            increaseConfig = self.waveModel:GetIncreaseConfig(),
+            pos = Vector3(math.random( -10,10),math.random( -10,10),PlayerZDepth)
+        })
+        table.insert(ret, enemyModel)
+    end
+    return ret
+end
+
+function GameDataManager:GetTimeToNext()
+    return self.waveModel:GetTimeToNext()
+end
+
 function GameDataManager:GetEnemyConfigById(id)
     return EnemyConfig[id]
 end

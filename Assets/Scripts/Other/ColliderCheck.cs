@@ -13,10 +13,10 @@ public class ColliderCheck : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        ColliderCheck colliderCheck = other.GetComponent<ColliderCheck>();
-        if (colliderCheck != null)
+        HoldLua holdLua = other.GetComponent<HoldLua>();
+        if (holdLua != null)
         {           
-            OnOtherFlyEnter?.Invoke(lua.scriptTable, colliderCheck.lua.scriptTable);
+            OnOtherFlyEnter?.Invoke(lua.scriptTable, holdLua.holder.scriptTable);
         }        
     }
 }
