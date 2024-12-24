@@ -1,7 +1,8 @@
 --- author:author
 --- create:2024/12/7 17:34:45
 --- desc: string操作
-function string.split(inputstr, sep)
+
+function string.Split(inputstr, sep)
     if inputstr == nil or inputstr == "" then
         return ""
     end
@@ -13,4 +14,8 @@ function string.split(inputstr, sep)
         table.insert(t, str)
     end
     return t
+end
+
+function string.Replace(inputStr, findStr, replaceStr)
+    return inputStr:gsub(findStr, replaceStr)
 end

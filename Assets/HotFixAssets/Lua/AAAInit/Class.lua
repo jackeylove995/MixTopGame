@@ -16,6 +16,7 @@ function Class(name, ...)
 
     local isMono
     local implements = {...}
+    local implementsTable = {}
     if implements ~= nil then
         c.Implement = c.Implement or ""
         for i, implement in ipairs(implements) do
@@ -23,18 +24,22 @@ function Class(name, ...)
                 --表明是类地址
                 local class = require(implement)
                 c.Implement = c.Implement .. class.ClassName .. " " .. (class.Implement or "")  .. " "              
-                setmetatable(c, {
-                    __index = class
-                })
+                table.insert(implementsTable, class)
             else
                 --表明是table 
                 c.Implement = c.Implement .. implement.ClassName .. " " .. (implement.Implement or "") .. " "               
-                setmetatable(c, {
-                    __index = implement
-                })
+                table.insert(implementsTable, implement)
             end
         end   
     end
+
+    if #implementsTable > 0 then
+        for i = 1, #implementsTable -1, 1 do
+            setmetatable(implementsTable[i], {__index = implementsTable[i+1]})
+        end
+        setmetatable(c, {__index = implementsTable[1]})
+    end
+
     isMono = string.find(c.Implement, "MonoBehaviour") ~= nil
     -- Mono has no constructor
     if not isMono and rawget(c, "Constructor") == nil then
@@ -71,5 +76,5 @@ function IsMono(classAddress)
 end
 
 function GetClassNameByAddress(address)
-    return table.Last(string.split(address, "/"))
+    return string.Replace(table.Last(string.Split(address, "/")), ".lua", "")
 end

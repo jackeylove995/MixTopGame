@@ -10,15 +10,15 @@ local EnemyIncreaseConfig = IOC.Inject(LevelConfig_EnemyIncrease_lua)
 
 --配置信息: 1:levelWaveConfigId-增幅id,...
 function LevelModel:SetAndResolveConfig(config)
-    local waves = string.split(config, ",")
+    local waves = string.Split(config, ",")
     self.waveModels = {}
     self.maxWaveIndex = 1
     for i, v in ipairs(waves) do
-        local oneWaveConfig = string.split(v, ":")
+        local oneWaveConfig = string.Split(v, ":")
         local waveId = tonumber(oneWaveConfig[1])
         local waveModelOrigin = oneWaveConfig[2]
 
-        local waveModelConfigs = string.split(waveModelOrigin, "-")
+        local waveModelConfigs = string.Split(waveModelOrigin, "-")
         local waveConfigId = tonumber(waveModelConfigs[1])
         local waveIncreaseConfigId = tonumber(waveModelConfigs[2])
         local waveModel = IOC.Inject(WaveModel_lua)
