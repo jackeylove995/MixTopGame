@@ -21,22 +21,6 @@ MonoBehaviour:
     m_Address: AABase/BasePanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a5caeab91e8e1f34daff638da4c63e4d
-    m_Address: Assets/UniversalRenderPipelineGlobalSettings.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c62f8f952721ddc44b04d6a27afc88d9
-    m_Address: Assets/New Universal Render Pipeline Asset_Renderer.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 0f49f23c86dda364fad23772f55a3d58
-    m_Address: Assets/New Universal Render Pipeline Asset.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
-    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:
