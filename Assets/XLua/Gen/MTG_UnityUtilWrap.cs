@@ -31,7 +31,7 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 8, 0, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 9, 0, 0);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "Size", _m_Size_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "LocalMove", _m_LocalMove_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetLocalPosition", _m_SetLocalPosition_xlua_st_);
@@ -39,6 +39,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetLocalZ", _m_SetLocalZ_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetZ", _m_SetZ_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "MoveToTargetBySpeed", _m_MoveToTargetBySpeed_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "SetRotation", _m_SetRotation_xlua_st_);
             
 			
             
@@ -289,6 +290,35 @@ namespace XLua.CSObjectWrap
                     float _speed = (float)LuaAPI.lua_tonumber(L, 3);
                     
                     MTG.UnityUtil.MoveToTargetBySpeed( _mover, _target, _speed );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetRotation_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    UnityEngine.Transform _transform = (UnityEngine.Transform)translator.GetObject(L, 1, typeof(UnityEngine.Transform));
+                    float _x = (float)LuaAPI.lua_tonumber(L, 2);
+                    float _y = (float)LuaAPI.lua_tonumber(L, 3);
+                    float _z = (float)LuaAPI.lua_tonumber(L, 4);
+                    
+                    MTG.UnityUtil.SetRotation( _transform, _x, _y, _z );
                     
                     
                     

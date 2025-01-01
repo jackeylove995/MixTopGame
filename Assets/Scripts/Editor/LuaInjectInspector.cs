@@ -32,11 +32,10 @@ namespace MTG
             position.height = EditorGUI.GetPropertyHeight(valueProperty);
             DrawValueProperty(position, valueProperty);
 
-            if (valueProperty.objectReferenceValue != null && nameProperty.stringValue.Equals(string.Empty))
+            if (valueProperty.objectReferenceValue != null && !nameProperty.stringValue.Equals(valueProperty.objectReferenceValue.name))
             {
                 nameProperty.stringValue = valueProperty.objectReferenceValue.name;
                 nameProperty.serializedObject.ApplyModifiedProperties();
-
             }
         }
 

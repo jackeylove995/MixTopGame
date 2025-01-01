@@ -8,7 +8,9 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     private RectTransform handle; // 摇杆手柄
     private Vector2 touchPosition;
     private Vector2 inputDircetion;
-    public static event Action<float, float> OnJoyStickMove;
+    public static event Action OnBeginMove;
+    public static event Action<float, float> OnMove;
+    public static event Action OnEndMove;
     private void Awake()
     {
         background = GetComponent<RectTransform>();
@@ -18,7 +20,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     {
         if (inputDircetion != Vector2.zero)
         {
-            OnJoyStickMove?.Invoke(inputDircetion.x, inputDircetion.y);
+            OnMove?.Invoke(inputDircetion.x, inputDircetion.y);
         }
     }
 
@@ -32,7 +34,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
             touchPosition.y = (touchPosition.y / background.sizeDelta.y) * 2;
             bool normalized = touchPosition.magnitude > 1f;
             touchPosition = normalized ? touchPosition.normalized : touchPosition;
-            //touchPosition = touchPosition.normalized;
+            // touchPosition = touchPosition.normalized;
             // 更新摇杆手柄的位置
             handle.anchoredPosition = new Vector2(touchPosition.x * (background.sizeDelta.x / 2), touchPosition.y * (background.sizeDelta.y / 2));
             // 更新输入方向
@@ -42,6 +44,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        OnBeginMove?.Invoke();
         OnDrag(eventData);
     }
 
@@ -50,5 +53,6 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
         // 重置摇杆位置和输入方向
         handle.anchoredPosition = Vector2.zero;
         inputDircetion = Vector2.zero;
+        OnEndMove?.Invoke();
     }
 }

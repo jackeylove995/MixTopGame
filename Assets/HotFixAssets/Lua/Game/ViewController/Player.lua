@@ -15,7 +15,16 @@ function Player:OnGetOrCreate(param)
     self:GenerateFlys()
 end
 
-function Player:Move(x, y) 
+function Player:BeginMove() 
+    self.FrameAnimation:PlayLoop("walk")
+end
+
+function Player:EndMove() 
+    self.FrameAnimation:PlayLoop("idle")
+end
+
+function Player:Move(x, y)
+    UnityUtil.SetRotation(self.FrameAnimation.transform, 0 , x > 0 and 0 or 180, 0) 
     UnityUtil.LocalMove(self.transform, x * self.data:GetMoveSpeed(), y * self.data:GetMoveSpeed())
 end
 
@@ -35,10 +44,7 @@ function Player:GenerateFlys()
                 self:FlyOver()
             end
         end)
-
-    end
-
-    
+    end  
 end
 
 function Player:FlyOver()
@@ -71,7 +77,6 @@ function Player:OnOtherFlyEnter(fly, other)
     if other.tag == "Enemy" then
         self:OnFlyWithEnemyCollider(fly, other)
     end
-    
 end
 
 function Player:OnFlyWithPlayerCollider(fly, otherPlayer)

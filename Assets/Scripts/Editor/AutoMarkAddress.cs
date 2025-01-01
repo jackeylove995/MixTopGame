@@ -223,6 +223,8 @@ namespace MTG
                     string key = addressFilesName[addressFilesName.Length - 1].Replace('.', '_');
                     string address = entry.address;
                     key = key.Replace(" ", "_");
+                    key = key.Replace("-", "_");
+
                     address = address.Replace(" ", "_");
 
                     string entryLine = key + " = " + "\"" + address + "\"";

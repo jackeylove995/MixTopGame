@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2422538859637089177}
-  - component: {fileID: 8266079143665625024}
   - component: {fileID: 4435320395149079065}
   m_Layer: 0
   m_Name: Enemy
@@ -30,18 +29,114 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4959086357630078205}
   - {fileID: 8137587842895052968}
   - {fileID: 3737920005684784019}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8266079143665625024
-SpriteRenderer:
+--- !u!114 &4435320395149079065
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414649988832231604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f76145b7978ffd4fa70f5044681c977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  luaScript: {fileID: 1042094116111776886, guid: af98a9a504da0044bab1f1cad1e3a2d5, type: 3}
+  injections:
+  - name: FlyContainer
+    value: {fileID: 8137587842895052968}
+  - name: FrameAnimation
+    value: {fileID: 8883682000252903535}
+--- !u!1 &3825343090708454320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4959086357630078205}
+  - component: {fileID: 8883682000252903535}
+  - component: {fileID: 84195923185926223}
+  m_Layer: 0
+  m_Name: FrameAnimation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4959086357630078205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3825343090708454320}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2422538859637089177}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8883682000252903535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3825343090708454320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb7ad82f995d384e87cc2d5ec432707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondToNextFrame: 0.1
+  spriteRenderer: {fileID: 0}
+  animations:
+  - name: idle
+    sprites:
+    - {fileID: 21300000, guid: 72de0c64f2c6a498096698322c976a67, type: 3}
+    - {fileID: 21300000, guid: c8a742c1f2ebb43b9afe34a47304c051, type: 3}
+    - {fileID: 21300000, guid: 077f0469c420a4365bc67943783293df, type: 3}
+    - {fileID: 21300000, guid: 8bc3c2c2a565342aab778fd8e874313a, type: 3}
+    playType: 0
+    frameIndex: 0
+  - name: run
+    sprites:
+    - {fileID: 21300000, guid: 8afd73b29f8e34c70b0db80184b8cc7f, type: 3}
+    - {fileID: 21300000, guid: d094cf6ac3d8a4d0bbbef5d6d6ad3eed, type: 3}
+    - {fileID: 21300000, guid: 3f59d4fdf4fe04ab79f11dadde82fe8c, type: 3}
+    - {fileID: 21300000, guid: bc3fcf1d561104bea933686de6bade4b, type: 3}
+    - {fileID: 21300000, guid: f58cc0961cc9146ca9780a0cb1327e5d, type: 3}
+    - {fileID: 21300000, guid: af314424f59d946469a97f398e8de53f, type: 3}
+    playType: 0
+    frameIndex: 0
+  - name: hurt
+    sprites:
+    - {fileID: 21300000, guid: c123c318507c6405a869f2f89068cf06, type: 3}
+    - {fileID: 21300000, guid: a85f3724632254a6cb24066dc54cbf60, type: 3}
+    playType: 0
+    frameIndex: 0
+  currentAnimation:
+    name: 
+    sprites: []
+    playType: 0
+    frameIndex: 0
+--- !u!212 &84195923185926223
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3825343090708454320}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,33 +171,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e019cd8c6a958a74bb226a0fd85030d6, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5, y: 2.5}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4435320395149079065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414649988832231604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f76145b7978ffd4fa70f5044681c977, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  luaScript: {fileID: 1042094116111776886, guid: af98a9a504da0044bab1f1cad1e3a2d5, type: 3}
-  injections:
-  - name: FlyContainer
-    value: {fileID: 8137587842895052968}
 --- !u!1 &3863942978095343023
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +211,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2422538859637089177}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3957541051465073789
 GameObject:
@@ -165,7 +244,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2422538859637089177}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &7879376460469251203
 CircleCollider2D:

@@ -12,7 +12,7 @@ function Fly:OnGetOrCreate(param)
     self.enter = param.enter
 end
 
-function Fly:OnOtherFlyEnter(other)
+function Fly:OnOtherColliderEnter(other)
     self.enter(self, other)
 end
 

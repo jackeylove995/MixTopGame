@@ -61,6 +61,11 @@ namespace MTG
             Vector3 normal = (target.position-mover.position).normalized;
             mover.position += normal * speed;
         }
+
+        public static void SetRotation(Transform transform, float x, float y, float z)
+        {
+            transform.localEulerAngles = new Vector3(x, y, z);
+        }
     }
 }
 

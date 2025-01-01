@@ -89,6 +89,102 @@ MonoBehaviour:
     m_Address: Game/Art/Sword1/Textures/Sword1_Metallic.png
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e70ab950968e2ef439f986ec395141c6
+    m_Address: Game/Art/PlayerAnim/Knight_idle_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 84ce2f114ad12bd4ebafc77060220324
+    m_Address: Game/Art/PlayerAnim/Knight_idle_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a643494bdea168479e8de8698775b85
+    m_Address: Game/Art/PlayerAnim/Knight_idle_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d0fc8c27bd2d9d44e88e8a240ad8f68f
+    m_Address: Game/Art/PlayerAnim/Knight_idle_06.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 754f43f8fc4997f42b16428846136321
+    m_Address: Game/Art/PlayerAnim/Knight_idle_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7425003c38c00d144af86a40ba87c12d
+    m_Address: Game/Art/PlayerAnim/Knight_idle_04.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 950268a606733494f8e4b356b0100a41
+    m_Address: Game/Art/PlayerAnim/Knight_walk_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5f35e0dbf73e2bd4bb8189fcd03962b3
+    m_Address: Game/Art/PlayerAnim/Knight_walk_04.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a587e1c913636f4c812f857e5aa6c84
+    m_Address: Game/Art/PlayerAnim/Knight_walk_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c9c8166c52da6634eb2eaee5eb18d77a
+    m_Address: Game/Art/PlayerAnim/Knight_walk_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 969fce9da2f69834182f5618b7ec2975
+    m_Address: Game/Art/PlayerAnim/Knight_walk_06.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bde3991f219560149aecb109a8aea6b3
+    m_Address: Game/Art/PlayerAnim/Knight_walk_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c8a742c1f2ebb43b9afe34a47304c051
+    m_Address: Game/Art/EnemyAnim/player-idle-2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8bc3c2c2a565342aab778fd8e874313a
+    m_Address: Game/Art/EnemyAnim/player-idle-4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 72de0c64f2c6a498096698322c976a67
+    m_Address: Game/Art/EnemyAnim/player-idle-1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 077f0469c420a4365bc67943783293df
+    m_Address: Game/Art/EnemyAnim/player-idle-3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8afd73b29f8e34c70b0db80184b8cc7f
+    m_Address: Game/Art/EnemyAnim/player-run-1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: af314424f59d946469a97f398e8de53f
+    m_Address: Game/Art/EnemyAnim/player-run-6.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f58cc0961cc9146ca9780a0cb1327e5d
+    m_Address: Game/Art/EnemyAnim/player-run-5.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d094cf6ac3d8a4d0bbbef5d6d6ad3eed
+    m_Address: Game/Art/EnemyAnim/player-run-2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bc3fcf1d561104bea933686de6bade4b
+    m_Address: Game/Art/EnemyAnim/player-run-4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3f59d4fdf4fe04ab79f11dadde82fe8c
+    m_Address: Game/Art/EnemyAnim/player-run-3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a85f3724632254a6cb24066dc54cbf60
+    m_Address: Game/Art/EnemyAnim/player-hurt-2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c123c318507c6405a869f2f89068cf06
+    m_Address: Game/Art/EnemyAnim/player-hurt-1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

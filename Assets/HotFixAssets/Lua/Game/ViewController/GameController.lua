@@ -25,9 +25,21 @@ end
 
 --- 初始化摇杆
 function GameController:InitJoyStick()
-    CS.JoyStick.OnJoyStickMove("+", function(x, y)
+    CS.JoyStick.OnMove("+", function(x, y)
         if self.mainPlayer then
             self.mainPlayer:Move(x, y)
+        end
+    end)
+
+    CS.JoyStick.OnBeginMove("+", function()
+        if self.mainPlayer then
+            self.mainPlayer:BeginMove()
+        end
+    end)
+
+    CS.JoyStick.OnEndMove("+", function()
+        if self.mainPlayer then
+            self.mainPlayer:EndMove()
         end
     end)
 end
