@@ -5,7 +5,7 @@
 local GameDataManager = IOC.InjectClass(GameDataManager_lua)
 
 local RolesConfig = IOC.Inject(RolesConfig_lua)
-local LevelConfig = IOC.Inject(LevelConfig_lua)
+local LevelConfig = IOC.Inject(LevelConfig_Level_lua)
 local WeaponsConfig = IOC.Inject(WeaponsConfig_lua)
 local EnemyConfig = IOC.Inject(EnemyConfig_lua)
 

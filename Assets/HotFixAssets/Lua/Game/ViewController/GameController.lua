@@ -64,8 +64,9 @@ end
 
 --- 开始关卡波次轮替
 function GameController:StartWaveLoop()
-    if GameDataManager:ToNextWave() == nil then
+    if not GameDataManager:ToNextWave() then
         print("Game Over")
+        return
     end
     local enemyModels = GameDataManager:GetCurrentWaveEnemyModels()
     for i, v in ipairs(enemyModels) do

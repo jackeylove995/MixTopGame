@@ -8,6 +8,7 @@ local RolesConfig =
 		weaponSpeed = 1,
 		skillInactive = nil,
 		skillActive = nil,
+		hp = 1000,
 	},
 	[2] =
 	{
@@ -15,6 +16,7 @@ local RolesConfig =
 		weaponSpeed = 1,
 		skillInactive = nil,
 		skillActive = nil,
+		hp = 1000,
 	},
 	[3] =
 	{
@@ -22,6 +24,7 @@ local RolesConfig =
 		weaponSpeed = 1,
 		skillInactive = nil,
 		skillActive = nil,
+		hp = 1000,
 	},
 	[4] =
 	{
@@ -29,6 +32,7 @@ local RolesConfig =
 		weaponSpeed = 1,
 		skillInactive = nil,
 		skillActive = nil,
+		hp = 1000,
 	},
 	[5] =
 	{
@@ -36,6 +40,7 @@ local RolesConfig =
 		weaponSpeed = 1,
 		skillInactive = nil,
 		skillActive = nil,
+		hp = 1000,
 	},
 }
 

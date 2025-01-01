@@ -20,7 +20,7 @@ IOC.BindClass(WaveModel_lua).FromFactory()
 IOC.BindClass(EnemyModel_lua).FromFactory()
 
 --Config
-IOC.BindInstanceByRequire(LevelConfig_lua)
+IOC.BindInstanceByRequire(LevelConfig_Level_lua)
 IOC.BindInstanceByRequire(LevelConfig_Wave_lua)
 IOC.BindInstanceByRequire(LevelConfig_EnemyIncrease_lua)
 IOC.BindInstanceByRequire(EnemyConfig_lua)

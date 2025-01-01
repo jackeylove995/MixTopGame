@@ -2,7 +2,6 @@
 --- create:2024/12/12 14:55:08
 --- desc: 工厂
 --- 工厂包含产品流水线，根据产品名key来定位具体流水线，然后操作流水线中的inuse和nouse数据
- 
 ---@class Factory
 Factory = {}
 
@@ -64,17 +63,15 @@ function Factory.GetAsync(keyInFactory, param, onCreate)
         obj.pKeyInFactory = factoryLine.pKey
         obj.keyInFactory = keyInFactory
         SafeInvoke(onCreate, obj)
-        obj:OnGetOrCreate(param)        
+        obj:OnGetOrCreate(param)
     else
-        local obj = {}
-        factoryLine.pKey = factoryLine.pKey + 1
-        factoryLine.inUse[factoryLine.pKey] = obj       
-        local pKey = factoryLine.pKey
         factoryLine.getter(function(obj)
-            obj.pKeyInFactory = pKey
+            factoryLine.pKey = factoryLine.pKey + 1
+            factoryLine.inUse[factoryLine.pKey] = obj
+            obj.pKeyInFactory = factoryLine.pKey
             obj.keyInFactory = keyInFactory
             SafeInvoke(onCreate, obj)
-            obj:OnGetOrCreate(param)           
+            obj:OnGetOrCreate(param)
         end)
     end
 end

@@ -36,8 +36,8 @@ namespace XLua.CSObjectWrap
 
 		    Utils.BeginClassRegister(type, L, __CreateInstance, 4, 0, 0);
 			
-			Utils.RegisterFunc(L, Utils.CLS_IDX, "OnMove", _e_OnMove);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "OnBeginMove", _e_OnBeginMove);
+			Utils.RegisterFunc(L, Utils.CLS_IDX, "OnMove", _e_OnMove);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "OnEndMove", _e_OnEndMove);
 			
             
@@ -171,35 +171,6 @@ namespace XLua.CSObjectWrap
 		
 		
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _e_OnMove(RealStatePtr L)
-        {
-		    try {
-                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			    int gen_param_count = LuaAPI.lua_gettop(L);
-                System.Action<float, float> gen_delegate = translator.GetDelegate<System.Action<float, float>>(L, 2);
-                if (gen_delegate == null) {
-                    return LuaAPI.luaL_error(L, "#2 need System.Action<float, float>!");
-                }
-                
-				
-				if (gen_param_count == 2 && LuaAPI.xlua_is_eq_str(L, 1, "+")) {
-					JoyStick.OnMove += gen_delegate;
-					return 0;
-				} 
-				
-				
-				if (gen_param_count == 2 && LuaAPI.xlua_is_eq_str(L, 1, "-")) {
-					JoyStick.OnMove -= gen_delegate;
-					return 0;
-				} 
-				
-			} catch(System.Exception gen_e) {
-                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
-            }
-			return LuaAPI.luaL_error(L, "invalid arguments to JoyStick.OnMove!");
-        }
-        
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _e_OnBeginMove(RealStatePtr L)
         {
 		    try {
@@ -226,6 +197,35 @@ namespace XLua.CSObjectWrap
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
 			return LuaAPI.luaL_error(L, "invalid arguments to JoyStick.OnBeginMove!");
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _e_OnMove(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    int gen_param_count = LuaAPI.lua_gettop(L);
+                System.Action<float, float> gen_delegate = translator.GetDelegate<System.Action<float, float>>(L, 2);
+                if (gen_delegate == null) {
+                    return LuaAPI.luaL_error(L, "#2 need System.Action<float, float>!");
+                }
+                
+				
+				if (gen_param_count == 2 && LuaAPI.xlua_is_eq_str(L, 1, "+")) {
+					JoyStick.OnMove += gen_delegate;
+					return 0;
+				} 
+				
+				
+				if (gen_param_count == 2 && LuaAPI.xlua_is_eq_str(L, 1, "-")) {
+					JoyStick.OnMove -= gen_delegate;
+					return 0;
+				} 
+				
+			} catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+			return LuaAPI.luaL_error(L, "invalid arguments to JoyStick.OnMove!");
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

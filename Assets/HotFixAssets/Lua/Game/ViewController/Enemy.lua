@@ -10,8 +10,10 @@ local flys = {}
 local canFly
 
 function Enemy:OnGetOrCreate(param)
+    self.gameObject:SetActive(true)
     self.transform:SetParent(param.parent)
     self.data = param.model
+    self.die = false
     UnityUtil.SetLocalPosition(self.transform, self.data.pos)   
 end
 
@@ -20,6 +22,9 @@ function Enemy:Move(x, y)
 end
 
 function Enemy:MoveTo(target)
+    if self.die then
+        return
+    end
     local distance = Vector3.Distance(target.transform.position, self.transform.position)
     if distance < 0.2 then
         self.FrameAnimation:PlayLoop("idle")
@@ -29,6 +34,24 @@ function Enemy:MoveTo(target)
     self.FrameAnimation:PlayLoop("run")
     local x = target.transform.position.x > self.transform.position.x and 1 or -1
     UnityUtil.SetRotation(self.FrameAnimation.transform, 0 , x > 0 and 0 or 180, 0)
+end
+
+function Enemy:BeAttack(fly)
+    self.FrameAnimation:PlayOnce("hurt")
+    self.data.config.hp = self.data.config.hp - fly.player.data:GetAttack()
+    if self.data.config.hp <= 0 then
+        self:Die()
+    end
+    UnityUtil.BackMove(self.transform, fly.player.transform)
+end
+
+function Enemy:OnRecycle()
+    self.die = true
+    self.gameObject:SetActive(false)
+end
+
+function Enemy:Die()
+    Factory.Take(self)
 end
 
 return Enemy

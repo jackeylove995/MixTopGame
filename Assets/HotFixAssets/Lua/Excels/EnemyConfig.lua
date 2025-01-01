@@ -4,9 +4,10 @@ local EnemyConfig =
 {
 	[1] =
 	{
-		attack = 1,
-		defense = 1,
+		attack = 100,
+		defense = 100,
 		moveSpeed = 0.2,
+		hp = 1000,
 	},
 }
 

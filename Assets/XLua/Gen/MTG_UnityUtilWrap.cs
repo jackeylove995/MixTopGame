@@ -31,9 +31,10 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 9, 0, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 10, 0, 0);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "Size", _m_Size_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "LocalMove", _m_LocalMove_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "BackMove", _m_BackMove_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetLocalPosition", _m_SetLocalPosition_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetPosition", _m_SetPosition_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetLocalZ", _m_SetLocalZ_xlua_st_);
@@ -123,6 +124,33 @@ namespace XLua.CSObjectWrap
                     float _z = (float)LuaAPI.lua_tonumber(L, 4);
                     
                     MTG.UnityUtil.LocalMove( _transform, _x, _y, _z );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_BackMove_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    UnityEngine.Transform _mover = (UnityEngine.Transform)translator.GetObject(L, 1, typeof(UnityEngine.Transform));
+                    UnityEngine.Transform _two = (UnityEngine.Transform)translator.GetObject(L, 2, typeof(UnityEngine.Transform));
+                    
+                    MTG.UnityUtil.BackMove( _mover, _two );
                     
                     
                     

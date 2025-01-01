@@ -23,6 +23,11 @@ namespace MTG
             transform.localPosition += new Vector3(x, y, z);
         }
 
+        public static void BackMove(Transform mover, Transform two)
+        {
+            mover.position += (mover.position - two.position).normalized;        
+        }
+
         public static void SetLocalPosition(Transform transform, float x, float y, float z)
         {
             transform.localPosition = new Vector3(x, y, z);

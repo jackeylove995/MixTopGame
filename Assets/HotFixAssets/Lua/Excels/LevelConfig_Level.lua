@@ -1,10 +1,10 @@
 -- Auto Generate By Assets/DevelopAssets/Excels/LevelConfig.xlsx
 
-local LevelConfig =
+local LevelConfig_Level =
 {
 	[1] =
 	{
-		config = "1:1-1,5:2-1,6:1-1,10:3-1",
+		config = "1:1-1,3:2-1,4:1-1,6:1-1",
 	},
 	[2] =
 	{
@@ -24,4 +24,4 @@ local LevelConfig =
 	},
 }
 
-return LevelConfig
+return LevelConfig_Level

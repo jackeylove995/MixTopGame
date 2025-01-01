@@ -70,9 +70,9 @@ function Player:FixedUpdate()
 end
 
 function Player:OnOtherFlyEnter(fly, other)
-    if other.tag == "Player" then
+    --[[if other.tag == "Player" then
         self:OnFlyWithPlayerCollider(fly, other.player)
-    end
+    end]]
 
     if other.tag == "Enemy" then
         self:OnFlyWithEnemyCollider(fly, other)
@@ -101,6 +101,7 @@ end
 
 function Player:OnFlyWithEnemyCollider(fly, enemy)
     print("飞行物撞击敌人")
+    enemy:BeAttack(fly)
 end
 
 function Player:DestroyFly(fly)

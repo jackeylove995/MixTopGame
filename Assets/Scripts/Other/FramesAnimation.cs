@@ -59,7 +59,7 @@ public class FramesAnimation : MonoBehaviour
 
         if (spriteRenderer == null)
             Debug.LogError("Sprite Renderer都没有，你想干啥");
-       
+
         timeToNextFrame = new WaitForSeconds(secondToNextFrame);
         PlayIdle();
     }
@@ -91,7 +91,7 @@ public class FramesAnimation : MonoBehaviour
     {
         if (currentAnimation != null && currentAnimation.name == name)
             return;
-        if (!SetCurrentAnimation(name)) 
+        if (!SetCurrentAnimation(name))
             return;
         currentAnimation.playType = PlayType.Loop;
         currentAnimation.frameIndex = 0;
