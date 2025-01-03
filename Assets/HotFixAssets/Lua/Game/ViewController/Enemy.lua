@@ -37,9 +37,17 @@ function Enemy:MoveTo(target)
 end
 
 function Enemy:BeAttack(fly)
+    if self.attack then
+        return
+    end
+    self.attack = true
+    Clock.DelayCall(0.2,function()
+        self.attack = false
+    end)
+    
     self.FrameAnimation:PlayOnce("hurt")
-    self.data.config.hp = self.data.config.hp - fly.player.data:GetAttack()
-    if self.data.config.hp <= 0 then
+    self.data.hp = self.data.hp - fly.player.data:GetAttack()
+    if self.data.hp <= 0 then
         self:Die()
     end
     UnityUtil.BackMove(self.transform, fly.player.transform)

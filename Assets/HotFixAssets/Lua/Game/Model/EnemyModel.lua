@@ -9,6 +9,7 @@ function EnemyModel:OnGetOrCreate(param)
     self.config = param.config
     self.increaseConfig = param.increaseConfig
     self.pos = param.pos
+    self.hp = self.config.hp
 end
 
 function EnemyModel:GetAttack()

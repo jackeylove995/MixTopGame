@@ -26,4 +26,8 @@ function PlayerModel:GetAttack()
     return self.weaponConfig.attack
 end
 
+function PlayerModel:GetFlyDistance()
+    return self.roleConfig.flyDistance
+end
+
 return PlayerModel

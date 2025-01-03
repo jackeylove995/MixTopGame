@@ -185,6 +185,10 @@ MonoBehaviour:
     m_Address: Game/Art/EnemyAnim/player-hurt-1.png
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8be805b137918404d8d7ae2c4c8af5ce
+    m_Address: Game/Ball.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

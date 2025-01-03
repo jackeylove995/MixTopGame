@@ -142,11 +142,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: f9348a914394fdc4e85905941733ff7b
-    m_Address: Lua/Excels/LevelConfig.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
   - m_GUID: f2b8f1c2ea6cfa04fae286af2c75f202
     m_Address: Lua/Excels/EnemyConfig.lua
     m_ReadOnly: 0
@@ -174,6 +169,16 @@ MonoBehaviour:
     - lua
   - m_GUID: af98a9a504da0044bab1f1cad1e3a2d5
     m_Address: Lua/Game/ViewController/Enemy.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 4d951384367e78a4da6cb591192223a8
+    m_Address: Lua/Excels/LevelConfig_Level.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 71806c338f89f0049bafe40a477719bc
+    m_Address: Lua/Game/ViewController/Ball.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua

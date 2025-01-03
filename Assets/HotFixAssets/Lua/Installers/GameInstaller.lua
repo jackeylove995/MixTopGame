@@ -12,6 +12,7 @@ IOC.BindMonoClass(GamePanel_lua).FromNewPrefab(GamePanel_prefab).Sync()
 IOC.BindMonoClass(Player_lua).FromFactory(Player_prefab)
 IOC.BindMonoClass(Fly_lua).FromFactory(Fly_prefab)
 IOC.BindMonoClass(Enemy_lua).FromFactory(Enemy_prefab)
+IOC.BindMonoClass(Ball_lua).FromFactory(Ball_prefab)
 
 --Model
 IOC.BindClass(PlayerModel_lua).FromFactory()

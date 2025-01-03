@@ -36,7 +36,7 @@ function Player:GenerateFlys()
             parent = self.FlyContainer,
             player = self,
             enter = function(...)
-                self:OnOtherFlyEnter(...)
+                self:OnMyFlyAttackOther(...)
             end
         }, function(fly)
             table.insert(flys, fly)
@@ -49,7 +49,7 @@ end
 
 function Player:FlyOver()
     local everyAddEuler = 360 / self.data.flyCount
-    local distance = 1
+    local distance = self.data:GetFlyDistance()
 
     for i = 1, self.data.flyCount, 1 do
         local hudu = (i * everyAddEuler * math.pi) / 180
@@ -69,7 +69,7 @@ function Player:FixedUpdate()
     end
 end
 
-function Player:OnOtherFlyEnter(fly, other)
+function Player:OnMyFlyAttackOther(fly, other)
     --[[if other.tag == "Player" then
         self:OnFlyWithPlayerCollider(fly, other.player)
     end]]

@@ -31,15 +31,24 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 3, 1, 1);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 8, 3, 3);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "Init", _m_Init_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "Name", _m_Name_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "StartTimer", _m_StartTimer_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "DelayCall", _m_DelayCall_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "DelayFramesCall", _m_DelayFramesCall_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "FixTimeCall", _m_FixTimeCall_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "StopTask", _m_StopTask_xlua_st_);
             
 			
             
-			Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "tasks", _g_get_tasks);
+			Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "Instance", _g_get_Instance);
+            Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "tasks", _g_get_tasks);
+            Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "noNameTasks", _g_get_noNameTasks);
             
-			Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "tasks", _s_set_tasks);
+			Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "Instance", _s_set_Instance);
+            Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "tasks", _s_set_tasks);
+            Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "noNameTasks", _s_set_noNameTasks);
             
 			
 			Utils.EndClassRegister(type, L, translator);
@@ -99,6 +108,33 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_Name_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    string _name = LuaAPI.lua_tostring(L, 1);
+                    
+                        var gen_ret = MTG.Clock.Name( _name );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_StartTimer_xlua_st_(RealStatePtr L)
         {
 		    try {
@@ -127,8 +163,126 @@ namespace XLua.CSObjectWrap
             
         }
         
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DelayCall_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    float _delay = (float)LuaAPI.lua_tonumber(L, 1);
+                    System.Action _action = translator.GetDelegate<System.Action>(L, 2);
+                    
+                    MTG.Clock.DelayCall( _delay, _action );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DelayFramesCall_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    int _frameCount = LuaAPI.xlua_tointeger(L, 1);
+                    System.Action _action = translator.GetDelegate<System.Action>(L, 2);
+                    
+                    MTG.Clock.DelayFramesCall( _frameCount, _action );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_FixTimeCall_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    float _interval = (float)LuaAPI.lua_tonumber(L, 1);
+                    bool _fromNowOn = LuaAPI.lua_toboolean(L, 2);
+                    System.Action<int> _action = translator.GetDelegate<System.Action<int>>(L, 3);
+                    
+                    MTG.Clock.FixTimeCall( _interval, _fromNowOn, _action );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_StopTask_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    string _name = LuaAPI.lua_tostring(L, 1);
+                    
+                    MTG.Clock.StopTask( _name );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
         
         
+        
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_Instance(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    translator.Push(L, MTG.Clock.Instance);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _g_get_tasks(RealStatePtr L)
@@ -142,14 +296,52 @@ namespace XLua.CSObjectWrap
             return 1;
         }
         
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_noNameTasks(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    translator.Push(L, MTG.Clock.noNameTasks);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
         
+        
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_Instance(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    MTG.Clock.Instance = (MTG.Clock)translator.GetObject(L, 1, typeof(MTG.Clock));
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _s_set_tasks(RealStatePtr L)
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			    MTG.Clock.tasks = (System.Collections.Generic.List<MTG.Clock.Task>)translator.GetObject(L, 1, typeof(System.Collections.Generic.List<MTG.Clock.Task>));
+			    MTG.Clock.tasks = (System.Collections.Generic.Dictionary<string, MTG.Clock.Task>)translator.GetObject(L, 1, typeof(System.Collections.Generic.Dictionary<string, MTG.Clock.Task>));
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_noNameTasks(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    MTG.Clock.noNameTasks = (System.Collections.Generic.List<MTG.Clock.Task>)translator.GetObject(L, 1, typeof(System.Collections.Generic.List<MTG.Clock.Task>));
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);

@@ -69,7 +69,6 @@ function GameDataManager:GetBotsData()
         return IOC.Inject(PlayerModel_lua, {
             team = 1,
             pos = Vector3(0, 0, -1),
-            flyCount = 5,
             roleConfig = role,
             weaponConfig = weapon
         })

@@ -47,6 +47,22 @@ end
 --- 初始化游戏Panel
 function GameController:InitPanel()
     self.gamePanel = IOC.Inject(GamePanel_lua, FullScreenPanelContainor)
+
+    -- 每过几秒生成一个球.Name("CreateBall")
+    Clock.FixTimeCall(3, true, function(count)
+        print("asd")
+        IOC.Inject(Ball_lua, {
+            parent = self.gamePanel.BallContent,
+            color = CS.UnityEngine.Color.red,
+            clickFunc = function(ball)
+                self:OnBallClick(ball)
+            end
+        })
+    end)
+end
+
+function GameController:OnBallClick(ball)
+    Factory.Take(ball)
 end
 
 --- 初始化玩家
@@ -68,7 +84,16 @@ function GameController:StartWaveLoop()
         print("Game Over")
         return
     end
+
+    -- 生成enemy
     local enemyModels = GameDataManager:GetCurrentWaveEnemyModels()
+    --[[IOC.Inject(Enemy_lua, {
+        parent = Sprite3DContainor,
+        model = enemyModels[1]
+    }, function(enemy)
+        self:OnEnemyCreate(enemy, #enemyModels)
+    end)]]
+
     for i, v in ipairs(enemyModels) do
         IOC.Inject(Enemy_lua, {
             parent = Sprite3DContainor,
@@ -78,7 +103,6 @@ function GameController:StartWaveLoop()
         end)
     end
 
-    -- 生成enemy
     local timeToNext = GameDataManager:GetTimeToNext()
     Clock.StartTimer(timeToNext, 0, -1, function(t)
         self.time = t
@@ -90,7 +114,7 @@ function GameController:StartWaveLoop()
 end
 
 function GameController:CheckWaveOver()
-    
+
 end
 
 function GameController:OnEnemyCreate(enemy, enemyCount)

@@ -25,7 +25,8 @@ namespace MTG
         public static List<Type> CSharpCallLua = new List<Type>()
         {
             typeof(Action<float, float>),
-            typeof(Action<float>)
+            typeof(Action<float>),
+            typeof(Action<int>)
         };
 
     }

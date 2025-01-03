@@ -9,6 +9,7 @@ local RolesConfig =
 		skillInactive = nil,
 		skillActive = nil,
 		hp = 1000,
+		flyDistance = 2,
 	},
 	[2] =
 	{
@@ -17,6 +18,7 @@ local RolesConfig =
 		skillInactive = nil,
 		skillActive = nil,
 		hp = 1000,
+		flyDistance = 2,
 	},
 	[3] =
 	{
@@ -25,6 +27,7 @@ local RolesConfig =
 		skillInactive = nil,
 		skillActive = nil,
 		hp = 1000,
+		flyDistance = 2,
 	},
 	[4] =
 	{
@@ -33,6 +36,7 @@ local RolesConfig =
 		skillInactive = nil,
 		skillActive = nil,
 		hp = 1000,
+		flyDistance = 2,
 	},
 	[5] =
 	{
@@ -41,6 +45,7 @@ local RolesConfig =
 		skillInactive = nil,
 		skillActive = nil,
 		hp = 1000,
+		flyDistance = 2,
 	},
 }
 
