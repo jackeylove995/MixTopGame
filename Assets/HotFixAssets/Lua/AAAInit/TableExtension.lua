@@ -6,7 +6,7 @@ function table.Last(t)
     return t[#t]
 end
 
-function table.Remove(t, obj)
+function table.RemoveByObj(t, obj)
     for i, v in ipairs(t) do
 
     end

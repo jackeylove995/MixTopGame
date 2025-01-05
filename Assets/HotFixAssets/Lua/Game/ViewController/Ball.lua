@@ -15,9 +15,18 @@ function Ball:OnGetOrCreate(param)
         self.transform:SetParent(param.parent)
     end
     self.param = param
+    self.gameObject:SetActive(true)
     self.transform:SetParent(param.parent)
     self.transform:SetAsFirstSibling()
-    self.Icon.color = param.color
+    self.model = param.model
+    
+    if self.model.AttackIncrease ~=nil then
+        self.Icon.color = CS.UnityEngine.Color.red
+    elseif self.model.DefenceIncrease ~= nil then
+        self.Icon.color = CS.UnityEngine.Color.yellow
+    else
+        self.Icon.color = CS.UnityEngine.Color.blue
+    end
 end
 
 function Ball:OnClick()
@@ -25,7 +34,7 @@ function Ball:OnClick()
 end
 
 function Ball:OnRecycle()
-
+    self.gameObject:SetActive(false)
 end
 
 return Ball

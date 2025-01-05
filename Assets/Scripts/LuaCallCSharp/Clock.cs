@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 
 namespace MTG
 {
     public class Clock : MonoBehaviour
     {
-        public static Clock Instance;
-
+        private static Clock instance;
+        public static LuaTable Lua_Clock;
         public abstract class Task
         {
             public enum Status
@@ -69,20 +70,21 @@ namespace MTG
         public static List<Task> noNameTasks = new List<Task>();
 
         #region Init 初始化
-        public static void Init()
+        public static void Init(LuaTable clock)
         {
             GameObject go = new GameObject("Clock");
             DontDestroyOnLoad(go);
-            Instance = go.AddComponent<Clock>();
+            instance = go.AddComponent<Clock>();
+            Lua_Clock = clock;
         }
         #endregion
 
-        #region SetName 为任务设置名称
-        private static string taskNameTemp;
-        public static Clock Name(string name)
+        #region taskNameTemp 为任务设置名称
+        private static string taskNameTemp = string.Empty;
+        public static LuaTable Name(string name)
         {
             taskNameTemp = name;
-            return Instance;
+            return Lua_Clock;
         }
         #endregion
 
@@ -122,7 +124,7 @@ namespace MTG
         public static void StartTimer(float begin, float end, float interval, Action<float> eachInterCall)
         {
             TimerTask task = new TimerTask(begin, end, interval, eachInterCall);
-            task.coroutine = Instance.StartCoroutine(IETimer(task));
+            task.coroutine = instance.StartCoroutine(IETimer(task));
             AddTask(task);
         }
         static IEnumerator IETimer(TimerTask timerTask)
@@ -186,7 +188,7 @@ namespace MTG
             DelayTask task = new DelayTask();
             task.delay = delay;
             task.action = action;
-            task.coroutine = Instance.StartCoroutine(IEDelayCall(task));
+            task.coroutine = instance.StartCoroutine(IEDelayCall(task));
             AddTask(task);
         }
         static IEnumerator IEDelayCall(DelayTask delayTask)
@@ -197,10 +199,10 @@ namespace MTG
         }
         #endregion
 
-        #region DelayFrameCall 等待几帧执行函数
+        #region DelayFramesCall 等待几帧执行函数
         public static void DelayFramesCall(int frameCount, Action action)
         {
-            Instance.StartCoroutine(IEDelayFramesCall(frameCount, action));
+            instance.StartCoroutine(IEDelayFramesCall(frameCount, action));
         }
 
         static IEnumerator IEDelayFramesCall(int frameCount, Action action)
@@ -226,7 +228,7 @@ namespace MTG
             task.interval = interval;
             task.fromNowOn = fromNowOn;
             task.action = action;
-            task.coroutine = Instance.StartCoroutine(IEFixTimeCall(task));
+            task.coroutine = instance.StartCoroutine(IEFixTimeCall(task));
             AddTask(task);
         }
 
@@ -253,7 +255,7 @@ namespace MTG
         public static void StopTask(string name)
         {
             Task task = tasks[name];
-            Instance.StopCoroutine(task.coroutine);
+            instance.StopCoroutine(task.coroutine);
             tasks.Remove(name);
         }
 

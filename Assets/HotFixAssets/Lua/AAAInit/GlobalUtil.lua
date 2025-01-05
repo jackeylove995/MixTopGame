@@ -2,14 +2,9 @@
     author:author
     create:2024/12/5 21:11:38
     desc: 全局工具
-]]
-
---全局属性 
-
---[[LuaCallCSharp]]
-
---- 日志
-Debug =  CS.UnityEngine.Debug
+]] -- 全局属性 
+--[[LuaCallCSharp]] --- 日志
+Debug = CS.UnityEngine.Debug
 --- Dotween工具
 DOTweenUtil = CS.MTG.DOTweenUtil
 --- 资源加载器
@@ -31,4 +26,4 @@ Time = CS.UnityEngine.Time
 Quaternion = CS.UnityEngine.Quaternion
 ---钟表
 Clock = CS.MTG.Clock
-Clock.Init()
+Clock.Init(Clock)

@@ -19,6 +19,7 @@ IOC.BindClass(PlayerModel_lua).FromFactory()
 IOC.BindClass(LevelModel_lua).FromFactory()
 IOC.BindClass(WaveModel_lua).FromFactory()
 IOC.BindClass(EnemyModel_lua).FromFactory()
+IOC.BindClass(BallModel_lua).FromFactory()
 
 --Config
 IOC.BindInstanceByRequire(LevelConfig_Level_lua)
@@ -27,6 +28,7 @@ IOC.BindInstanceByRequire(LevelConfig_EnemyIncrease_lua)
 IOC.BindInstanceByRequire(EnemyConfig_lua)
 IOC.BindInstanceByRequire(RolesConfig_lua)
 IOC.BindInstanceByRequire(WeaponsConfig_lua)
+IOC.BindInstanceByRequire(BallsConfig_lua)
 
 IOC.BindStartMethod(function()
     IOC.Inject(LoginPanel_lua, FullScreenPanelContainor)

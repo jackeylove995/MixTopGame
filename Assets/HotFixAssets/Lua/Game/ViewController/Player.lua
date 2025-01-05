@@ -12,7 +12,6 @@ function Player:OnGetOrCreate(param)
     self.transform:SetParent(param.parent)
     self.data = param.data
     UnityUtil.SetLocalPosition(self.transform, self.data.pos)
-    self:GenerateFlys()
 end
 
 function Player:BeginMove() 
@@ -28,37 +27,29 @@ function Player:Move(x, y)
     UnityUtil.LocalMove(self.transform, x * self.data:GetMoveSpeed(), y * self.data:GetMoveSpeed())
 end
 
---- 生成飞行物
----@param count 数量
-function Player:GenerateFlys()
-    for i = 1, self.data.flyCount, 1 do
-        IOC.Inject(Fly_lua, {
-            parent = self.FlyContainer,
-            player = self,
-            enter = function(...)
-                self:OnMyFlyAttackOther(...)
-            end
-        }, function(fly)
-            table.insert(flys, fly)
-            if #flys == self.data.flyCount then
-                self:FlyOver()
-            end
-        end)
-    end  
+function Player:CreateFly()
+    IOC.Inject(Fly_lua, {
+        parent = self.FlyContainer,
+        player = self,
+        enter = PackFunction(self, self.OnMyFlyAttackOther)
+    }, PackFunction(self, self.flyEulerChange))
 end
 
-function Player:FlyOver()
-    local everyAddEuler = 360 / self.data.flyCount
+function Player:flyEulerChange(fly)
+    table.insert(flys, fly)
+    local flyCount = #flys
+    local everyAddEuler = 360 / flyCount
     local distance = self.data:GetFlyDistance()
-
-    for i = 1, self.data.flyCount, 1 do
+    canFly = false
+    self.FlyContainer.eulerAngles = Vector3.zero
+    for i = 1, flyCount, 1 do
         local hudu = (i * everyAddEuler * math.pi) / 180
         local x = math.sin(hudu) * distance
         local y = math.cos(hudu) * distance
         local fly = flys[i]
-        UnityUtil.SetPosition(fly.transform, x, y, FlyZDepth)
         -- 使物体的Y轴指向指定方向
         fly.transform.localRotation = Quaternion.Euler(0, 0, -i * everyAddEuler)
+        UnityUtil.SetLocalPosition(fly.transform, x, y, FlyZDepth)       
     end
     canFly = true
 end
@@ -100,13 +91,12 @@ function Player:OnFlyWithPlayerCollider(fly, otherPlayer)
 end
 
 function Player:OnFlyWithEnemyCollider(fly, enemy)
-    print("飞行物撞击敌人")
     enemy:BeAttack(fly)
 end
 
 function Player:DestroyFly(fly)
     Factory.Take(fly)
-    self.data.flyCount = self.data.flyCount - 1
+    table.RemoveByObj(fly)
 end
 
 return Player

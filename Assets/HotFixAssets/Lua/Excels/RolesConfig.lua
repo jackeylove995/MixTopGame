@@ -10,6 +10,7 @@ local RolesConfig =
 		skillActive = nil,
 		hp = 1000,
 		flyDistance = 2,
+		ballsId = "1-2-3",
 	},
 	[2] =
 	{
@@ -19,6 +20,7 @@ local RolesConfig =
 		skillActive = nil,
 		hp = 1000,
 		flyDistance = 2,
+		ballsId = "1-2-3",
 	},
 	[3] =
 	{
@@ -28,6 +30,7 @@ local RolesConfig =
 		skillActive = nil,
 		hp = 1000,
 		flyDistance = 2,
+		ballsId = "1-2-3",
 	},
 	[4] =
 	{
@@ -37,6 +40,7 @@ local RolesConfig =
 		skillActive = nil,
 		hp = 1000,
 		flyDistance = 2,
+		ballsId = "1-2-3",
 	},
 	[5] =
 	{
@@ -46,6 +50,7 @@ local RolesConfig =
 		skillActive = nil,
 		hp = 1000,
 		flyDistance = 2,
+		ballsId = "1-2-3",
 	},
 }
 

@@ -42,11 +42,11 @@ namespace XLua.CSObjectWrap
             
 			
             
-			Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "Instance", _g_get_Instance);
+			Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "Lua_Clock", _g_get_Lua_Clock);
             Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "tasks", _g_get_tasks);
             Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "noNameTasks", _g_get_noNameTasks);
             
-			Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "Instance", _s_set_Instance);
+			Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "Lua_Clock", _s_set_Lua_Clock);
             Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "tasks", _s_set_tasks);
             Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "noNameTasks", _s_set_noNameTasks);
             
@@ -89,12 +89,15 @@ namespace XLua.CSObjectWrap
         {
 		    try {
             
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
             
             
                 
                 {
+                    XLua.LuaTable _clock = (XLua.LuaTable)translator.GetObject(L, 1, typeof(XLua.LuaTable));
                     
-                    MTG.Clock.Init(  );
+                    MTG.Clock.Init( _clock );
                     
                     
                     
@@ -273,11 +276,11 @@ namespace XLua.CSObjectWrap
         
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_Instance(RealStatePtr L)
+        static int _g_get_Lua_Clock(RealStatePtr L)
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			    translator.Push(L, MTG.Clock.Instance);
+			    translator.Push(L, MTG.Clock.Lua_Clock);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
@@ -311,11 +314,11 @@ namespace XLua.CSObjectWrap
         
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _s_set_Instance(RealStatePtr L)
+        static int _s_set_Lua_Clock(RealStatePtr L)
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			    MTG.Clock.Instance = (MTG.Clock)translator.GetObject(L, 1, typeof(MTG.Clock));
+			    MTG.Clock.Lua_Clock = (XLua.LuaTable)translator.GetObject(L, 1, typeof(XLua.LuaTable));
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);

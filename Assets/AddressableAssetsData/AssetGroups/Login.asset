@@ -17,20 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 97c8c5da324064b43a1a1eef88d7dfc2
   m_SerializeEntries:
-  - m_GUID: 1c3f3228c5e7eab40bb568af6635e6ee
-    m_Address: Login/image.jpg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 4dcda54a005a93e4cb2e9ed2ed0d6c98
-    m_Address: Login/login_bg.jpg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 4238498776e7c2d409821598f7f09f0b
     m_Address: Login/LoginPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 3c613e840e4d01a428aa4de579c21bb9
-    m_Address: Login/bg3.jpg
+  - m_GUID: 1c3f3228c5e7eab40bb568af6635e6ee
+    m_Address: Login/login_bg.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

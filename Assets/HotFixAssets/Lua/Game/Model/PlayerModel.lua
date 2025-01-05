@@ -6,12 +6,25 @@ local PlayerModel = IOC.InjectClass(PlayerModel_lua)
 
 local moveSpeedExtra = 0.1
 local weaponSpeedExtra = 100
+
+local BallsConfig = IOC.Inject(BallsConfig_lua)
+
 function PlayerModel:OnGetOrCreate(param)
     self.team = param.team
     self.pos = param.pos
-    self.flyCount = param.flyCount
     self.roleConfig = param.roleConfig
     self.weaponConfig = param.weaponConfig
+    self:InitBallsModel()
+end
+
+function PlayerModel:InitBallsModel()
+    local balls = string.Split(self.roleConfig.ballsId, '-')
+    self.ballsModel = {}
+    for i, v in ipairs(balls) do
+        local ballConfig = BallsConfig[tonumber(v)]
+        local ballModel = IOC.Inject(BallModel_lua, {config = ballConfig})
+        table.insert(self.ballsModel, ballModel)
+    end
 end
 
 function PlayerModel:GetMoveSpeed()
@@ -28,6 +41,10 @@ end
 
 function PlayerModel:GetFlyDistance()
     return self.roleConfig.flyDistance
+end
+
+function PlayerModel:GetRandomBall()
+    return self.ballsModel[math.random(#self.ballsModel)]
 end
 
 return PlayerModel

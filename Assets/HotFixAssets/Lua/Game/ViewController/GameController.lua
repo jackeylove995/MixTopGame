@@ -14,9 +14,7 @@ function GameController:FixedUpdate()
 end
 
 function GameController:OpenGame()
-    MonoUtil.AddFixedUpdate("GameController", function()
-        self:FixedUpdate()
-    end)
+    MonoUtil.AddFixedUpdate("GameController", PackFunction(self, self.FixedUpdate))
     self:InitJoyStick()
     self:InitPanel()
     self:InitPlayer()
@@ -48,22 +46,13 @@ end
 function GameController:InitPanel()
     self.gamePanel = IOC.Inject(GamePanel_lua, FullScreenPanelContainor)
 
-    -- 每过几秒生成一个球.Name("CreateBall")
-    Clock.FixTimeCall(3, true, function(count)
-        print("asd")
-        IOC.Inject(Ball_lua, {
-            parent = self.gamePanel.BallContent,
-            color = CS.UnityEngine.Color.red,
-            clickFunc = function(ball)
-                self:OnBallClick(ball)
-            end
-        })
-    end)
 end
 
 function GameController:OnBallClick(ball)
     Factory.Take(ball)
+    self.mainPlayer:CreateFly()
 end
+
 
 --- 初始化玩家
 function GameController:InitPlayer()
@@ -74,8 +63,16 @@ function GameController:InitPlayer()
     }, function(mainPlayer)
         self.mainPlayer = mainPlayer
         FollowUtil.FollowTargetXY(TMainCamera, mainPlayer.transform)
+        -- 每过几秒生成一个球
+        Clock.Name("CreateBall").FixTimeCall(3, true, function(count)
+            local ballModel = self.mainPlayer.data:GetRandomBall()
+            IOC.Inject(Ball_lua, {
+                parent = self.gamePanel.BallContent,
+                model = ballModel,
+                clickFunc = PackFunction(self, self.OnBallClick)
+            })
+        end)
     end)
-
 end
 
 --- 开始关卡波次轮替
@@ -93,14 +90,12 @@ function GameController:StartWaveLoop()
     }, function(enemy)
         self:OnEnemyCreate(enemy, #enemyModels)
     end)]]
-
+    self.enemyCount = #enemyModels
     for i, v in ipairs(enemyModels) do
         IOC.Inject(Enemy_lua, {
             parent = Sprite3DContainor,
             model = v
-        }, function(enemy)
-            self:OnEnemyCreate(enemy, #enemyModels)
-        end)
+        }, PackFunction(self, self.OnEnemyCreate))
     end
 
     local timeToNext = GameDataManager:GetTimeToNext()
@@ -117,10 +112,10 @@ function GameController:CheckWaveOver()
 
 end
 
-function GameController:OnEnemyCreate(enemy, enemyCount)
+function GameController:OnEnemyCreate(enemy)
     self.enemys = self.enemys or {}
     table.insert(self.enemys, enemy)
-    if #self.enemys == enemyCount then
+    if #self.enemys == self.enemyCount then
         Log("all enemy created")
     end
 end

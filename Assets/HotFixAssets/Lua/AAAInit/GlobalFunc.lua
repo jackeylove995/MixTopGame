@@ -43,8 +43,16 @@ function Log(mes)
     Debug.Log("LUA:" .. mes)
 end
 
+function LogFormat(mes, ...)
+    Debug.Log("LUA:" .. string.format(mes, ...))
+end
+
 function print(mes)
     Debug.Log("LUA:" .. mes)
+end
+
+function printFormat(mes, ...)
+    Debug.Log("LUA:" .. string.format(mes, ...))
 end
 
 function LogError(mes)
@@ -53,4 +61,56 @@ end
 
 function LogTable(table, tableName)
     print(table.ToString(table, tableName))
+end
+
+--- 函数
+---@param table 哪个table
+---@param func table的方法
+function PackFunction(table, func)
+    local af = function(...)
+        func(table, ...)
+    end
+    return af
+end
+
+--- obj is number check is nil or obj == 0
+--- obj is string check is nil or obj == ""
+--- obj is table  check is nil or #obj == 0
+---@param obj 传入对象
+function IsNilOrEmpty(obj)
+    if obj == nil then
+        return true
+    end
+
+    local type = type(obj)
+    if type == "number" then
+        return obj == 0
+    elseif type == "string" then
+        return obj == ""
+    elseif type == "table" then
+        return #obj == 0 
+    else
+        LogError("判断了一个没定义的类型，请添加此类型 ：" .. type)
+    end
+end
+
+--- obj is number check is not nil and obj ~= 0
+--- obj is string check is not nil and obj ~= ""
+--- obj is table  check is not nil and #obj ~= 0
+---@param obj 传入对象
+function IsNotEmpty(obj)
+    if obj == nil then
+        return false
+    end
+
+    local type = type(obj)
+    if type == "number" then
+        return obj ~= 0
+    elseif type == "string" then
+        return obj ~= ""
+    elseif type == "table" then
+        return #obj ~= 0 
+    else
+        LogError("判断了一个没定义的类型，请添加此类型 ：" .. type)
+    end
 end
