@@ -10,7 +10,7 @@ function Ball:Start()
     end)
 end
 
-function Ball:OnGetOrCreate(param)
+function Ball:OnGet(param)
     if not self.hasSetParent then
         self.transform:SetParent(param.parent)
     end

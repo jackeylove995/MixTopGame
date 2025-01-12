@@ -46,7 +46,7 @@ function Factory.GetSync(keyInFactory, param)
     factoryLine.inUse[factoryLine.pKey] = obj
     obj.pKeyInFactory = factoryLine.pKey
     obj.keyInFactory = keyInFactory
-    obj:OnGetOrCreate(param)
+    obj:OnGet(param)
     return obj
 end
 
@@ -62,7 +62,7 @@ function Factory.GetAsync(keyInFactory, param, onCreate)
         factoryLine.inUse[factoryLine.pKey] = obj
         obj.pKeyInFactory = factoryLine.pKey
         obj.keyInFactory = keyInFactory
-        obj:OnGetOrCreate(param)
+        obj:OnGet(param)
         SafeInvoke(onCreate, obj)
     else
         factoryLine.getter(function(obj)
@@ -70,7 +70,7 @@ function Factory.GetAsync(keyInFactory, param, onCreate)
             factoryLine.inUse[factoryLine.pKey] = obj
             obj.pKeyInFactory = factoryLine.pKey
             obj.keyInFactory = keyInFactory          
-            obj:OnGetOrCreate(param)
+            obj:OnGet(param)
             SafeInvoke(onCreate, obj)
         end)
     end

@@ -5,7 +5,7 @@
 ---@class BallModel
 local BallModel = IOC.InjectClass(BallModel_lua)
 
-function BallModel:OnGetOrCreate(param)
+function BallModel:OnGet(param)
     local config = param.config
     self.config = config
     self.Type = config.type

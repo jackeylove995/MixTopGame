@@ -8,7 +8,7 @@ Player.tag = "Player"
 local flys = {}
 local canFly
 
-function Player:OnGetOrCreate(param)
+function Player:OnGet(param)
     self.transform:SetParent(param.parent)
     self.data = param.data
     UnityUtil.SetLocalPosition(self.transform, self.data.pos)

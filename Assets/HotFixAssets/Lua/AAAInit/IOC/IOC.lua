@@ -5,7 +5,7 @@
 ---@class IOC
 IOC = {}
 
-IOC.Containor = {}
+IOC.Containors = {}
 
 --[[
 bindItem:
@@ -210,10 +210,10 @@ end
 --- 异步：第一个参数为父物体，第二个参数传入带lua脚本的回调
 ---
 --- FromFactory
---- 同步：可变参数为单个对象param(推荐使用table格式)，param会传递到生成lua的OnGetOrCreate方法中
+--- 同步：可变参数为单个对象param(推荐使用table格式)，param会传递到生成lua的OnGet方法中
 --- 返回lua脚本
 ---
---- 异步：可变参数第一个为param，param会传递到生成lua的OnGetOrCreate方法中,
+--- 异步：可变参数第一个为param，param会传递到生成lua的OnGet方法中,
 --- 第二个为带lua脚本的回调
 --- 
 ---@param key 通过BindXXX()方法绑定的key

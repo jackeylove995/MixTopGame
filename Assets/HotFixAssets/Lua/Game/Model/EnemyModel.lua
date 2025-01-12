@@ -5,7 +5,7 @@
 ---@class EnemyModel
 local EnemyModel = IOC.InjectClass(EnemyModel_lua)
 local moveSpeedExtra = 0.1
-function EnemyModel:OnGetOrCreate(param)
+function EnemyModel:OnGet(param)
     self.config = param.config
     self.increaseConfig = param.increaseConfig
     self.pos = param.pos

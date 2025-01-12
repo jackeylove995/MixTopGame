@@ -9,7 +9,7 @@ local weaponSpeedExtra = 100
 
 local BallsConfig = IOC.Inject(BallsConfig_lua)
 
-function PlayerModel:OnGetOrCreate(param)
+function PlayerModel:OnGet(param)
     self.team = param.team
     self.pos = param.pos
     self.roleConfig = param.roleConfig

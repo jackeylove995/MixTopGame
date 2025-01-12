@@ -5,7 +5,7 @@
 --- Fly
 local Fly = IOC.InjectClass(Fly_lua)
 
-function Fly:OnGetOrCreate(param)
+function Fly:OnGet(param)
     self.transform:SetParent(param.parent)
     self.gameObject:SetActive(true)
     self.player = param.player

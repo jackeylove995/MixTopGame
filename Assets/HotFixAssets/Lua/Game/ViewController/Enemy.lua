@@ -9,7 +9,7 @@ Enemy.tag = "Enemy"
 local flys = {}
 local canFly
 
-function Enemy:OnGetOrCreate(param)
+function Enemy:OnGet(param)
     self.gameObject:SetActive(true)
     self.transform:SetParent(param.parent)
     self.data = param.model

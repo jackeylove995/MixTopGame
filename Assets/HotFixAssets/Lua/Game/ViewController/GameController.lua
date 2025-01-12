@@ -101,7 +101,7 @@ function GameController:StartWaveLoop()
     local timeToNext = GameDataManager:GetTimeToNext()
     Clock.StartTimer(timeToNext, 0, -1, function(t)
         self.time = t
-        self.gamePanel:SetTime(tostring(t))
+        self.gamePanel:SetTime("距离下一波次还有"..tostring(t).."秒")
         if self.time and self.time == 0 then
             self:StartWaveLoop()
         end
