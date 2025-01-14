@@ -4,7 +4,7 @@
 
 --- Lua启动时，也是整个游戏正式开始时
 local function OnLuaStart()
-    IOC.LoadInstaller(GameInstaller_lua)
+    IOC.LoadContainorWithScope(GameContainor_lua)
 end
 
 

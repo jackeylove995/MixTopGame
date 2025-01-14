@@ -1,12 +1,6 @@
 --- author:author
 --- create:2024/12/11 15:43:13
 --- desc: 依赖注入（DI：Dependency Injection）
-   
----@class IOC
-IOC = {}
-
-IOC.Containors = {}
-
 --[[
 bindItem:
     classAddress    绑定类address
@@ -16,8 +10,109 @@ bindItem:
     getType         获取方式
     async
     sync
-]]
+]] --
+---@class IOC
+IOC = {}
+IOC.Containors = {}
 
+function IOC.NewContainorBuilderWithAddress(address)
+    local name = GetClassNameByAddress(address)
+
+    local containor = 
+    {
+        name = name,        --containor name
+        address = address,  --containor address
+        content = {},       --containor bindItems
+        start = nil,        --containor start func
+        init = false        --containor has init or not
+    }
+
+    local containorBuilder = require(ContainorBuilder_lua)
+    containorBuilder.SetContainoCorReference(containor)
+
+    return containorBuilder
+end
+
+function IOC.AddContainor(containor)
+    IOC.Containors[containor.name] = containor
+end
+
+function IOC.GetOrCreateContainorByAddress(address)
+    local name = GetClassNameByAddress(address)
+    if IOC.Containors[name] == nil then
+        require(address)
+    end
+    return IOC.Containors[name]
+end
+
+function IOC.LoadContainorWithScope(address)
+    local containor = IOC.GetOrCreateContainorByAddress(address)
+    if containor == nil then
+        LogError("The containor you load can not find, addresss is " .. address)
+        return
+    end
+
+    IOC.Containor = containor
+    
+    if not containor.init then
+        containor.init = true
+        IOC.InitGetters(containor)
+    end
+    
+    if containor.start then
+        containor.start()
+    else
+        LogError(
+            "Containor must have BindStartByMethod, which is the start action of the scope! The containor address:" ..
+            containor.address)
+    end
+end
+
+function IOC.InjectClass(classAddress)
+    local bindItem = IOC.Containor.content[classAddress]
+    if bindItem.getType == IOC.FromType.FromFactory then
+        if bindItem.implement then
+            return Class(bindItem.className, bindItem.implement, IFactory_lua)
+        else
+            return Class(bindItem.className, IFactory_lua)
+        end
+    end
+    return Class(bindItem.className, bindItem.implement)
+end
+
+--- 注入
+---
+--- FromInstance
+--- 可变参数为空，返回Instance
+---
+--- FromNewPrefab
+--- 同步：参数为父物体，返回lua脚本
+--- 异步：第一个参数为父物体，第二个参数传入带lua脚本的回调
+---
+--- FromFactory
+--- 同步：可变参数为单个对象param(推荐使用table格式)，param会传递到生成lua的OnGet方法中
+--- 返回lua脚本
+---
+--- 异步：可变参数第一个为param，param会传递到生成lua的OnGet方法中,
+--- 第二个为带lua脚本的回调
+--- 
+---@param key 通过BindXXX()方法绑定的key
+function IOC.Inject(key, ...)
+    local bindItem = IOC.Containor.content[key]
+    if bindItem.getter then
+        if type(bindItem.getter) == "function" then
+            return bindItem.getter(...)
+        else
+            return bindItem.getter
+        end
+    else
+        -- 最低优先级，什么都没From，只有classAddress，那么new一个Class
+        return new(bindItem.classAddress, ...)
+    end
+end
+
+
+--@region set getter
 IOC.FromType = {
     FromInstance = 1,
     FromNewPrefab = 2,
@@ -35,98 +130,6 @@ IOC.TypeGetter = {
         IOC.FactoryGetter(...)
     end
 }
-
---- 通用绑定方法
----@param key 绑定的key
----@param getter 方式，function或常量都可以传
-function IOC.Bind(key, getter)
-    local bindItem = {}
-    bindItem.getter = getter
-    IOC.Containor[key] = bindItem
-end
-
---- 绑定Class到Containor
----@param classAddress 绑定classAddress
----@param . 继承类, 可传入多个参数实现多重继承
-function IOC.BindClass(classAddress, ...)
-    IOC.lockClassAddressKey = classAddress
-    local bindItem = {}
-    bindItem.classAddress = classAddress
-    bindItem.className = GetClassNameByAddress(classAddress)
-    bindItem.implement = ...
-    IOC.Containor[classAddress] = bindItem
-    return IOC
-end
-
---- 绑定Class到Containor, 自动继承Mono
----@param key 绑定的classAddress
-function IOC.BindMonoClass(classAddress)
-    IOC.lockClassAddressKey = classAddress
-    local bindItem = {}
-    bindItem.classAddress = classAddress
-    bindItem.className = GetClassNameByAddress(classAddress)
-    bindItem.implement = MonoBehaviour_lua
-    IOC.Containor[classAddress] = bindItem
-    return IOC
-end
-
---- 通过Require绑定lua为一个Instance，通常为一个table
----@param addressKey any
-function IOC.BindInstanceByRequire(addressKey)
-    local bindItem = {}
-    bindItem.getter = function()
-        if bindItem.instance == nil then
-            bindItem.instance = require(addressKey)
-        end
-        return bindItem.instance
-    end
-    IOC.Containor[addressKey] = bindItem
-end
-
---- Inject时总获取绑定的唯一对象
-function IOC.FromInstance()
-    local bindItem = IOC.Containor[IOC.lockClassAddressKey]
-    bindItem.getType = IOC.FromType.FromInstance
-    return IOC
-end
-
---- Inject时从新的Prefab身上获取luaScript
----@param prefabAddress 初始化的预制体
-function IOC.FromNewPrefab(prefabAddress)
-    local bindItem = IOC.Containor[IOC.lockClassAddressKey]
-    bindItem.getType = IOC.FromType.FromNewPrefab
-    bindItem.prefabAddress = prefabAddress
-    return IOC
-end
-
-
---- Inject时从工厂生成的Prefab获取luaScript, 默认为异步操作
----@param prefabAddress 预制体
-function IOC.FromFactory(prefabAddress)
-    local bindItem = IOC.Containor[IOC.lockClassAddressKey]
-    bindItem.getType = IOC.FromType.FromFactory
-    bindItem.prefabAddress = prefabAddress
-    return IOC
-end
-
---- 加载prefab过程标记为同步
-function IOC.Sync()
-    IOC.Containor[IOC.lockClassAddressKey].sync = true
-end
-
---- 加载prefab过程标记为异步
-function IOC.Async()
-    IOC.Containor[IOC.lockClassAddressKey].async = true
-end
-
-function IOC.InitGetters()
-    for k, v in pairs(IOC.Containor) do
-        if IOC.TypeGetter[v.getType] then
-            IOC.TypeGetter[v.getType](v)
-        end
-    end
-end
-
 function IOC.InstanceGetter(bindItem)
     bindItem.getter = function()
         if bindItem.instance == nil then
@@ -151,7 +154,7 @@ end
 function IOC.FactoryGetter(bindItem)
     -- 没绑定Class, 工厂内不可以加入不带脚本的流水线
     if bindItem.classAddress == nil then
-        LogError("Factory item must be a lua table, which item is " .. IOC.lockClassAddressKey)
+        LogError("Factory item must be a lua table, which item is " .. ContainorBuilder.lockClassAddressKey)
         return
     end
 
@@ -188,68 +191,13 @@ function IOC.FactoryGetter(bindItem)
     end
 end
 
-function IOC.InjectClass(classAddress)
-    local bindItem = IOC.Containor[classAddress]
-    if bindItem.getType == IOC.FromType.FromFactory then
-        if bindItem.implement then
-            return Class(bindItem.className, bindItem.implement, IFactory_lua)
-        else
-            return Class(bindItem.className, IFactory_lua)
+function IOC.InitGetters(containor)
+    for k, v in pairs(containor.content) do
+        if IOC.TypeGetter[v.getType] then
+            IOC.TypeGetter[v.getType](v)
         end
     end
-    return Class(bindItem.className, bindItem.implement)
 end
-
---- 注入
----
---- FromInstance
---- 可变参数为空，返回Instance
----
---- FromNewPrefab
---- 同步：参数为父物体，返回lua脚本
---- 异步：第一个参数为父物体，第二个参数传入带lua脚本的回调
----
---- FromFactory
---- 同步：可变参数为单个对象param(推荐使用table格式)，param会传递到生成lua的OnGet方法中
---- 返回lua脚本
----
---- 异步：可变参数第一个为param，param会传递到生成lua的OnGet方法中,
---- 第二个为带lua脚本的回调
---- 
----@param key 通过BindXXX()方法绑定的key
-function IOC.Inject(key, ...)
-    local bindItem = IOC.Containor[key]
-    if bindItem.getter then
-        if type(bindItem.getter) == "function" then
-            return bindItem.getter(...)
-        else
-            return bindItem.getter
-        end
-    else
-        -- 最低优先级，什么都没From，只有classAddress，那么new一个Class
-        return new(bindItem.classAddress, ...)
-    end
-end
-
-function IOC.BindStartMethod(startAction)
-    IOC.Start = startAction
-end
-
-function IOC.LoadInstaller(address)
-    IOC.Start = nil
-    IOC.Containor = {}
-    require(address)
-    -- 调用完释放lockClassAddressKey
-    IOC.lockClassAddressKey = nil
-    IOC.InitGetters()
-
-    if IOC.Start then
-        IOC.Start()
-    else
-        LogError(
-            "Installer must have BindStartByMethod, which is the start action of the scope! The installer address:" ..
-                address)
-    end
-end
+--@endregion
 
 return IOC

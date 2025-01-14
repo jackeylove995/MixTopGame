@@ -15,8 +15,16 @@ MonoBehaviour:
   m_GroupName: Bar
   m_Data:
     m_SerializedData: []
-  m_GUID: 3c715e0b3c33c8c4abc95dc25f07559a
-  m_SerializeEntries: []
+  m_GUID: 30b56976c02db7a42aae96defbdedb03
+  m_SerializeEntries:
+  - m_GUID: 54af60d343d3e3b458ad7e97dd60dd04
+    m_Address: Bar/Art/Heart.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 60cfd84ae231a4943b3f0f6cf0dcf409
+    m_Address: Bar/Art/Blue gradient.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

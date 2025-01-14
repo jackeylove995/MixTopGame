@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 3a9092918d290e74ba75c447b809ee92
   m_SerializeEntries:
   - m_GUID: 3cf36fc9b31bde44b8dfba43d0740e41
-    m_Address: Lua/AAAInit/StringExtension.lua
+    m_Address: Lua/AAAInit/LuaBaseTypeExtension/StringExtension.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -28,22 +28,22 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: cf4e82dde74b5aa418c60a019fd4b236
-    m_Address: Lua/AAAInit/GlobalUtil.lua
+    m_Address: Lua/AAAInit/Global/GlobalUtil.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: a0443e3e153b58b448c0d1ff9a5632b5
-    m_Address: Lua/AAAInit/Class.lua
+    m_Address: Lua/AAAInit/CSLike/Class.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: cdf1bc5eaab9a594785d0d309312a8c9
-    m_Address: Lua/AAAInit/GlobalFunc.lua
+    m_Address: Lua/AAAInit/Global/GlobalFunc.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 5c99506e8647f054588ef16d27057d27
-    m_Address: Lua/AAAInit/TableExtension.lua
+    m_Address: Lua/AAAInit/LuaBaseTypeExtension/TableExtension.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -88,27 +88,22 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: 8d1ca184458aac14fb25bd813a346c59
-    m_Address: Lua/AAAInit/MonoBehaviour.lua
+    m_Address: Lua/AAAInit/CSLike/MonoBehaviour.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: a74035515d738ee478c2899de3a43091
-    m_Address: Lua/AAAInit/GlobalParams.lua
+    m_Address: Lua/AAAInit/Global/GlobalParams.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: cf901e1b0a30f9f4086947fb5e1ad1cb
-    m_Address: Lua/AAAInit/IOC.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: 6a9423ebb2ac3f04890a287754b7d690
-    m_Address: Lua/Installers/GameInstaller.lua
+    m_Address: Lua/AAAInit/IOC/IOC.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 74ef50cb084c52e49b48c276636b9d1a
-    m_Address: Lua/AAAInit/Factory.lua
+    m_Address: Lua/AAAInit/Factory/Factory.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -123,7 +118,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: b6fd765e5acaa3149a69cc4103a64121
-    m_Address: Lua/AAAInit/IFactory.lua
+    m_Address: Lua/AAAInit/Factory/IFactory.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -189,6 +184,21 @@ MonoBehaviour:
     - lua
   - m_GUID: 5a60ad2846f200a45b8a89a0c1004145
     m_Address: Lua/Game/Model/BallModel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: d3e839e294c1cd3409a801c2dd9a692c
+    m_Address: Lua/Bar/BarModel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 2c3a54ddd09b6ca45bc0a5184b3d10fe
+    m_Address: Lua/Bar/Bar.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: eb863c28c8d23444bbff0a740bc9fb55
+    m_Address: Lua/AAAInit/IOC/Containor.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
