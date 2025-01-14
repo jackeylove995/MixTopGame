@@ -1,37 +1,11 @@
 --- author:author
 --- create:2024/12/11 15:43:13
 --- desc: 依赖注入（DI：Dependency Injection）
---[[
-bindItem:
-    classAddress    绑定类address
-    className       类名
-    implement       继承的类
-    getter          获取方式,除非是常量，否则使用function 返回值，因为如果使用new直接赋值会调用里面的Inject方法
-    getType         获取方式
-    async
-    sync
-]] --
+
 ---@class IOC
 IOC = {}
 IOC.Containors = {}
-
-function IOC.NewContainorBuilderWithAddress(address)
-    local name = GetClassNameByAddress(address)
-
-    local containor = 
-    {
-        name = name,        --containor name
-        address = address,  --containor address
-        content = {},       --containor bindItems
-        start = nil,        --containor start func
-        init = false        --containor has init or not
-    }
-
-    local containorBuilder = require(ContainorBuilder_lua)
-    containorBuilder.SetContainoCorReference(containor)
-
-    return containorBuilder
-end
+require(ContainorBuilder_lua)
 
 function IOC.AddContainor(containor)
     IOC.Containors[containor.name] = containor
@@ -40,25 +14,19 @@ end
 function IOC.GetOrCreateContainorByAddress(address)
     local name = GetClassNameByAddress(address)
     if IOC.Containors[name] == nil then
-        require(address)
+        require(address)  
+        if IOC.Containors[name] == nil then
+            LogError("The containor you get can not find, addresss is " .. address)
+            return
+        end
+        IOC.InitGetters(IOC.Containors[name])
     end
     return IOC.Containors[name]
 end
 
 function IOC.LoadContainorWithScope(address)
     local containor = IOC.GetOrCreateContainorByAddress(address)
-    if containor == nil then
-        LogError("The containor you load can not find, addresss is " .. address)
-        return
-    end
-
-    IOC.Containor = containor
-    
-    if not containor.init then
-        containor.init = true
-        IOC.InitGetters(containor)
-    end
-    
+    IOC.NowScopeContainor = containor
     if containor.start then
         containor.start()
     else
@@ -69,7 +37,7 @@ function IOC.LoadContainorWithScope(address)
 end
 
 function IOC.InjectClass(classAddress)
-    local bindItem = IOC.Containor.content[classAddress]
+    local bindItem = IOC.GetItemFromNowScope(classAddress)
     if bindItem.getType == IOC.FromType.FromFactory then
         if bindItem.implement then
             return Class(bindItem.className, bindItem.implement, IFactory_lua)
@@ -98,7 +66,7 @@ end
 --- 
 ---@param key 通过BindXXX()方法绑定的key
 function IOC.Inject(key, ...)
-    local bindItem = IOC.Containor.content[key]
+    local bindItem = IOC.GetItemFromNowScope(key)
     if bindItem.getter then
         if type(bindItem.getter) == "function" then
             return bindItem.getter(...)
@@ -111,6 +79,20 @@ function IOC.Inject(key, ...)
     end
 end
 
+--- 从当前范围获取item
+function IOC.GetItemFromNowScope(addressKey)
+    local bindItem = IOC.NowScopeContainor.content[addressKey]
+    if bindItem == nil then
+        for containorName, containorAddress in pairs(IOC.NowScopeContainor.otherContainorReferences) do
+            local containor = IOC.GetOrCreateContainorByAddress(containorAddress)
+            bindItem = containor.content[addressKey]
+            if bindItem then
+                return bindItem
+            end
+        end
+    end
+    return bindItem
+end
 
 --@region set getter
 IOC.FromType = {
@@ -152,12 +134,13 @@ function IOC.NewPrefabGetter(bindItem)
 end
 
 function IOC.FactoryGetter(bindItem)
-    -- 没绑定Class, 工厂内不可以加入不带脚本的流水线
+    -- 没绑定Class, 工厂内不可以加入不是Class的流水线
     if bindItem.classAddress == nil then
-        LogError("Factory item must be a lua table, which item is " .. ContainorBuilder.lockClassAddressKey)
+        LogError("Factory item must be a lua table, which item is " .. bindItem.classAddress)
         return
     end
 
+    --是预制体获取的class
     if bindItem.prefabAddress then
         if bindItem.sync then
             -- 添加流水线的getter从GameObject获取新script

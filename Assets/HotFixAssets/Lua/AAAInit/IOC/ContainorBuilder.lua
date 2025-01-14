@@ -1,11 +1,41 @@
 --- author:author
 --- create:2025/1/12 21:20:18
 --- desc: 
+--[[
+    containor = 
+    {
+        name = name,                    --containor name
+        address = address,              --containor address
+        content = {},                   --containor bindItems in content, bindItem struct is below
+        otherContainorReferences = {},  --other containors ref
+        start = nil                    --containor start func
+    }
 
+    bindItem =
+    {
+        classAddress = str,         --绑定类address
+        className = str,            --类名
+        implement = str,            --继承的类
+        getter = func,              --获取方式,除非是常量，否则使用function 返回值，因为如果使用new直接赋值会调用里面的Inject方法
+        getType = type,             --获取方式
+        async = true,
+        sync = false
+    } 
+]] --
 ---@class ContainorBuilder
-local ContainorBuilder = {}
+ContainorBuilder = {}
 
-function ContainorBuilder.SetContainoCorReference(containor)
+function ContainorBuilder.NewContainorWithAddress(address)
+    local name = GetClassNameByAddress(address)
+
+    local containor = 
+    {
+        name = name, 
+        address = address, 
+        content = {}, 
+        otherContainorReferences = {}, 
+        start = nil
+    }
     ContainorBuilder.containor = containor
 end
 
@@ -91,13 +121,20 @@ function ContainorBuilder.Async()
     ContainorBuilder.containor.content[ContainorBuilder.lockClassAddressKey].async = true
 end
 
+--- 如果自己的containor找不到，从其他containor的content获取item
+function ContainorBuilder.BindItemsFromOtherContainorContent(containorAddress)
+    local name = GetClassNameByAddress(containorAddress)
+    ContainorBuilder.containor.otherContainorReferences[name] = containorAddress
+end
+
 function ContainorBuilder.BindStartMethod(startAction)
     ContainorBuilder.containor.start = startAction
 end
 
 function ContainorBuilder.Build()
     IOC.AddContainor(ContainorBuilder.containor)
-    ContainorBuilder = nil
+    ContainorBuilder.lockClassAddressKey = nil
+    ContainorBuilder.containor = nil
 end
 
 return ContainorBuilder

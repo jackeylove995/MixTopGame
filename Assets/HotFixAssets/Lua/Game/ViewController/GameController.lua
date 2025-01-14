@@ -84,12 +84,6 @@ function GameController:StartWaveLoop()
 
     -- 生成enemy
     local enemyModels = GameDataManager:GetCurrentWaveEnemyModels()
-    --[[IOC.Inject(Enemy_lua, {
-        parent = Sprite3DContainor,
-        model = enemyModels[1]
-    }, function(enemy)
-        self:OnEnemyCreate(enemy, #enemyModels)
-    end)]]
     self.enemyCount = #enemyModels
     for i, v in ipairs(enemyModels) do
         IOC.Inject(Enemy_lua, {
