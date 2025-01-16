@@ -20,8 +20,21 @@ function RoleModel:InitPrivateProperties(param)
     self.weaponConfig = param.weaponConfig
     self.increaseConfig = param.increaseConfig
     self.configMoveSpeed = self.roleConfig.moveSpeed * moveSpeedExtra * (self.increaseConfig and self.increaseConfig.moveSpeedIncrease or 1)
-    self.configWeaponSpeed = self.roleConfig.weaponSpeed * weaponSpeedExtra * (self.increaseConfig and self.increaseConfig.weaponSpeedIncrease or 1)
-    self.configAttack = self.weaponConfig.attack * (self.increaseConfig and self.increaseConfig.attackIncrease or 1)
+    --如果角色武器速度为nil(没配)，那么为0
+    if IsNilOrEmpty(self.roleConfig.weaponSpeed) then
+        self.configWeaponSpeed = 0
+    else
+        --角色武器速度 = 角色武器速度 * 增益百分比
+        self.configWeaponSpeed = self.roleConfig.weaponSpeed * weaponSpeedExtra * (self.increaseConfig and self.increaseConfig.weaponSpeedIncrease or 1)
+    end
+    
+    --如果武器配置为nil，那么为角色基础攻击
+    if IsNilOrEmpty(self.weaponConfig) then
+        self.configAttack = self.roleConfig.attack 
+    else
+        --角色攻击力 = （角色基础攻击 + 角色武器攻击）* 增益百分比
+        self.configAttack = (self.roleConfig.attack + self.weaponConfig.attack) * (self.increaseConfig and self.increaseConfig.attackIncrease or 1)
+    end
 end
 
 function RoleModel:InitPublicProperties(param)

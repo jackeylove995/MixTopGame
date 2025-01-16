@@ -8,7 +8,7 @@ local GameDataManager = IOC.Inject(GameDataManager_lua)
 function GameController:FixedUpdate()
     if self.enemys and self.mainPlayer then
         for i, v in ipairs(self.enemys) do
-            v:MoveToPosition(self.mainPlayer.position)
+            v:MoveToPosition(self.mainPlayer.transform.position)
         end
     end
 end

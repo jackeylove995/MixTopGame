@@ -23,13 +23,14 @@ function Role:OnGet(param)
     self:UpdateAnimation()
 end
 
---@region init animation
+-- @region init animation
 function Role:UpdateAnimation()
     local fa = self.FrameAnimation
+    fa.gameObject:SetActive(false)
     fa:ClearAllAnimation()
     fa.transform:LocalPosition(0, self.model.AnimLocalPosY, 0)
     fa.transform:Scale(self.model.BaseAnimScale, self.model.BaseAnimScale, 1)
-    AssetLoader.LoadSpriteAtlasAsync(string.format(SpriteAtlasFormat, self.mode.RoleId),
+    AssetLoader.LoadSpriteAtlasAsync(string.format(SpriteAtlasFormat, self.model.RoleId),
         PackFunction(self, self.OnAnimSpritesLoad))
 end
 
@@ -52,6 +53,7 @@ function Role:OnAnimSpritesLoad(spriteAltas)
         self.FrameAnimation:AddAnimation(k, v)
     end
 
+    self.FrameAnimation.gameObject:SetActive(true)
     self.animReadyToPlay = true
 end
 
@@ -67,15 +69,15 @@ function Role:PlayAnim(animName, once)
 end
 -- @endregion
 
---@region mono
+-- @region mono
 function Role:FixedUpdate()
     if IsNotEmpty(self.flys) then
         self.FlyContainer:Rotate(0, 0, Time.fixedDeltaTime * self.model:GetWeaponSpeed())
     end
 end
---@endregion
+-- @endregion
 
---@region move by speed
+-- @region move by speed
 function Role:Direction(x, y)
     if x == 0 and y == 0 then
         self:PlayAnim("idle")
@@ -84,7 +86,7 @@ function Role:Direction(x, y)
 
     self:PlayAnim("run")
     self.FrameAnimation.transform:Euler(0, x > 0 and 0 or 180, 0)
-    self.transform:LocalMove(x * self.model:GetMoveSpeed(), y * self.model:GetMoveSpeed())
+    self.transform:LocalMove(x * self.model:GetMoveSpeed(), y * self.model:GetMoveSpeed(), 0)
 end
 
 function Role:MoveToPosition(v3)
@@ -103,9 +105,9 @@ function Role:MoveToPosition(v3)
     self.transform:WorldMove(moveLength)
     self.FrameAnimation.transform:Euler(0, moveLength.x > 0 and 0 or 180, 0)
 end
---@endregion
+-- @endregion
 
---@region fly control
+-- @region fly control
 function Role:CreateFly()
     self.flys = self.flys or {}
     IOC.Inject(Fly_lua, {
@@ -137,20 +139,20 @@ function Role:GetTeamId()
 end
 
 function Role:OnMyFlyAttackOther(myFly, other)
-    if other:GetTeamId() ~= self:GetTeamId()  then
+    if other:GetTeamId() ~= self:GetTeamId() then
         self:OnFlyWithOtherRole(myFly, other)
     end
 end
 
 function Role:OnFlyWithOtherRole(myFly, role)
-    role:BeAttack(myFly)
+    role:BeAttack(self.model:GetAttack(), self.transform.position)
 end
 
 function Role:DestroyFly(fly)
     Factory.Take(fly)
     table.RemoveByObj(self.flys, fly)
 end
---@endregion
+-- @endregion
 
 function Role:BeAttack(attackNum, attackerPos)
     if self.hurting then
@@ -167,7 +169,7 @@ function Role:BeAttack(attackNum, attackerPos)
         self:Die()
     end
 
-    self.transform:WorldMove((attackerPos - self.transform.position).normalized)
+    self.transform:WorldMove((self.transform.position - attackerPos).normalized)
 end
 
 function Role:Die()
