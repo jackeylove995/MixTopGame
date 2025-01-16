@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace MTG
 {
+    /// <summary>
+    /// build apk or ios project to <see cref="PathSetting.BuildApplicationPath"/> folder
+    /// </summary>
     public class ApplicationBuild
     {
 

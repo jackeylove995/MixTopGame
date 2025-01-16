@@ -11,12 +11,11 @@ using UnityEngine;
 namespace MTG
 {
     /// <summary>
-    /// When import or remove the asset in HotFixAssets Folder，
+    /// When import or remove the asset in AssetsHotFix Folder，
     /// auto add addresable mark on the asset
     /// </summary>
     public class AutoMarkAddress 
     {
-
         public enum ChangeAddressType
         {
             NoChange = 0,
@@ -102,7 +101,7 @@ namespace MTG
                 return;
             }
             string module = path.Split('/')[2];
-            AddressableAssetGroup group = GetGroup(module, true);     
+            AddressableAssetGroup group = GetOrCreateGroup(module);     
             string addressPath = GetAddressByPath(path);   
             foreach (var asset in group.entries)
             {
@@ -121,7 +120,7 @@ namespace MTG
             }
         }
 
-        static AddressableAssetGroup GetGroup(string module, bool createNewGroupIfNull)
+        static AddressableAssetGroup GetOrCreateGroup(string module)
         {
             foreach (var group in settings.groups)
             {
@@ -130,10 +129,6 @@ namespace MTG
                     return group;
                 }
             }
-            if (!createNewGroupIfNull)
-            {
-                return null;
-            }
 
             List<AddressableAssetGroupSchema> schemas = new List<AddressableAssetGroupSchema>();
 
@@ -141,7 +136,11 @@ namespace MTG
             // 设置 Build Path 和 Load Path
             contentUpdate.BuildPath.SetVariableByName(settings, AddressableAssetSettings.kRemoteBuildPath);
             contentUpdate.LoadPath.SetVariableByName(settings, AddressableAssetSettings.kRemoteLoadPath);
-
+            if(module.EndsWith("PackSeparate"))
+            {
+                contentUpdate.BundleMode = BundledAssetGroupSchema.BundlePackingMode.PackSeparately;
+            }
+            
             schemas.Add(contentUpdate);
             schemas.Add(ScriptableObject.CreateInstance<ContentUpdateGroupSchema>());
             return settings.CreateGroup(module, false, false, false, schemas);
@@ -167,8 +166,8 @@ namespace MTG
         {
             ///位于热更文件夹下
             ///包含.，表明不是一个文件夹
-            ///路径分割完>3，表明不是HotFixAssets的直系文件，因为只有一个文件夹表明所属module
-            if (path.Contains("Assets/HotFixAssets")
+            ///路径分割完>3，表明不是AssetsHotFix的直系文件，因为只有一个文件夹表明所属module
+            if (path.Contains("Assets/AssetsHotFix")
              && path.Contains('.')
              && path.Split('/').Length > 3)
             {
@@ -179,7 +178,7 @@ namespace MTG
 
         public static string GetAddressByPath(string path)
         {
-            return path.Replace("Assets/HotFixAssets/", "");
+            return path.Replace("Assets/AssetsHotFix/", "");
         }
         static void SomeAddressChangedBy(ChangeAddressType changeAddressType)
         {
@@ -212,7 +211,7 @@ namespace MTG
             {
                 Directory.CreateDirectory(PathSetting.CodeAddressMapPath);
                 File.WriteAllText(Path.Combine(PathSetting.CodeAddressMapPath, "AddressMap.lua"), content.ToString());
-                AddNewEntry("Assets/HotFixAssets/Lua/AddressMap/AddressMap.lua");
+                AddNewEntry("Assets/AssetsHotFix/Lua/AddressMap/AddressMap.lua");
             }
 
             foreach (var group in settings.groups)
@@ -224,7 +223,7 @@ namespace MTG
                     string address = entry.address;
                     key = key.Replace(" ", "_");
                     key = key.Replace("-", "_");
-
+                    key = key.Replace("#", "_");
                     address = address.Replace(" ", "_");
 
                     string entryLine = key + " = " + "\"" + address + "\"";

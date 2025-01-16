@@ -10,7 +10,7 @@ using UnityEngine;
 namespace MTG
 {
     /// <summary>
-    /// When change the excel asset in DevelopAssets/Excels folder
+    /// When change the excel asset in <see cref="PathSetting.ExcelsPath"/> folder
     /// auto generate lua table relative to the excel
     /// </summary>
     public class ExcelToLuaConfig
@@ -90,7 +90,7 @@ namespace MTG
 
         static bool CheckIsExcelPath(string path)
         {
-            return path.Contains("DevelopAssets") && path.Contains("Excels");
+            return path.StartsWith(PathSetting.ExcelsPath);
         }
         static void ConvertExcelToLua(string excelFilePath)
         {
@@ -103,7 +103,7 @@ namespace MTG
                 ExcelPackage package = new ExcelPackage(excelFile);
                 foreach (var worksheet in package.Workbook.Worksheets)
                 {
-                    string sheetName = (worksheet.Name == "Sheet1") ? "" : ("_" + worksheet.Name);
+                    string sheetName = (worksheet.Name == "Sheet1" || package.Workbook.Worksheets.Count == 1) ? "" : ("_" + worksheet.Name);
                     string tableName = excelName + sheetName;
                     string sheetPath = Path.Combine(PathSetting.ExcelsToLuaOutputPath, tableName + ".lua");
 
@@ -139,7 +139,7 @@ namespace MTG
                     {
                         tableString.AppendLine(Space() + "[" + worksheet.Cells[row, 1].Value.ToString() + "] =");
                         tableString.AppendLine(Space() + "{");
-                        for (int col = 2; col <= colCount; col++)
+                        for (int col = 1; col <= colCount; col++)
                         {
                             string value = worksheet.Cells[row, col].Value.ToSafeString();
                             if (value.Equals("(null)"))

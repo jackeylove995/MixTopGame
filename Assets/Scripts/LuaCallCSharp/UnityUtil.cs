@@ -18,58 +18,15 @@ namespace MTG
             rttransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
         }
 
-        public static void LocalMove(Transform transform, float x, float y, float z)
-        {
-            transform.localPosition += new Vector3(x, y, z);
-        }
-
         public static void BackMove(Transform mover, Transform two)
         {
-            mover.position += (mover.position - two.position).normalized;        
-        }
-
-        public static void SetLocalPosition(Transform transform, float x, float y, float z)
-        {
-            transform.localPosition = new Vector3(x, y, z);
-        }
-
-        public static void SetLocalPosition(Transform transform, Vector3 pos)
-        {
-            transform.localPosition = pos;
-        }
-
-        public static void SetLocalPosition(Transform transform, float x, float y)
-        {
-            transform.localPosition = new Vector3(x, y);
-        }
-
-        public static void SetPosition(Transform transform, float x, float y, float z)
-        {
-            transform.position = new Vector3(x, y, z);
-        }
-        public static void SetLocalZ(Transform transform, float z)
-        {
-            var pos = transform.localPosition;
-            pos.z = z;
-            transform.localPosition = pos;
-        }
-
-        public static void SetZ(Transform transform, float z)
-        {
-            var pos = transform.position;
-            pos.z = z;
-            transform.position = pos;
-        }
+            mover.position += (mover.position - two.position).normalized;
+        }   
 
         public static void MoveToTargetBySpeed(Transform mover, Transform target, float speed)
         {
-            Vector3 normal = (target.position-mover.position).normalized;
+            Vector3 normal = (target.position - mover.position).normalized;
             mover.position += normal * speed;
-        }
-
-        public static void SetRotation(Transform transform, float x, float y, float z)
-        {
-            transform.localEulerAngles = new Vector3(x, y, z);
         }
     }
 }

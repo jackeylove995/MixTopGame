@@ -52,6 +52,9 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(MTG.LuaBehaviour), MTGLuaBehaviourWrap.__Register);
         
         
+            translator.DelayWrapLoader(typeof(MTG.UnityExtension), MTGUnityExtensionWrap.__Register);
+        
+        
         
         }
         
@@ -162,6 +165,28 @@ namespace XLua
 		delegate DG.Tweening.Tweener __GEN_DELEGATE38( UnityEngine.UI.Image target,  UnityEngine.Color endValue,  float duration);
 		
 		delegate DG.Tweening.Tweener __GEN_DELEGATE39( UnityEngine.UI.Text target,  UnityEngine.Color endValue,  float duration);
+		
+		delegate UnityEngine.Sprite[] __GEN_DELEGATE40( UnityEngine.U2D.SpriteAtlas spriteAtlas);
+		
+		delegate void __GEN_DELEGATE41( UnityEngine.Transform transform,  float x,  float y,  float z);
+		
+		delegate void __GEN_DELEGATE42( UnityEngine.Transform transform,  UnityEngine.Vector3 position);
+		
+		delegate void __GEN_DELEGATE43( UnityEngine.Transform transform,  float x,  float y,  float z);
+		
+		delegate void __GEN_DELEGATE44( UnityEngine.Transform transform,  UnityEngine.Vector3 position);
+		
+		delegate void __GEN_DELEGATE45( UnityEngine.Transform transform,  UnityEngine.Vector3 pos);
+		
+		delegate void __GEN_DELEGATE46( UnityEngine.Transform transform,  float x,  float y,  float z);
+		
+		delegate void __GEN_DELEGATE47( UnityEngine.Transform transform,  UnityEngine.Vector3 pos);
+		
+		delegate void __GEN_DELEGATE48( UnityEngine.Transform transform,  float x,  float y,  float z);
+		
+		delegate void __GEN_DELEGATE49( UnityEngine.Transform transform,  float x,  float y,  float z);
+		
+		delegate void __GEN_DELEGATE50( UnityEngine.Transform transform,  float x,  float y,  float z);
 		
 	    static InternalGlobals()
 		{
@@ -476,6 +501,91 @@ namespace XLua
 #endif
 				
 				  new __GEN_DELEGATE39(DG.Tweening.DOTweenModuleUI.DOBlendableColor)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				}},
+				
+				{typeof(UnityEngine.U2D.SpriteAtlas), new List<MethodInfo>(){
+				
+				  new __GEN_DELEGATE40(MTG.UnityExtension.GetAllSprites)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				}},
+				
+				{typeof(UnityEngine.Transform), new List<MethodInfo>(){
+				
+				  new __GEN_DELEGATE41(MTG.UnityExtension.LocalPosition)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE42(MTG.UnityExtension.LocalPosition)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE43(MTG.UnityExtension.Position)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE44(MTG.UnityExtension.Position)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE45(MTG.UnityExtension.WorldMove)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE46(MTG.UnityExtension.WorldMove)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE47(MTG.UnityExtension.LocalMove)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE48(MTG.UnityExtension.LocalMove)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE49(MTG.UnityExtension.Euler)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE50(MTG.UnityExtension.Scale)
 #if UNITY_WSA && !UNITY_EDITOR
                                       .GetMethodInfo(),
 #else

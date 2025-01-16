@@ -31,9 +31,10 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 4, 0, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 5, 0, 0);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "LoadGameObjectAsync", _m_LoadGameObjectAsync_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "LoadGameObjectSync", _m_LoadGameObjectSync_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "LoadSpriteAtlasAsync", _m_LoadSpriteAtlasAsync_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "DestroyGameObject", _m_DestroyGameObject_xlua_st_);
             
 			
@@ -150,6 +151,33 @@ namespace XLua.CSObjectWrap
             }
             
             return LuaAPI.luaL_error(L, "invalid arguments to MTG.AssetLoader.LoadGameObjectSync!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_LoadSpriteAtlasAsync_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    string _address = LuaAPI.lua_tostring(L, 1);
+                    System.Action<UnityEngine.U2D.SpriteAtlas> _onComplete = translator.GetDelegate<System.Action<UnityEngine.U2D.SpriteAtlas>>(L, 2);
+                    
+                    MTG.AssetLoader.LoadSpriteAtlasAsync( _address, _onComplete );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
             
         }
         

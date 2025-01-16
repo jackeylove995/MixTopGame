@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.U2D;
 using XLua;
 
 namespace MTG
@@ -24,6 +25,14 @@ namespace MTG
             var handle = Addressables.InstantiateAsync(address, parent);
             handle.WaitForCompletion();    
             return handle.Result.GetComponent<LuaBehaviour>().scriptTable;
+        }
+
+        public static void LoadSpriteAtlasAsync(string address, Action<SpriteAtlas> onComplete)
+        {
+            Addressables.LoadAssetAsync<SpriteAtlas>(address).Completed += (handle) =>
+            {
+                onComplete.Invoke(handle.Result);
+            };
         }
 
         public static void DestroyGameObject(UnityEngine.Object obj)

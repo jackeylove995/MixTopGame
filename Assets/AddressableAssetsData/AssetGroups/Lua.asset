@@ -108,7 +108,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: cc3b57177efddae4098b92ca30d7f0a7
-    m_Address: Lua/Game/Model/PlayerModel.lua
+    m_Address: Lua/Game/Model/RoleModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -122,26 +122,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 0ce5649791ac3454f87fec48acfa5b05
-    m_Address: Lua/Excels/RolesConfig.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: f83a4136626e5554d96b3fd272c8b9bb
-    m_Address: Lua/Excels/LevelConfig_Wave.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: 41f454f264b3e9a46a952548281096f7
-    m_Address: Lua/Excels/WeaponsConfig.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: f2b8f1c2ea6cfa04fae286af2c75f202
-    m_Address: Lua/Excels/EnemyConfig.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
   - m_GUID: c13ebef8b3e873c46b24fbc2b4641942
     m_Address: Lua/Game/Model/WaveModel.lua
     m_ReadOnly: 0
@@ -149,11 +129,6 @@ MonoBehaviour:
     - lua
   - m_GUID: 5c98f8b9f3b0e5a4ebada457875043c2
     m_Address: Lua/Game/Model/LevelModel.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: c341392994ed94f4a95d8b8d8af29e9d
-    m_Address: Lua/Excels/LevelConfig_EnemyIncrease.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -167,18 +142,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 4d951384367e78a4da6cb591192223a8
-    m_Address: Lua/Excels/LevelConfig_Level.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
   - m_GUID: 71806c338f89f0049bafe40a477719bc
     m_Address: Lua/Game/ViewController/Ball.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: f1219e7a5371d3b4eba88e96d5dd85c2
-    m_Address: Lua/Excels/BallsConfig.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -212,8 +177,38 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: b5811a24d7061c34a87a8b83615b447e
-    m_Address: Lua/AAAInit/Clock/Clock.lua
+  - m_GUID: c715c12002e9fff4ebce2c16f2fc2d19
+    m_Address: Lua/Role/Role.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 4d951384367e78a4da6cb591192223a8
+    m_Address: Lua/Excels/LevelConfig_Level.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: bbdc19057f8286e4387d828729a0deb9
+    m_Address: Lua/Excels/IncreaseConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: f1219e7a5371d3b4eba88e96d5dd85c2
+    m_Address: Lua/Excels/BallsConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: f83a4136626e5554d96b3fd272c8b9bb
+    m_Address: Lua/Excels/LevelConfig_Wave.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 0ce5649791ac3454f87fec48acfa5b05
+    m_Address: Lua/Excels/RolesConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 41f454f264b3e9a46a952548281096f7
+    m_Address: Lua/Excels/WeaponsConfig.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
