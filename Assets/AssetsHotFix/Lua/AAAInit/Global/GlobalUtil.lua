@@ -4,28 +4,31 @@
     desc: 全局工具
 ]] --
 -- 全局属性 
+local globalUtil = {}
 --[[LuaCallCSharp]] --
 --- 日志
-Debug = CS.UnityEngine.Debug
+globalUtil.Debug = CS.UnityEngine.Debug
 --- Dotween工具
-DOTweenUtil = CS.MTG.DOTweenUtil
+globalUtil.DOTweenUtil = CS.MTG.DOTweenUtil
 --- 资源加载器
-AssetLoader = CS.MTG.AssetLoader
+globalUtil.AssetLoader = CS.MTG.AssetLoader
 --- Unity基础方法工具
-UnityUtil = CS.MTG.UnityUtil
+globalUtil.UnityUtil = CS.MTG.UnityUtil
 --- Mono工具
-MonoUtil = CS.MTG.MonoUtil
-MonoUtil.Init()
+globalUtil.MonoUtil = CS.MTG.MonoUtil
+globalUtil.MonoUtil.Init()
 --- 事件工具
-EventUtil = CS.MTG.EventUtil
+globalUtil.EventUtil = CS.MTG.EventUtil
 --- 跟随工具
-FollowUtil = CS.MTG.FollowUtil
+globalUtil.FollowUtil = CS.MTG.FollowUtil
 --- Vector3
-Vector3 = CS.UnityEngine.Vector3
+globalUtil.Vector3 = CS.UnityEngine.Vector3
 --- Time
-Time = CS.UnityEngine.Time
+globalUtil.Time = CS.UnityEngine.Time
 --- 旋转
-Quaternion = CS.UnityEngine.Quaternion
+globalUtil.Quaternion = CS.UnityEngine.Quaternion
 ---钟表
-Clock = CS.MTG.Clock
-Clock.Init(Clock)
+globalUtil.Clock = CS.MTG.Clock
+globalUtil.Clock.Init(globalUtil.Clock)
+
+return globalUtil

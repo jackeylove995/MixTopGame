@@ -3,9 +3,8 @@
 --- desc: 依赖注入（DI：Dependency Injection）
 
 ---@class IOC
-IOC = {}
+local IOC = {}
 IOC.Containors = {}
-require(ContainorBuilder_lua)
 
 function IOC.AddContainor(containor)
     IOC.Containors[containor.name] = containor

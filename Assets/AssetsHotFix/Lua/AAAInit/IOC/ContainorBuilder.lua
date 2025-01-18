@@ -23,7 +23,7 @@
     } 
 ]] --
 ---@class ContainorBuilder
-ContainorBuilder = {}
+local ContainorBuilder = {}
 
 function ContainorBuilder.NewContainorWithAddress(address)
     local name = GetClassNameByAddress(address)

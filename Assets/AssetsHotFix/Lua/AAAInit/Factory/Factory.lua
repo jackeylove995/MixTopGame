@@ -3,7 +3,7 @@
 --- desc: 工厂
 --- 工厂包含产品流水线，根据产品名key来定位具体流水线，然后操作流水线中的inuse和nouse数据
 ---@class Factory
-Factory = {}
+local Factory = {}
 
 Factory.AssemblyLineMap = {} -- 流水线
 
@@ -84,3 +84,4 @@ function Factory.Take(obj)
     obj:OnRecycle()
 end
 
+return Factory
