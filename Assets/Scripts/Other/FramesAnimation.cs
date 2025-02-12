@@ -98,6 +98,7 @@ namespace MTG
             if (currentAnimation == null)
             {
                 Debug.LogError("The anim name you called is not set. name: " + name);
+                StopAllCoroutines();
                 return false;
             }
             return true;

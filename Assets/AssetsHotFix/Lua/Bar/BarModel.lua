@@ -9,7 +9,7 @@ function BarModel:OnGet(param)
     self.Color = param.color
     self.MinValue = param.minValue or 0
     self.MaxValue = param.maxValue or 100
-    self.Value = param.value or self.maxValue
+    self.Value = param.value or self.MaxValue
 end
 
 return BarModel

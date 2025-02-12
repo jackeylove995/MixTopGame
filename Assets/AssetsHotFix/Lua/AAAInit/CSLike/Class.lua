@@ -6,9 +6,8 @@
 local classCache = {}
 local maxClassCacheCount = 5
 
-local class = {}
 --- 声明一个Class
-function class.Class(name, ...)
+function Class(name, ...)
     local c = {}
     c.ClassName = name
     c.Dispose = function()
@@ -51,7 +50,7 @@ function class.Class(name, ...)
 end
 
 --- 创建一个类对象，不要创建继承了MonoBehaviour的
-function class.new(classAddress, ...)
+function new(classAddress, ...)
     if #classCache > maxClassCacheCount then
         for k, v in pairs(classCache) do
             v = nil
@@ -68,7 +67,7 @@ function class.new(classAddress, ...)
     return newItem
 end
 
-function class.IsMono(classAddress)
+function iocIsMono(classAddress)
     local classEntity = require(classAddress)
     if classEntity.Implement ~= nil then
         return string.find(classEntity.Implement, "MonoBehaviour") ~= nil
@@ -76,8 +75,6 @@ function class.IsMono(classAddress)
     return false
 end
 
-function class.GetClassNameByAddress(address)
+function GetClassNameByAddress(address)
     return string.Replace(table.Last(string.Split(address, "/")), ".lua", "")
 end
-
-return class

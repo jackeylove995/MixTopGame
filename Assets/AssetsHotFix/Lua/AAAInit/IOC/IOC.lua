@@ -3,7 +3,7 @@
 --- desc: 依赖注入（DI：Dependency Injection）
 
 ---@class IOC
-local IOC = {}
+IOC = {}
 IOC.Containors = {}
 
 function IOC.AddContainor(containor)

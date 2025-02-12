@@ -8,11 +8,19 @@ namespace MTG
     [LuaCallCSharp]
     public static class UnityExtension
     {
+        #region SpriteAtlas
         public static Sprite[] GetAllSprites(this SpriteAtlas spriteAtlas)
         {
             Sprite[] result = new Sprite[spriteAtlas.spriteCount];
             spriteAtlas.GetSprites(result);
             return result;
+        }
+        #endregion
+
+        public static void Standard(this Transform transform)
+        {
+            transform.localScale = Vector3.one;
+            transform.localPosition = Vector3.zero;
         }
 
         #region transform position

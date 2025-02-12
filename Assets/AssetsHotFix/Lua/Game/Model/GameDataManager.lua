@@ -14,9 +14,10 @@ function GameDataManager:GetPlayerModel()
     local playerWeapon = WeaponsConfig[50001]
     PlayerModel = IOC.Inject(RoleModel_lua, {
         team = 1,
-        pos = Vector3(0, 0, -1),
+        pos = Vector3(0, 0, PlayerZDepth),
         roleConfig = playerRole,
-        weaponConfig = playerWeapon
+        weaponConfig = playerWeapon,
+        attackPriority = 1
     })
     return PlayerModel
 
@@ -44,7 +45,8 @@ function GameDataManager:GetCurrentWaveEnemyModels()
             team = 2,
             pos = Vector3(math.random(-10, 10), math.random(-10, 10), PlayerZDepth),
             roleConfig = RolesConfig[enemyId],
-            increaseConfig = self.waveModel:GetIncreaseConfig()
+            increaseConfig = self.waveModel:GetIncreaseConfig(),
+            attackPriority = 2
         })
         table.insert(ret, enemyModel)
     end

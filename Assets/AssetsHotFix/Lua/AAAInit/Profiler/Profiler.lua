@@ -2,7 +2,7 @@
 --- create:2025/1/16 14:56:00
 --- desc:
 ---@class Profiler
-local Profiler = {}
+Profiler = {}
 
 function Profiler.Start(name)
     Profiler[name] = {

@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Bar/Art/Blue gradient.png
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 76d0ab47b3f79b24f9cf0889f7f539c2
+    m_Address: Bar/Bars.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

@@ -67,11 +67,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: d6dfb5cac891d15459f42584aa47526a
-    m_Address: Lua/Game/ViewController/Player.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
   - m_GUID: 9e6d6aa26cb6360469e2243c31bed385
     m_Address: Lua/Game/ViewController/Fly.lua
     m_ReadOnly: 0
@@ -134,11 +129,6 @@ MonoBehaviour:
     - lua
   - m_GUID: 282492c6093f0c64c8f73883c07a3598
     m_Address: Lua/Game/Model/EnemyModel.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: af98a9a504da0044bab1f1cad1e3a2d5
-    m_Address: Lua/Game/ViewController/Enemy.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -209,6 +199,26 @@ MonoBehaviour:
     - lua
   - m_GUID: 41f454f264b3e9a46a952548281096f7
     m_Address: Lua/Excels/WeaponsConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 4105bcee65ed89246aea58d80eec3d86
+    m_Address: Lua/AAAInit/Profiler/Profiler.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 2426c6ee64b09324bbd0fdf015604e29
+    m_Address: Lua/AAAInit/GlobalSetManager.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 302ef15a6f2eb6448aced59a14b1fe1f
+    m_Address: Lua/Bar/Bars.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 1d3deb0e03eb474468cc4b4372c233a6
+    m_Address: Lua/AAAInit/Global/GlobalEnum.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua

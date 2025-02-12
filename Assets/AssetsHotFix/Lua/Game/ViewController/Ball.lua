@@ -17,6 +17,7 @@ function Ball:OnGet(param)
     self.param = param
     self.gameObject:SetActive(true)
     self.transform:SetParent(param.parent)
+    self.transform:Standard()
     self.transform:SetAsFirstSibling()
     self.model = param.model
     

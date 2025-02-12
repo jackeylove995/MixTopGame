@@ -55,6 +55,9 @@ function GameController:InitPlayer()
         model = mainPlayerModel
     }, function(mainPlayer)
         self.mainPlayer = mainPlayer
+
+        mainPlayer:BindBars()
+
         FollowUtil.FollowTargetXY(TMainCamera, mainPlayer.transform)
         -- 每过几秒生成一个球
         Clock.Name("CreateBall").FixTimeCall(3, true, function(count)
@@ -100,6 +103,8 @@ function GameController:CheckWaveOver()
 end
 
 function GameController:OnEnemyCreate(enemy)
+    enemy:BindBars()
+
     self.enemys = self.enemys or {}
     table.insert(self.enemys, enemy)
     if #self.enemys == self.enemyCount then

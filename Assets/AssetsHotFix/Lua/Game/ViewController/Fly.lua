@@ -10,9 +10,10 @@ function Fly:OnGet(param)
     self.gameObject:SetActive(true)
     self.role = param.role
     self.enter = param.enter
+    self.tag = "fly"
 end
 
-function Fly:OnOtherColliderEnter(other)
+function Fly:OnOtherTriggerEnter(other)
     self.enter(self, other)
 end
 

@@ -19,6 +19,8 @@ function RoleModel:InitPrivateProperties(param)
     self.roleConfig = param.roleConfig
     self.weaponConfig = param.weaponConfig
     self.increaseConfig = param.increaseConfig
+
+    self.hp = self.roleConfig.hp
     self.configMoveSpeed = self.roleConfig.moveSpeed * moveSpeedExtra * (self.increaseConfig and self.increaseConfig.moveSpeedIncrease or 1)
     --如果角色武器速度为nil(没配)，那么为0
     if IsNilOrEmpty(self.roleConfig.weaponSpeed) then
@@ -44,7 +46,7 @@ function RoleModel:InitPublicProperties(param)
     self.FlyDistance = self.roleConfig.flyDistance
     self.AnimLocalPosY = self.roleConfig.animPosY
     self.BaseAnimScale = self.roleConfig.animScale
-    self.Hp = self.roleConfig.hp
+    self.AttackPriority = param.attackPriority or 0
 end
 
 function RoleModel:InitBallsModel()
@@ -76,5 +78,35 @@ function RoleModel:GetRandomBall()
     return self.ballsModel[math.random(#self.ballsModel)]
 end
 
+function RoleModel:RegistHpChangeEvent(event)
+    self.onHpChange = self.onHpChange or {}
+    table.insert(self.onHpChange, event)
+end
+
+function RoleModel:UnregisEvents()
+    self.onHpChange = nil
+end
+
+function RoleModel:ChangeHp(changeValue)
+    self.hp = self.hp + changeValue
+    self:ExcuteHpChangeEvents()
+end
+
+function RoleModel:SetHp(newValue)
+    self.hp = newValue
+    self:ExcuteHpChangeEvents()
+end
+
+function RoleModel:GetHp()
+    return self.hp
+end
+
+function RoleModel:ExcuteHpChangeEvents()
+    if self.onHpChange then
+        for _, event in pairs(self.onHpChange) do
+            event(self.hp)
+        end
+    end
+end
 
 return RoleModel

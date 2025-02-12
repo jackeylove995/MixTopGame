@@ -12,29 +12,32 @@ local breakSocketHandle, debugXpCall = require(LuaDebug_lua)("localhost", 7003)
 
 
 --------------------------------禁止自由设置全局变量，使用GlobalSetter规范化设置全局变量------------------------------
-local GlobalSetter = require(GlobalSetter_lua)
-GlobalSetter.BanSetGlobalValueDirectly()
+local GlobalSetManager = require(GlobalSetManager_lua)
+GlobalSetManager.StartRecordGlobalInfos()
 
 -- 分析器
-GlobalSetter.GlobalProperty.Profiler = require(Profiler_lua)
+require(Profiler_lua)
 -- 工厂模式
-GlobalSetter.GlobalProperty.Factory = require(Factory_lua)
+require(Factory_lua)
 
 -- DI框架
-GlobalSetter.GlobalProperty.IOC = require(IOC_lua)
-GlobalSetter.GlobalProperty.ContainorBuilder = require(ContainorBuilder_lua)
+require(IOC_lua)
+require(ContainorBuilder_lua)
 
 -- 全局工具，多数为C#
-GlobalSetter.GlobalPropertiesFromTable.GlobalUtil = require(GlobalUtil_lua)
+require(GlobalUtil_lua)
 -- 全局方法      
-GlobalSetter.GlobalPropertiesFromTable.GlobalFunc = require(GlobalFunc_lua)
+require(GlobalFunc_lua)
 -- 全局参数             
-GlobalSetter.GlobalPropertiesFromTable.GlobalParams = require(GlobalParams_lua)
+require(GlobalParams_lua)
+require(GlobalEnum_lua)
 -- 类     
-GlobalSetter.GlobalPropertiesFromTable.Class = require(Class_lua)
+require(Class_lua)
 
-GlobalSetter.LogGlobalInfos()
-GlobalSetter = nil
+
+GlobalSetManager.PrintGlobalInfos()
+GlobalSetManager.BanSetGlobalValueDirectly()
+GlobalSetManager = nil
 --------------------------------禁止设置全局变量------------------------------
 
 -- 游戏生命周期，无APP OPEN，因为APP OPEN在C#
@@ -47,7 +50,7 @@ end
 AttachToLua()
 
 Log("on lua start")
-Profiler.Start("start")
+
 --- 进入游戏
 Push("OnLuaStart")
-Profiler.Stop("start")
+

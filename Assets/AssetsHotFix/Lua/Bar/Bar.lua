@@ -5,14 +5,14 @@
 ---@class Bar
 local Bar = IOC.InjectClass(Bar_lua)
 
-function Bar:OnGet(barModel)
+function Bar:Init(barModel)
     self.model = barModel
     self:SetValue(self.model.Value)
     self.Fill.color = self.model.Color
 end
 
 function Bar:SetValue(value)
-    self.Slider.value = value
+    self.Hp.value = value / self.model.MaxValue
 end
 
 return Bar

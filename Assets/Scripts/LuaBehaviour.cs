@@ -45,8 +45,13 @@ namespace MTG
         private bool hasLuaUpdate;
         private bool hasLuaFixedUpdate;
 
-        void Awake()
+        public void Init()
         {
+            if (scriptTable != null)
+            {
+                return;
+            }
+
             scriptTable = luaEnv.NewTable();
 
             __indexTable = luaEnv.DoString(luaScript.text, luaScript.name)[0] as LuaTable;
@@ -66,13 +71,27 @@ namespace MTG
             scriptTable.Set("gameObject", gameObject);
             foreach (var injection in injections)
             {
-                scriptTable.Set(injection.name, injection.value);
+                if (injection.value is LuaBehaviour luaBehaviour)
+                {
+                    luaBehaviour.Init();
+                    scriptTable.Set(injection.name, luaBehaviour.scriptTable);
+                }
+                else
+                {
+                    scriptTable.Set(injection.name, injection.value);
+                }
             }
             scriptTable.Get("Awake", out luaAwake);
             scriptTable.Get("Start", out luaStart);
             scriptTable.Get("Update", out luaUpdate);
             scriptTable.Get("FixedUpdate", out luaFixedUpdate);
             scriptTable.Get("OnDestroy", out luaOnDestroy);
+        }
+
+
+        void Awake()
+        {
+            Init();
             luaAwake?.Invoke(scriptTable);
             hasLuaUpdate = luaUpdate != null;
             hasLuaFixedUpdate = luaFixedUpdate != null;

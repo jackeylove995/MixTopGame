@@ -16,17 +16,71 @@ local SpriteAtlasFormat = "SpriteAtlas_PackSeparate/role_%s.spriteatlas";
     基础动画：idle，run，skill，beAttack
 ]] --
 
+--@region factory implementation
 function Role:OnGet(param)
+    self:ChangeState(RoleState.Virsual)
     self.transform:SetParent(param.parent)
     self.model = param.model
     self.transform:LocalPosition(self.model.Pos)
     self:UpdateAnimation()
+    self.tag = "role"
 end
 
--- @region init animation
+function Role:OnRecycle()
+    self:ChangeState(RoleState.Disable)
+end
+--@endregion
+
+--@region State Control
+function Role:ChangeState(state)
+    self.State = state
+    if state == RoleState.Alive then
+        self.gameObject:SetActive(true)
+    end
+
+    if state == RoleState.Disable then
+        self.gameObject:SetActive(false)
+        if self.bars then 
+            self.bars:Release()
+        end
+    end 
+end
+
+function Role:IsAlive()
+    return self.State == RoleState.Alive
+end
+
+function Role:NotAlive()
+    return self.State ~= RoleState.Alive
+end
+--@endregion
+
+function Role:BindBars()
+    if self.bars ~= nil then
+        self.bars:OnGet({
+            player = self,
+            barModel = IOC.Inject(BarModel_lua, {
+                color = Color.red,
+                maxValue = self.model:GetHp()
+            })
+        })
+        return
+    end
+
+    IOC.Inject(Bars_lua, {
+        player = self,
+        barModel = IOC.Inject(BarModel_lua, {
+            color = Color.red,
+            maxValue = self.model:GetHp()
+        }, function(bars)
+            self.bars = bars
+        end)
+    })
+end
+
+--@region init animation
 function Role:UpdateAnimation()
     local fa = self.FrameAnimation
-    fa.gameObject:SetActive(false)
     fa:ClearAllAnimation()
     fa.transform:LocalPosition(0, self.model.AnimLocalPosY, 0)
     fa.transform:Scale(self.model.BaseAnimScale, self.model.BaseAnimScale, 1)
@@ -53,32 +107,30 @@ function Role:OnAnimSpritesLoad(spriteAltas)
         self.FrameAnimation:AddAnimation(k, v)
     end
 
-    self.FrameAnimation.gameObject:SetActive(true)
-    self.animReadyToPlay = true
+    self:ChangeState(RoleState.Alive)
+    
 end
 
 function Role:PlayAnim(animName, once)
-    if not self.animReadyToPlay then
-        return
-    end
     if once then
         self.FrameAnimation:PlayOnce(animName)
     else
         self.FrameAnimation:PlayLoop(animName)
     end
 end
--- @endregion
+--@endregion
 
--- @region mono
+--@region mono
 function Role:FixedUpdate()
     if IsNotEmpty(self.flys) then
         self.FlyContainer:Rotate(0, 0, Time.fixedDeltaTime * self.model:GetWeaponSpeed())
     end
 end
--- @endregion
+--@endregion
 
--- @region move by speed
+--@region move by speed
 function Role:Direction(x, y)
+    if self:NotAlive() then return end
     if x == 0 and y == 0 then
         self:PlayAnim("idle")
         return
@@ -90,9 +142,7 @@ function Role:Direction(x, y)
 end
 
 function Role:MoveToPosition(v3)
-    if self.die then
-        return
-    end
+    if self:NotAlive() then return end
     local pos = self.transform.position
     local distance = Vector3.Distance(v3, pos)
     if distance < 0.2 then
@@ -105,9 +155,9 @@ function Role:MoveToPosition(v3)
     self.transform:WorldMove(moveLength)
     self.FrameAnimation.transform:Euler(0, moveLength.x > 0 and 0 or 180, 0)
 end
--- @endregion
+--@endregion
 
--- @region fly control
+--@region fly control
 function Role:CreateFly()
     self.flys = self.flys or {}
     IOC.Inject(Fly_lua, {
@@ -130,7 +180,7 @@ function Role:FlyEulerChange(fly)
         local fly = self.flys[i]
         -- 使物体的Y轴指向指定方向
         fly.transform.localRotation = Quaternion.Euler(0, 0, -i * everyAddEuler)
-        fly.transform:LocalPosition(x, y, FlyZDepth)
+        fly.transform:LocalPosition(x, y, 0)
     end
 end
 
@@ -152,20 +202,34 @@ function Role:DestroyFly(fly)
     Factory.Take(fly)
     table.RemoveByObj(self.flys, fly)
 end
--- @endregion
+--@endregion
 
-function Role:BeAttack(attackNum, attackerPos)
-    if self.hurting then
-        return
+--@region 碰撞
+function Role:OnOtherColliderEnter(other)
+    if self:NotAlive() then return end
+
+    if other.tag == "role" then
+        if other:GetTeamId() ~= self:GetTeamId() and other.model.AttackPriority > self.model.AttackPriority then
+            self:BeAttack(other.model:GetAttack(), other.transform.position)
+        end
     end
+
+    if other.tag == "fly" and other.role ~= self then
+        other.role:BeAttack(self.model:GetAttack(), self.transform.position)
+    end
+end
+--@endregion
+function Role:BeAttack(attackNum, attackerPos)
+    if self:NotAlive() or self.hurting then return end
+
     self.hurting = true
     Clock.DelayCall(0.2, function()
         self.hurting = false
     end)
 
     self:PlayAnim("hurt", true)
-    self.model.Hp = self.model.Hp - attackNum
-    if self.model.Hp <= 0 then
+    self.model:ChangeHp(-attackNum)
+    if self.model:GetHp() <= 0 then
         self:Die()
     end
 
@@ -174,11 +238,6 @@ end
 
 function Role:Die()
     Factory.Take(self)
-end
-
-function Role:OnRecycle()
-    self.die = true
-    self.gameObject:SetActive(false)
 end
 
 function Role:CurrentAnimName()
