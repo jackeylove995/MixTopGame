@@ -330,6 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 766104329}
   - component: {fileID: 766104330}
+  - component: {fileID: 766104331}
   m_Layer: 0
   m_Name: AppStart
   m_TagString: Untagged
@@ -364,7 +365,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cbc64895735cb4995b9797a8b68486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AppInitTasks: 00000000
+--- !u!114 &766104331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766104327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62dec5be07d17e24a8a45c9cb3b5f975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  MainLuaPath: Lua/AAAInit/main.lua
 --- !u!1 &807778222
 GameObject:
   m_ObjectHideFlags: 0

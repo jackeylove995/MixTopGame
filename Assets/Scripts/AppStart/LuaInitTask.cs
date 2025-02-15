@@ -1,24 +1,22 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using XLua;
 using static XLua.LuaEnv;
 
 namespace MTG
 {
-    public class LuaInitTask : IAppInitTask
+    public class LuaInitTask : AppInitTask
     {
         public string MainLuaPath = "Lua/AAAInit/main.lua";
 
         private string mainTxt;
 
-        public void OnAllTasksInitSuccessfully()
+        public override void OnAllTasksInitSuccessfully()
         {
             LuaBehaviour.luaEnv.DoString(mainTxt);
         }
 
-        public IEnumerator DOTask()
+        public override IEnumerator DOTask()
         {
             bool taskOver = false;
             CustomLoader customLoader = (ref string address) =>
