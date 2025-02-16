@@ -13,12 +13,13 @@ function GameController:FixedUpdate()
     end
 end
 
-function GameController:OpenGame()
+function GameController:OpenGame(levelId)
     MonoUtil.AddFixedUpdate("GameController", PackFunction(self, self.FixedUpdate))
+    GameDataManager:SetLevel(levelId)
     self:InitJoyStick()
     self:InitPanel()
     self:InitPlayer()
-    self:StartWaveLoop()
+    --self:StartWaveLoop()
 end
 
 --- 初始化摇杆
@@ -42,8 +43,55 @@ function GameController:InitPanel()
 end
 
 function GameController:OnBallClick(ball)
-    Factory.Take(ball)
-    self.mainPlayer:CreateFly()
+    --- 先在列表中循环到这个ball
+    --- 判断ball的左右各一个是否存在且符合条件
+    --- 只有符合条件的才继续
+
+    local clickList = {}
+    local rightContinue = true
+    local leftContinue = true
+
+    table.insert(clickList, ball)
+    for i, v in ipairs(self.balls) do
+        if v == ball then
+            local rightP = i + 1
+            local leftP = i - 1
+            while #clickList < 3 do
+
+                if rightContinue and rawget(self.balls, rightP) and self.balls[rightP].model.Type == ball.model.Type then
+                    table.insert(clickList, self.balls[rightP])
+                else
+                    rightContinue = false
+                end
+
+                if leftContinue and rawget(self.balls, leftP) and self.balls[leftP].model.Type == ball.model.Type then
+                    table.insert(clickList, self.balls[leftP])
+                else
+                    leftContinue = false
+                end
+
+                if leftContinue then
+                    leftP = leftP - 1
+                end
+
+                if rightContinue then
+                    rightP = rightP + 1
+                end
+
+                if not leftContinue and not rightContinue then
+                    break
+                end
+            end
+        end
+    end
+    
+    for i, v in ipairs(clickList) do
+        Factory.Take(v)
+        table.RemoveByObj(self.balls, v)
+    end
+
+    self.mainPlayer:OnBallsClick(clickList)
+
 end
 
 
@@ -66,7 +114,10 @@ function GameController:InitPlayer()
                 parent = self.gamePanel.BallContent,
                 model = ballModel,
                 clickFunc = PackFunction(self, self.OnBallClick)
-            })
+            }, function(ball)
+                self.balls = self.balls or {}               
+                table.insert(self.balls, ball)
+            end)
         end)
     end)
 end

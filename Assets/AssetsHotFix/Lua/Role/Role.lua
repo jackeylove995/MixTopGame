@@ -158,13 +158,35 @@ end
 --@endregion
 
 --@region fly control
-function Role:CreateFly()
+function Role:OnBallsClick(ballModels)
     self.flys = self.flys or {}
-    IOC.Inject(Fly_lua, {
-        parent = self.FlyContainer,
-        role = self,
-        enter = PackFunction(self, self.OnMyFlyAttackOther)
-    }, PackFunction(self, self.FlyEulerChange))
+
+    local canFlyCount = self.model:GetMaxFlyCount() - #self.flys
+    local flyCount 
+    if #ballModels > canFlyCount then
+        flyCount = canFlyCount
+    else
+        flyCount = #ballModels
+    end
+
+    local buffCount = #ballModels - flyCount
+    
+    local model = self.model
+    model:SetIncreaseFactor(RoleBaseInfoType.Attack, "ball", ballModels[1].AttackIncrease or 1)
+    model:SetIncreaseFactor(RoleBaseInfoType.Defense, "ball", ballModels[1].DefenseIncrease or 1)
+    model:SetIncreaseFactor(RoleBaseInfoType.Speed, "ball", ballModels[1].SpeedIncrease or 1)
+    
+    self:CreateFly(flyCount)
+end
+
+function Role:CreateFly(flyCount) 
+    for i = 1, flyCount, 1 do
+        IOC.Inject(Fly_lua, {
+            parent = self.FlyContainer,
+            role = self,
+            enter = PackFunction(self, self.OnMyFlyAttackOther)
+        }, PackFunction(self, self.FlyEulerChange))
+    end
 end
 
 function Role:FlyEulerChange(fly)

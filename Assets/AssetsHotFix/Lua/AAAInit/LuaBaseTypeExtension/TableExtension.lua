@@ -12,10 +12,10 @@ function table.First(t)
     end
 end
 
-function table.RemoveByObj(table, obj)
-    for i, v in ipairs(table) do
+function table.RemoveByObj(t, obj)
+    for i, v in ipairs(t) do
         if v == obj then
-            table.remove(table, i)
+            table.remove(t, i)
             return
         end
     end

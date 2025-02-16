@@ -19,6 +19,7 @@ function RoleModel:InitPrivateProperties(param)
     self.roleConfig = param.roleConfig
     self.weaponConfig = param.weaponConfig
     self.increaseConfig = param.increaseConfig
+    self.maxFlyCount = param.roleConfig.maxFlyCount
 
     self.hp = self.roleConfig.hp
     self.configMoveSpeed = self.roleConfig.moveSpeed * moveSpeedExtra * (self.increaseConfig and self.increaseConfig.moveSpeedIncrease or 1)
@@ -62,16 +63,40 @@ function RoleModel:InitBallsModel()
     end
 end
 
+--- 设置加速因子
+---@param roleBaseInfoType 枚举RoleBaseInfoType
+---@param name 名称 string
+---@param num 值 number
+function RoleModel:SetIncreaseFactor(roleBaseInfoType, name, num)
+    self.increaseFactors = self.increaseFactors or {}
+    self.increaseFactors[roleBaseInfoType] = self.increaseFactors[roleBaseInfoType] or {}
+    self.increaseFactors[roleBaseInfoType].name = num
+end
+
+function RoleModel:GetIncrease(roleBaseInfoType)
+    local ret = 1
+    if self.increaseFactors and self.increaseFactors[roleBaseInfoType] then
+        for k, v in pairs(self.increaseFactors[roleBaseInfoType]) do
+            ret = ret * v
+        end
+    end
+    return ret
+end
+
 function RoleModel:GetMoveSpeed()
-    return self.configMoveSpeed
+    return self.configMoveSpeed * self:GetIncrease(RoleBaseInfoType.Speed)
 end
 
 function RoleModel:GetWeaponSpeed()
-    return self.configWeaponSpeed
+    return self.configWeaponSpeed * self:GetIncrease(RoleBaseInfoType.Speed)
 end
 
 function RoleModel:GetAttack()
-    return self.configAttack
+    return self.configAttack * self:GetIncrease(RoleBaseInfoType.Attack)
+end
+
+function RoleModel:GetMaxFlyCount()
+    return self.maxFlyCount or 0
 end
 
 function RoleModel:GetRandomBall()

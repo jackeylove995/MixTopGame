@@ -23,8 +23,12 @@ function GameDataManager:GetPlayerModel()
 
 end
 
+function GameDataManager:SetLevel(levelId)
+    self.levelId = levelId
+end
+
 function GameDataManager:GetLevelModel()
-    local config = LevelConfig[1].config
+    local config = LevelConfig[self.levelId].config
     local levelModel = IOC.Inject(LevelModel_lua)
     levelModel:SetAndResolveConfig(config)
     return levelModel

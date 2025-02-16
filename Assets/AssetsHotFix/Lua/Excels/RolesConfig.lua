@@ -16,6 +16,7 @@ local RolesConfig =
 		attack = 100,
 		animPosY = 0.4,
 		animScale = 1,
+		maxFlyCount = 7,
 	},
 	[20001] =
 	{
@@ -31,6 +32,7 @@ local RolesConfig =
 		attack = 100,
 		animPosY = 0,
 		animScale = 5,
+		maxFlyCount = nil,
 	},
 }
 

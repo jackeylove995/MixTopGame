@@ -9,3 +9,11 @@ RoleState =
     Alive = 2,   --get and ready to play
     Disable = 3  --recycle or die
 }
+
+--- 角色基础属性类型
+RoleBaseInfoType = 
+{
+    Attack = "Attack",
+    Defense = "Defense",
+    Speed = "Speed"
+}

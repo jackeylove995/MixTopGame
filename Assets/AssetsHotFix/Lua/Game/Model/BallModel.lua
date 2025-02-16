@@ -11,7 +11,7 @@ function BallModel:OnGet(param)
     self.Type = config.type
     self.Icon = config.icon
     self.AttackIncrease = config.attackIncrease
-    self.DefenceIncrease = config.defenceIncrease
+    self.DefenseIncrease = config.defenseIncrease
     self.SpeedIncrease = config.speedIncrease
     self.Effect = config.effect
     self.Time = config.time
