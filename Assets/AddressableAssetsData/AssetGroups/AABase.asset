@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: AABase
   m_Data:
     m_SerializedData: []
-  m_GUID: 96a529aa855236f48b0b6223fac1f101
+  m_GUID: f19db987c183c0e40bb17b051d15f479
   m_SerializeEntries:
   - m_GUID: a006d6bc6a6446b49a6b15198f434c30
     m_Address: AABase/BasePanel.prefab

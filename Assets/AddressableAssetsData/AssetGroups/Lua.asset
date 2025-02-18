@@ -57,11 +57,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 016849843ecced94c9fd814e5fc15870
-    m_Address: Lua/AddressMap/AddressMap.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
   - m_GUID: 2732224696885404bbc2106e58915d70
     m_Address: Lua/Game/ViewController/GamePanel.lua
     m_ReadOnly: 0
@@ -172,33 +167,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 4d951384367e78a4da6cb591192223a8
-    m_Address: Lua/Excels/LevelConfig_Level.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: bbdc19057f8286e4387d828729a0deb9
-    m_Address: Lua/Excels/IncreaseConfig.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: f1219e7a5371d3b4eba88e96d5dd85c2
-    m_Address: Lua/Excels/BallsConfig.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
-  - m_GUID: f83a4136626e5554d96b3fd272c8b9bb
-    m_Address: Lua/Excels/LevelConfig_Wave.lua
+  - m_GUID: 41f454f264b3e9a46a952548281096f7
+    m_Address: Lua/ConfigExcels/WeaponsConfig.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 0ce5649791ac3454f87fec48acfa5b05
-    m_Address: Lua/Excels/RolesConfig.lua
+    m_Address: Lua/ConfigExcels/RolesConfig.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 41f454f264b3e9a46a952548281096f7
-    m_Address: Lua/Excels/WeaponsConfig.lua
+  - m_GUID: f83a4136626e5554d96b3fd272c8b9bb
+    m_Address: Lua/ConfigExcels/LevelConfig_Wave.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 4d951384367e78a4da6cb591192223a8
+    m_Address: Lua/ConfigExcels/LevelConfig_Level.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: bbdc19057f8286e4387d828729a0deb9
+    m_Address: Lua/ConfigExcels/IncreaseConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: f1219e7a5371d3b4eba88e96d5dd85c2
+    m_Address: Lua/ConfigExcels/BallsConfig.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -219,6 +214,11 @@ MonoBehaviour:
     - lua
   - m_GUID: 1d3deb0e03eb474468cc4b4372c233a6
     m_Address: Lua/AAAInit/Global/GlobalEnum.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: ac8f0ad942a0b074f881c49c429d73b0
+    m_Address: Lua/LocalizationKeys/LanguageKey.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua

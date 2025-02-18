@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fe559b0748c5743bdca9571d68fe6d, type: 3}
+  m_Name: LocalizationConnectConfig
+  m_EditorClassIdentifier: 
+  Excel: {fileID: 0}
+  ExcelPath: No object selected
+  OutputLuaKeyFolder: {fileID: 0}
+  OutputLuaKeyFolderPath: No object selected

@@ -10,7 +10,7 @@ namespace MTG
     /// <summary>
     /// when import role frame animation sprites, change its name standard
     /// </summary>
-    public class ChangeFrameSpritesName
+    public class ChangeRoleFrameSpritesName
     {
         /// <summary>
         /// 检测名称是否包含key，如果包含，则名为value的anim就会呗重命名
@@ -42,7 +42,7 @@ namespace MTG
         
         static void RenameFileIfShould(string assetPath)
         {
-            if(assetPath.StartsWith(PathSetting.RoleFrameAnimationSpritesPath))
+            if(assetPath.StartsWith(ZLuaFramework.PathSetting.RoleFrameAnimationSpritesPath))
             {
                 if(IsAValidRolePath(assetPath, out string animName, out int animIndex))
                 {
