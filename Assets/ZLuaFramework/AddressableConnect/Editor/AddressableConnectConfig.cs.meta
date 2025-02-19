@@ -3,7 +3,9 @@ guid: 1fa41c4b23e5c0d45a3947af928a6b3b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - HoffixFolder: {instanceID: 0}
+  - AddressKeyMapFolder: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

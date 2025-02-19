@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 using XLua;
 
-namespace MTG
+namespace ZLuaFramework
 {
     [System.Serializable]
     public class Injection

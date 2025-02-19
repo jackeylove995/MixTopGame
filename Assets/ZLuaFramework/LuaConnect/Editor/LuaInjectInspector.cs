@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ZLuaFramework
 {
-    [CustomPropertyDrawer(typeof(MTG.Injection))]
+    [CustomPropertyDrawer(typeof(Injection))]
     public class LuaInjectInspector : PropertyDrawer
     {
         private const string NO_OBJECT = "No Object";

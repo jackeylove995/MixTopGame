@@ -22,48 +22,62 @@ namespace ZLuaFramework
 
         public Object OutputLuaKeyFolder;
         public string OutputLuaKeyFolderPath = "No object selected";
-
+    }
 
 #if UNITY_EDITOR
-        [CustomEditor(typeof(LocalizationConnectConfig))]
-        public class CustomDataObjectEditor : Editor
+    [CustomEditor(typeof(LocalizationConnectConfig))]
+    public class LocalizationConnectConfigEditor : Editor
+    {
+        private SerializedObject serializedObject;
+        private SerializedProperty Excel, ExcelPath, OutputLuaKeyFolder, OutputLuaKeyFolderPath;
+        private GUIStyle title;
+        private GUIStyle titleStyle()
         {
-            private LocalizationConnectConfig dataObject;
-            private GUIStyle title;
-            private bool init;
-
-            private void Init()
+            if (title == null)
             {
-                if (init) return;
-                init = true;
-                dataObject = (LocalizationConnectConfig)target;
                 title = new GUIStyle(EditorStyles.label);
                 title.fontSize = 16;
                 title.fontStyle = FontStyle.Bold;
             }
-
-            public override void OnInspectorGUI()
-            {
-                Init();
-                EditorGUILayout.LabelField("LocalizationConnectConfig", title);
-
-                EditorGUILayout.Space(20);
-
-                EditorGUILayout.LabelField("多语言Excel表格.");
-                dataObject.Excel = EditorGUILayout.ObjectField("Excel:", dataObject.Excel, typeof(Object), false);
-                // 读取对象路径
-                dataObject.ExcelPath = dataObject.Excel != null ? AssetDatabase.GetAssetPath(dataObject.Excel) : "No object selected";
-                EditorGUILayout.LabelField("path:" + dataObject.ExcelPath);
-
-                EditorGUILayout.Space(20);
-
-                EditorGUILayout.LabelField("存放Excel表格转化为Lua的文件夹.");
-                dataObject.OutputLuaKeyFolder = EditorGUILayout.ObjectField("OutputLuaFolder:", dataObject.OutputLuaKeyFolder, typeof(Object), false);
-                dataObject.OutputLuaKeyFolderPath = dataObject.OutputLuaKeyFolder != null ? AssetDatabase.GetAssetPath(dataObject.OutputLuaKeyFolder) : "No object selected";
-                EditorGUILayout.LabelField("path:" + dataObject.OutputLuaKeyFolderPath);
-            }
+            return title;
         }
-#endif
+        private void OnEnable()
+        {
+            serializedObject = new SerializedObject(target);
+            Excel = serializedObject.FindProperty("Excel");
+            ExcelPath = serializedObject.FindProperty("ExcelPath");
+            OutputLuaKeyFolder = serializedObject.FindProperty("OutputLuaKeyFolder");
+            OutputLuaKeyFolderPath = serializedObject.FindProperty("OutputLuaKeyFolderPath");      
+        }
+        
+
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+            EditorGUILayout.LabelField("AddressableConnectConfig", titleStyle());
+
+            EditorGUILayout.Space(20);
+            EditorGUILayout.LabelField("Automatically convert Excel content to localization entries when Excel change.", EditorStyles.wordWrappedLabel);
+            EditorGUILayout.PropertyField(Excel);
+            if(Excel.objectReferenceValue != null)
+            {
+                ExcelPath.stringValue = AssetDatabase.GetAssetPath(Excel.objectReferenceValue);
+                EditorGUILayout.LabelField("path:" + ExcelPath.stringValue);
+            }
+
+            EditorGUILayout.Space(20);
+            EditorGUILayout.LabelField("Lua Support: Automatically generate localization keys to lua file in OutputLuaKeyFolder after excel change.(Optional)", EditorStyles.wordWrappedLabel);
+            EditorGUILayout.PropertyField(OutputLuaKeyFolder);
+            if (OutputLuaKeyFolder.objectReferenceValue != null)
+            {
+                OutputLuaKeyFolderPath.stringValue = AssetDatabase.GetAssetPath(OutputLuaKeyFolder.objectReferenceValue);
+                EditorGUILayout.LabelField("path:" + OutputLuaKeyFolderPath.stringValue);
+            }
+
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
+#endif
 }
 

@@ -1,5 +1,5 @@
 using System;
-using MTG;
+using ZLuaFramework;
 using UnityEngine;
 using XLua;
 

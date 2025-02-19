@@ -26,46 +26,61 @@ namespace ZLuaFramework
         public string OutputLuaFolderPath = "No object selected";
 
 
+    }
+
 #if UNITY_EDITOR
-        [CustomEditor(typeof(LuaConnectConfig))]
-        public class CustomDataObjectEditor : Editor
+    [CustomEditor(typeof(LuaConnectConfig))]
+    public class LuaConnectConfigEditor : Editor
+    {
+        private SerializedObject serializedObject;
+        private SerializedProperty ExcelFolder, ExcelFolderPath, OutputLuaFolder, OutputLuaFolderPath;
+        private GUIStyle title;
+        private GUIStyle titleStyle()
         {
-            private LuaConnectConfig dataObject;
-            private GUIStyle title;
-            private bool init;
-           
-            private void Init()
+            if (title == null)
             {
-                if (init) return;
-                init = true;
-                dataObject = (LuaConnectConfig)target;
-                title = new GUIStyle(EditorStyles.label);     
+                title = new GUIStyle(EditorStyles.label);
                 title.fontSize = 16;
                 title.fontStyle = FontStyle.Bold;
             }
-
-            public override void OnInspectorGUI()
-            {
-                Init();
-                EditorGUILayout.LabelField("LuaConnectConfig" , title);
-
-                EditorGUILayout.Space(20);
-
-                EditorGUILayout.LabelField("存放Excel表格的文件夹.");             
-                dataObject.ExcelFolder = EditorGUILayout.ObjectField("ExcelFolder:", dataObject.ExcelFolder, typeof(Object), false);
-                // 读取对象路径
-                dataObject.ExcelFolderPath = dataObject.ExcelFolder != null ? AssetDatabase.GetAssetPath(dataObject.ExcelFolder) : "No object selected";
-                EditorGUILayout.LabelField("path:" + dataObject.ExcelFolderPath);
-
-                EditorGUILayout.Space(20);
-
-                EditorGUILayout.LabelField("存放Excel表格文件夹内所有Excel表格转化为Lua的文件夹.");
-                dataObject.OutputLuaFolder = EditorGUILayout.ObjectField("OutputLuaFolder:", dataObject.OutputLuaFolder, typeof(Object), false);
-                dataObject.OutputLuaFolderPath = dataObject.ExcelFolder != null ? AssetDatabase.GetAssetPath(dataObject.OutputLuaFolder) : "No object selected";
-                EditorGUILayout.LabelField("path:" + dataObject.OutputLuaFolderPath);
-            }
+            return title;
         }
-#endif
+        private void OnEnable()
+        {
+            serializedObject = new SerializedObject(target);
+            ExcelFolder = serializedObject.FindProperty("ExcelFolder");
+            ExcelFolderPath = serializedObject.FindProperty("ExcelFolderPath");
+            OutputLuaFolder = serializedObject.FindProperty("OutputLuaFolder");
+            OutputLuaFolderPath = serializedObject.FindProperty("OutputLuaFolderPath");
+        }
+
+
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+            EditorGUILayout.LabelField("LuaConnectConfig", titleStyle());
+
+            EditorGUILayout.Space(20);
+            EditorGUILayout.LabelField("Automatically convert all excel files in the ExcelFolder to lua files in the OutputLuaFolder when there are changes.", EditorStyles.wordWrappedLabel);
+            EditorGUILayout.PropertyField(ExcelFolder);
+            if (ExcelFolder.objectReferenceValue != null)
+            {
+                ExcelFolderPath.stringValue = AssetDatabase.GetAssetPath(ExcelFolder.objectReferenceValue);
+                EditorGUILayout.LabelField("path:" + ExcelFolderPath.stringValue);
+            }
+
+            EditorGUILayout.Space(5);
+            EditorGUILayout.PropertyField(OutputLuaFolder);
+            if (OutputLuaFolder.objectReferenceValue != null)
+            {
+                OutputLuaFolderPath.stringValue = AssetDatabase.GetAssetPath(OutputLuaFolder.objectReferenceValue);
+                EditorGUILayout.LabelField("path:" + OutputLuaFolderPath.stringValue);
+            }
+
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
+#endif
 }
 

@@ -13,7 +13,7 @@ namespace MTG
 
         public override void OnAllTasksInitSuccessfully()
         {
-            LuaBehaviour.luaEnv.DoString(mainTxt);
+            ZLuaFramework.LuaBehaviour.luaEnv.DoString(mainTxt);
         }
 
         public override IEnumerator DOTask()
@@ -28,7 +28,7 @@ namespace MTG
                 return luaTextBytes;
             };
 
-            LuaBehaviour.luaEnv.AddLoader(customLoader);
+            ZLuaFramework.LuaBehaviour.luaEnv.AddLoader(customLoader);
 
             Addressables.LoadAssetAsync<TextAsset>(MainLuaPath).Completed += (handle) =>
             {

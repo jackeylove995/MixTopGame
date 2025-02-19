@@ -1,4 +1,4 @@
-using MTG;
+using ZLuaFramework;
 using UnityEngine;
 
 public class DeliverLua : MonoBehaviour
