@@ -2,7 +2,6 @@ using OfficeOpenXml;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Localization;
 using UnityEditor.Localization.Plugins.CSV;
@@ -14,8 +13,6 @@ namespace ZLuaFramework
     {
         public static StringTableCollection CSVCollection;
 
-        public static LocalizationConnectConfig Config;
-
         public static void OnPostprocessAllAssets(
                 string[] importedAssets,
                 string[] deletedAssets,
@@ -26,16 +23,11 @@ namespace ZLuaFramework
             List<string> deleteOrRemoved = new List<string>();
             foreach (string path in importedAssets)
             {
-                Config = LocalizationConnectConfig.GetAsset();
-                if(Config.Excel == null)
-                {
+                if(LocalizationConnectConfig.Instance.ExcelFile.asset == null)
                     return;
-                }
 
-                if (path.Equals(Config.ExcelPath))
-                {
+                if (path.Equals(LocalizationConnectConfig.Instance.ExcelFile.assetPath))
                     GenerateTableEntrys(path);
-                }
             }                    
         }
 
@@ -120,18 +112,15 @@ namespace ZLuaFramework
                     CSVCollection = AssetDatabase.LoadAssetAtPath<StringTableCollection>("Assets/ZLuaFrameWork/LocalizationConnect/LocaleTables/Common.asset");
                 }
 
-                Csv.ImportInto(stream, CSVCollection, true);
+                Csv.ImportInto(stream, CSVCollection, true, null, true);
             }
         }
 
         static void WriteLua(List<string> languageKeys)
         {
-            if (Config.OutputLuaKeyFolder == null) return;
+            if (LocalizationConnectConfig.Instance.OutputLuaKeyFile.asset == null) return;
 
-            string luaFilePath = Path.Combine(Config.OutputLuaKeyFolderPath, "LanguageKey.lua");
-
-
-            using (StreamWriter writer = new StreamWriter(luaFilePath))
+            using (StreamWriter writer = new StreamWriter(LocalizationConnectConfig.Instance.OutputLuaKeyFile.assetPath))
             {
                 writer.WriteLine("--Auto Generate By " + typeof(CSVToTable).ToString());
 

@@ -16,8 +16,6 @@ namespace ZLuaFramework
     /// </summary>
     public class AutoMarkAddress 
     {
-        static AddressableConnectConfig Config;
-
         public enum ChangeAddressType
         {
             NoChange = 0,
@@ -54,7 +52,6 @@ namespace ZLuaFramework
             }
 
             SomeAddressChanged = string.Empty;
-            Config = AddressableConnectConfig.GetAsset();
 
             ///移动a -> a/b,触发movedFromAssetPaths ： path为Assets/...a
             ///                 movedAssets         :   path为Assets/...a/b
@@ -65,10 +62,7 @@ namespace ZLuaFramework
             ///移动时手动打新标记，Addresable会自动移除旧标记
             foreach (string path in importedAssets)
             {
-                if (!path.Contains("AddressMap/AddressMap.lua"))
-                {
-                    AddNewEntry(path);
-                }
+                AddNewEntry(path);
             }
             foreach (string path in movedAssets)
             {
@@ -171,7 +165,7 @@ namespace ZLuaFramework
             ///位于热更文件夹下
             ///包含.，表明不是一个文件夹
             ///路径分割完>3，表明不是AssetsHotFix的直系文件，因为只有一个文件夹表明所属module
-            if (path.Contains(Config.HoffixFolderPath)
+            if (path.Contains(AddressableConnectConfig.Instance.HoffixFolder.assetPath)
              && path.Contains('.')
              && path.Split('/').Length > 3)
             {
@@ -182,7 +176,7 @@ namespace ZLuaFramework
 
         public static string GetAddressByPath(string path)
         {
-            return path.Replace(Config.HoffixFolderPath + "/", "");
+            return path.Replace(AddressableConnectConfig.Instance.HoffixFolder.assetPath + "/", "");
         }
         static void SomeAddressChangedBy(ChangeAddressType changeAddressType)
         {
@@ -199,11 +193,10 @@ namespace ZLuaFramework
         /// key : 统一为 文件名_后缀，整个项目不要使用同名资源
         /// value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset
         /// </summary>
-        [MenuItem("MTG/GenerateCodeMap")]
+        [MenuItem("ZLuaFramework/GenerateAddressKeyMapManually")]
         public static void GenerateCodeMap()
         {
-            Config = AddressableConnectConfig.GetAsset();
-            if (Config.AddressKeyMapFolder == null)
+            if (AddressableConnectConfig.Instance.AddressKeyMapFile.asset == null)
             {
                 return;
             }
@@ -211,21 +204,17 @@ namespace ZLuaFramework
             var settings = AddressableAssetSettingsDefaultObject.Settings;
 
             StringBuilder content = new StringBuilder();
-            content.AppendLine("--Auto Generate");
+            content.AppendLine("--Auto Generate By " + typeof(AutoMarkAddress).ToString());
             content.AppendLine("--生成全局资源映射，不用手写地址");
             content.AppendLine("--映射规则：");
             content.AppendLine("--key : 统一为 文件名_后缀，整个项目不要使用同名资源");
-            content.AppendLine("--value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset");
-
-            var luaAddressMapPath = Path.Combine(Config.AddressKeyMapFolderPath, "AddressMap.lua");
-            //File.WriteAllText(luaAddressMapPath, content.ToString());
+            content.AppendLine("--value : lua文件为路径用.分割，用以require，预制体路径用/分割，用来Addressables.LoadAsset");          
 
             foreach (var group in settings.groups)
             {
                 foreach (var entry in group.entries)
                 {
-                    string[] addressFilesName = entry.address.Split('/');
-                    string key = addressFilesName[addressFilesName.Length - 1];
+                    string key = entry.address.Split('/').Last();
                     string address = entry.address;
 
                     key = key.Replace(".", "_");
@@ -242,9 +231,9 @@ namespace ZLuaFramework
                 }
             }
 
-            File.WriteAllText(luaAddressMapPath, content.ToString());
-            Debug.Log("AddressMap Generate! By " + SomeAddressChanged);
-            new DirectoryInfo(luaAddressMapPath).Refresh();
+            File.WriteAllText(AddressableConnectConfig.Instance.AddressKeyMapFile.assetPath, content.ToString());
+            Debug.Log("AddressKeyMapFile Update! By " + SomeAddressChanged);
+            new DirectoryInfo(AddressableConnectConfig.Instance.AddressKeyMapFile.assetPath).Refresh();
         }
     }
 }

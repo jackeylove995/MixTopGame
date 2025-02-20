@@ -27,23 +27,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4
-    m_Localized: dd
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5
-    m_Localized: ewq
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6
-    m_Localized: 432
-    m_Metadata:
-      m_Items: []
-  - m_Id: 7
-    m_Localized: "\u72AF\u5F97\u4E0As"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 8
-    m_Localized: hahahssd
+    m_Localized: Count Dowm
     m_Metadata:
       m_Items: []
   references:

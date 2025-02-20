@@ -1,7 +1,5 @@
-using System;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace ZLuaFramework
 {
@@ -9,23 +7,30 @@ namespace ZLuaFramework
     public class LuaConnectConfig : ScriptableObject
     {
         private static LuaConnectConfig self;
-        public static LuaConnectConfig GetAsset()
+        public static LuaConnectConfig Instance
         {
-            if(self == null)
+            get
             {
-                self = AssetDatabase.LoadAssetAtPath<LuaConnectConfig>("Assets/ZLuaFramework/LuaConnect/LuaConnectConfig.asset");
-            }
-            return self;
+                if (self == null)
+                {
+                    string fileName = "LuaConnectConfig";
+                    string[] guids = AssetDatabase.FindAssets(fileName); 
+                    foreach (string guid in guids)
+                    {
+                        string path = AssetDatabase.GUIDToAssetPath(guid);
+                        if (path.Contains(fileName) && path.EndsWith(".asset"))
+                        {
+                            self = AssetDatabase.LoadAssetAtPath<LuaConnectConfig>(path);
+                        }                     
+                    }
+                }
+                return self;
+            }          
         }
 
+        public AssetWithPath ExcelFolder;
 
-        public Object ExcelFolder;
-        public string ExcelFolderPath = "No object selected";
-
-        public Object OutputLuaFolder;
-        public string OutputLuaFolderPath = "No object selected";
-
-
+        public AssetWithPath OutputLuaFolder;
     }
 
 #if UNITY_EDITOR
@@ -33,51 +38,26 @@ namespace ZLuaFramework
     public class LuaConnectConfigEditor : Editor
     {
         private SerializedObject serializedObject;
-        private SerializedProperty ExcelFolder, ExcelFolderPath, OutputLuaFolder, OutputLuaFolderPath;
-        private GUIStyle title;
-        private GUIStyle titleStyle()
-        {
-            if (title == null)
-            {
-                title = new GUIStyle(EditorStyles.label);
-                title.fontSize = 16;
-                title.fontStyle = FontStyle.Bold;
-            }
-            return title;
-        }
+        private SerializedProperty ExcelFolder, OutputLuaFolder;
+
         private void OnEnable()
         {
             serializedObject = new SerializedObject(target);
             ExcelFolder = serializedObject.FindProperty("ExcelFolder");
-            ExcelFolderPath = serializedObject.FindProperty("ExcelFolderPath");
             OutputLuaFolder = serializedObject.FindProperty("OutputLuaFolder");
-            OutputLuaFolderPath = serializedObject.FindProperty("OutputLuaFolderPath");
+            var s =  LuaConnectConfig.Instance;
         }
 
 
         public override void OnInspectorGUI()
-        {
+        {           
             serializedObject.Update();
-            EditorGUILayout.LabelField("LuaConnectConfig", titleStyle());
+            EditorGUILayout.LabelField("LuaConnectConfig", EditorDrawer.ConnectTitleStyle);
 
             EditorGUILayout.Space(20);
             EditorGUILayout.LabelField("Automatically convert all excel files in the ExcelFolder to lua files in the OutputLuaFolder when there are changes.", EditorStyles.wordWrappedLabel);
             EditorGUILayout.PropertyField(ExcelFolder);
-            if (ExcelFolder.objectReferenceValue != null)
-            {
-                ExcelFolderPath.stringValue = AssetDatabase.GetAssetPath(ExcelFolder.objectReferenceValue);
-                EditorGUILayout.LabelField("path:" + ExcelFolderPath.stringValue);
-            }
-
-            EditorGUILayout.Space(5);
-            EditorGUILayout.PropertyField(OutputLuaFolder);
-            if (OutputLuaFolder.objectReferenceValue != null)
-            {
-                OutputLuaFolderPath.stringValue = AssetDatabase.GetAssetPath(OutputLuaFolder.objectReferenceValue);
-                EditorGUILayout.LabelField("path:" + OutputLuaFolderPath.stringValue);
-            }
-
-
+            EditorGUILayout.PropertyField(OutputLuaFolder);        
             serializedObject.ApplyModifiedProperties();
         }
     }

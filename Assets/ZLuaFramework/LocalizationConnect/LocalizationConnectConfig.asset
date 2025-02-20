@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fe559b0748c5743bdca9571d68fe6d, type: 3}
   m_Name: LocalizationConnectConfig
   m_EditorClassIdentifier: 
-  Excel: {fileID: 102900000, guid: 353d36ee943527c4fa2766ae91d2feb8, type: 3}
-  ExcelPath: Assets/AssetsDevelop/LocalizationExcel/Common.xlsx
-  OutputLuaKeyFolder: {fileID: 102900000, guid: df57741802fab3344b61b6b3651a6c1b, type: 3}
-  OutputLuaKeyFolderPath: Assets/AssetsHotFix/Lua/LocalizationKeys
+  ExcelFile:
+    asset: {fileID: 102900000, guid: 353d36ee943527c4fa2766ae91d2feb8, type: 3}
+    assetPath: Assets/AssetsDevelop/LocalizationExcel/Common.xlsx
+  OutputLuaKeyFile:
+    asset: {fileID: 1042094116111776886, guid: ac8f0ad942a0b074f881c49c429d73b0, type: 3}
+    assetPath: Assets/AssetsHotFix/Lua/LocalizationKeys/LanguageKey.lua

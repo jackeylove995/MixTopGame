@@ -1,4 +1,4 @@
---Auto Generate
+--Auto Generate By ZLuaFramework.AutoMarkAddress
 --生成全局资源映射，不用手写地址
 --映射规则：
 --key : 统一为 文件名_后缀，整个项目不要使用同名资源
@@ -66,6 +66,7 @@ GlobalSetManager_lua = "Lua/AAAInit/GlobalSetManager.lua"
 Bars_lua = "Lua/Bar/Bars.lua"
 GlobalEnum_lua = "Lua/AAAInit/Global/GlobalEnum.lua"
 LanguageKey_lua = "Lua/LocalizationKeys/LanguageKey.lua"
+AddressMap_lua = "Lua/AddressMap/AddressMap.lua"
 Heart_png = "Bar/Art/Heart.png"
 Blue_gradient_png = "Bar/Art/Blue_gradient.png"
 Bars_prefab = "Bar/Bars.prefab"

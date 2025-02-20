@@ -1,0 +1,20 @@
+﻿
+
+<linker>
+
+	<assembly fullname="Assembly-CSharp">
+	    <type fullname="ZLuaFramework.LuaBehaviour" preserve="all"/>
+		<type fullname="DG.Tweening.DOTweenModuleUI" preserve="all"/>
+		<type fullname="MTG.AssetLoader" preserve="all"/>
+		<type fullname="MTG.DOTweenUtil" preserve="all"/>
+		<type fullname="MTG.EventUtil" preserve="all"/>
+		<type fullname="MTG.FollowUtil" preserve="all"/>
+		<type fullname="MTG.MonoUtil" preserve="all"/>
+		<type fullname="MTG.UnityUtil" preserve="all"/>
+		<type fullname="JoyStick" preserve="all"/>
+		<type fullname="MTG.Clock" preserve="all"/>
+		<type fullname="MTG.UnityExtension" preserve="all"/>
+		
+	</assembly>
+
+</linker>

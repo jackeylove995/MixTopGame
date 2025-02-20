@@ -7,21 +7,31 @@ namespace ZLuaFramework
     public class LocalizationConnectConfig : ScriptableObject
     {
         private static LocalizationConnectConfig self;
-        public static LocalizationConnectConfig GetAsset()
+        public static LocalizationConnectConfig Instance
         {
-            if (self == null)
+            get
             {
-                self = AssetDatabase.LoadAssetAtPath<LocalizationConnectConfig>("Assets/ZLuaFramework/LocalizationConnect/LocalizationConnectConfig.asset");
-            }
-            return self;
+                if (self == null)
+                {
+                    string fileName = "LocalizationConnectConfig";
+                    string[] guids = AssetDatabase.FindAssets(fileName);
+                    foreach (string guid in guids)
+                    {
+                        string path = AssetDatabase.GUIDToAssetPath(guid);
+                        if (path.Contains(fileName) && path.EndsWith(".asset"))
+                        {
+                            self = AssetDatabase.LoadAssetAtPath<LocalizationConnectConfig>(path);
+                        }
+                    }
+                }
+                return self;
+            }           
         }
 
+        public AssetWithPath ExcelFile;
 
-        public Object Excel;
-        public string ExcelPath = "No object selected";
+        public AssetWithPath OutputLuaKeyFile;
 
-        public Object OutputLuaKeyFolder;
-        public string OutputLuaKeyFolderPath = "No object selected";
     }
 
 #if UNITY_EDITOR
@@ -29,51 +39,28 @@ namespace ZLuaFramework
     public class LocalizationConnectConfigEditor : Editor
     {
         private SerializedObject serializedObject;
-        private SerializedProperty Excel, ExcelPath, OutputLuaKeyFolder, OutputLuaKeyFolderPath;
-        private GUIStyle title;
-        private GUIStyle titleStyle()
-        {
-            if (title == null)
-            {
-                title = new GUIStyle(EditorStyles.label);
-                title.fontSize = 16;
-                title.fontStyle = FontStyle.Bold;
-            }
-            return title;
-        }
+        private SerializedProperty ExcelFile, OutputLuaKeyFile;
+
         private void OnEnable()
         {
             serializedObject = new SerializedObject(target);
-            Excel = serializedObject.FindProperty("Excel");
-            ExcelPath = serializedObject.FindProperty("ExcelPath");
-            OutputLuaKeyFolder = serializedObject.FindProperty("OutputLuaKeyFolder");
-            OutputLuaKeyFolderPath = serializedObject.FindProperty("OutputLuaKeyFolderPath");      
+            ExcelFile = serializedObject.FindProperty("ExcelFile");
+            OutputLuaKeyFile = serializedObject.FindProperty("OutputLuaKeyFile");   
         }
         
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            EditorGUILayout.LabelField("AddressableConnectConfig", titleStyle());
+            EditorGUILayout.LabelField("AddressableConnectConfig", EditorDrawer.ConnectTitleStyle);
 
             EditorGUILayout.Space(20);
             EditorGUILayout.LabelField("Automatically convert Excel content to localization entries when Excel change.", EditorStyles.wordWrappedLabel);
-            EditorGUILayout.PropertyField(Excel);
-            if(Excel.objectReferenceValue != null)
-            {
-                ExcelPath.stringValue = AssetDatabase.GetAssetPath(Excel.objectReferenceValue);
-                EditorGUILayout.LabelField("path:" + ExcelPath.stringValue);
-            }
+            EditorGUILayout.PropertyField(ExcelFile);
 
             EditorGUILayout.Space(20);
-            EditorGUILayout.LabelField("Lua Support: Automatically generate localization keys to lua file in OutputLuaKeyFolder after excel change.(Optional)", EditorStyles.wordWrappedLabel);
-            EditorGUILayout.PropertyField(OutputLuaKeyFolder);
-            if (OutputLuaKeyFolder.objectReferenceValue != null)
-            {
-                OutputLuaKeyFolderPath.stringValue = AssetDatabase.GetAssetPath(OutputLuaKeyFolder.objectReferenceValue);
-                EditorGUILayout.LabelField("path:" + OutputLuaKeyFolderPath.stringValue);
-            }
-
+            EditorGUILayout.LabelField("Automatically convert localization keys in file in OutputLuaKeyFile after excel change.(Optional)", EditorStyles.wordWrappedLabel);
+            EditorGUILayout.PropertyField(OutputLuaKeyFile);
 
             serializedObject.ApplyModifiedProperties();
         }

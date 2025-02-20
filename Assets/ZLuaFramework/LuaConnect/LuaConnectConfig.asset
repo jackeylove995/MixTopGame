@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9318281903ec845b4d90babdfe4cf0, type: 3}
   m_Name: LuaConnectConfig
   m_EditorClassIdentifier: 
-  ExcelFolder: {fileID: 102900000, guid: eec6aff611a638a4e8691e63529966dd, type: 3}
-  ExcelFolderPath: Assets/AssetsDevelop/ConfigExcels
-  OutputLuaFolder: {fileID: 102900000, guid: 3ed241b44cca77a429e287dbf8606a00, type: 3}
-  OutputLuaFolderPath: Assets/AssetsHotFix/Lua/ConfigExcels
+  ExcelFolder:
+    asset: {fileID: 102900000, guid: eec6aff611a638a4e8691e63529966dd, type: 3}
+    assetPath: Assets/AssetsDevelop/ConfigExcels
+  OutputLuaFolder:
+    asset: {fileID: 102900000, guid: 3ed241b44cca77a429e287dbf8606a00, type: 3}
+    assetPath: Assets/AssetsHotFix/Lua/ConfigExcels

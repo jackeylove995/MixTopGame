@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa41c4b23e5c0d45a3947af928a6b3b, type: 3}
   m_Name: AddressableConnectConfig
   m_EditorClassIdentifier: 
-  HoffixFolder: {fileID: 102900000, guid: d840854c8fd5e074db8401e69b981014, type: 3}
-  HoffixFolderPath: Assets/AssetsHotFix
-  AddressKeyMapFolder: {fileID: 102900000, guid: 7e57c52aed1863b4fb5d5ed10d1ba60f, type: 3}
-  AddressKeyMapFolderPath: Assets/AssetsHotFix/Lua/AddressMap
+  HoffixFolder:
+    asset: {fileID: 102900000, guid: d840854c8fd5e074db8401e69b981014, type: 3}
+    assetPath: Assets/AssetsHotFix
+  AddressKeyMapFile:
+    asset: {fileID: 1042094116111776886, guid: 016849843ecced94c9fd814e5fc15870, type: 3}
+    assetPath: Assets/AssetsHotFix/Lua/AddressMap/AddressMap.lua

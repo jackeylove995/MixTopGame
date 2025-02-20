@@ -14,7 +14,6 @@ namespace ZLuaFramework
     /// </summary>
     public class ExcelToLuaFile 
     {
-        static LuaConnectConfig Config;
 
         public static void OnPostprocessAllAssets(
             string[] importedAssets,
@@ -22,7 +21,7 @@ namespace ZLuaFramework
             string[] movedAssets,
             string[] movedFromAssetPaths)
         {
-            Config = LuaConnectConfig.GetAsset();
+
 
             List<string> addOrChange = new List<string>();
             List<string> deleteOrRemoved = new List<string>();
@@ -78,7 +77,7 @@ namespace ZLuaFramework
         {
             if (luaConfigPaths == null)
             {
-                luaConfigPaths = Directory.GetFiles(Config.OutputLuaFolderPath);              
+                luaConfigPaths = Directory.GetFiles(LuaConnectConfig.Instance.OutputLuaFolder.assetPath);              
             }
             string configName = Path.GetFileName(del).Replace(".xlsx", "");
             foreach(var config in luaConfigPaths)
@@ -92,7 +91,7 @@ namespace ZLuaFramework
 
         static bool CheckIsExcelPath(string path)
         {
-            return path.StartsWith(Config.ExcelFolderPath);
+            return path.StartsWith(LuaConnectConfig.Instance.ExcelFolder.assetPath);
         }
         static void ConvertExcelToLua(string excelFilePath)
         {
@@ -107,7 +106,7 @@ namespace ZLuaFramework
                 {
                     string sheetName = (worksheet.Name == "Sheet1" || package.Workbook.Worksheets.Count == 1) ? "" : ("_" + worksheet.Name);
                     string tableName = excelName + sheetName;
-                    string sheetPath = Path.Combine(Config.OutputLuaFolderPath, tableName + ".lua");
+                    string sheetPath = Path.Combine(LuaConnectConfig.Instance.OutputLuaFolder.assetPath, tableName + ".lua");
 
                     //第一行名称
                     //第二行类型
