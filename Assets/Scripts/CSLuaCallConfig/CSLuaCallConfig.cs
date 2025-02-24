@@ -1,8 +1,8 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using XLua;
+using ZLuaFramework;
 
 namespace MTG
 {
@@ -18,7 +18,8 @@ namespace MTG
             typeof(MonoUtil),
             typeof(UnityUtil),
             typeof(JoyStick),
-            typeof(Clock)
+            typeof(Clock),
+            typeof(LocalizationManager)
         };
 
         [CSharpCallLua]

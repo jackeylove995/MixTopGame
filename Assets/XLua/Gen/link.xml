@@ -13,6 +13,7 @@
 		<type fullname="MTG.UnityUtil" preserve="all"/>
 		<type fullname="JoyStick" preserve="all"/>
 		<type fullname="MTG.Clock" preserve="all"/>
+		<type fullname="ZLuaFramework.LocalizationManager" preserve="all"/>
 		<type fullname="MTG.UnityExtension" preserve="all"/>
 		
 	</assembly>
