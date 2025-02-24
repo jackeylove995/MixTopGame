@@ -1,7 +1,6 @@
 --- author:author
 --- create:2024/12/12 21:51:20
 --- desc: 一个玩家的数据（包含bot）
-
 local RoleModel = IOC.InjectClass(RoleModel_lua)
 
 local moveSpeedExtra = 0.1
@@ -22,22 +21,16 @@ function RoleModel:InitPrivateProperties(param)
     self.maxFlyCount = param.roleConfig.maxFlyCount
 
     self.hp = self.roleConfig.hp
-    self.configMoveSpeed = self.roleConfig.moveSpeed * moveSpeedExtra * (self.increaseConfig and self.increaseConfig.moveSpeedIncrease or 1)
-    --如果角色武器速度为nil(没配)，那么为0
-    if IsNilOrEmpty(self.roleConfig.weaponSpeed) then
-        self.configWeaponSpeed = 0
-    else
-        --角色武器速度 = 角色武器速度 * 增益百分比
-        self.configWeaponSpeed = self.roleConfig.weaponSpeed * weaponSpeedExtra * (self.increaseConfig and self.increaseConfig.weaponSpeedIncrease or 1)
-    end
-    
-    --如果武器配置为nil，那么为角色基础攻击
-    if IsNilOrEmpty(self.weaponConfig) then
-        self.configAttack = self.roleConfig.attack 
-    else
-        --角色攻击力 = （角色基础攻击 + 角色武器攻击）* 增益百分比
-        self.configAttack = (self.roleConfig.attack + self.weaponConfig.attack) * (self.increaseConfig and self.increaseConfig.attackIncrease or 1)
-    end
+    self.configMoveSpeed = self.roleConfig.moveSpeed * moveSpeedExtra *
+                               (self.increaseConfig and self.increaseConfig.moveSpeedIncrease or 1)
+
+    -- 角色武器速度 = 角色武器速度 * 增益百分比
+    self.configWeaponSpeed = self.roleConfig.weaponSpeed * weaponSpeedExtra *
+                                 (self.increaseConfig and self.increaseConfig.weaponSpeedIncrease or 1)
+
+    -- 角色攻击力 = （角色基础攻击 + 角色武器攻击）* 增益百分比
+    self.configAttack = (self.roleConfig.attack + self.weaponConfig.attack) *
+                            (self.increaseConfig and self.increaseConfig.attackIncrease or 1)
 end
 
 function RoleModel:InitPublicProperties(param)
@@ -58,13 +51,15 @@ function RoleModel:InitBallsModel()
     self.ballsModel = {}
     for i, v in ipairs(balls) do
         local ballConfig = BallsConfig[tonumber(v)]
-        local ballModel = IOC.Inject(BallModel_lua, {config = ballConfig})
+        local ballModel = IOC.Inject(BallModel_lua, {
+            config = ballConfig
+        })
         table.insert(self.ballsModel, ballModel)
     end
 end
 
 --- 设置加速因子
----@param roleBaseInfoType 枚举RoleBaseInfoType
+---@param roleBaseInfoType 枚举 RoleBaseInfoType
 ---@param name 名称 string
 ---@param num 值 number
 function RoleModel:SetIncreaseFactor(roleBaseInfoType, name, num)
@@ -96,7 +91,7 @@ function RoleModel:GetAttack()
 end
 
 function RoleModel:GetMaxFlyCount()
-    return self.maxFlyCount or 0
+    return self.maxFlyCount
 end
 
 function RoleModel:GetRandomBall()

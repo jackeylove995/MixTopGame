@@ -22,12 +22,12 @@ ContainorBuilder.BindClass(WaveModel_lua).FromFactory()
 ContainorBuilder.BindClass(BallModel_lua).FromFactory()
 
 --Config
-ContainorBuilder.BindInstanceByRequire(LevelConfig_Level_lua)
-ContainorBuilder.BindInstanceByRequire(LevelConfig_Wave_lua)
-ContainorBuilder.BindInstanceByRequire(RolesConfig_lua)
-ContainorBuilder.BindInstanceByRequire(WeaponsConfig_lua)
-ContainorBuilder.BindInstanceByRequire(BallsConfig_lua)
-ContainorBuilder.BindInstanceByRequire(IncreaseConfig_lua)
+ContainorBuilder.BindReadOnlyConfig(LevelConfig_Level_lua)
+ContainorBuilder.BindReadOnlyConfig(LevelConfig_Wave_lua)
+ContainorBuilder.BindReadOnlyConfig(RolesConfig_lua)
+ContainorBuilder.BindReadOnlyConfig(WeaponsConfig_lua)
+ContainorBuilder.BindReadOnlyConfig(BallsConfig_lua)
+ContainorBuilder.BindReadOnlyConfig(IncreaseConfig_lua)
 
 ContainorBuilder.BindStartMethod(function()
     IOC.Inject(LoginPanel_lua, FullScreenPanelContainor)
