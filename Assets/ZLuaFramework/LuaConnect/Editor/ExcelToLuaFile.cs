@@ -12,7 +12,7 @@ namespace ZLuaFramework
     /// When change the excel asset in <see cref="PathSetting.ExcelsPath"/> folder
     /// auto generate lua table relative to the excel
     /// </summary>
-    public class ExcelToLuaFile 
+    public class ExcelToLuaFile
     {
 
         public static void OnPostprocessAllAssets(
@@ -77,12 +77,12 @@ namespace ZLuaFramework
         {
             if (luaConfigPaths == null)
             {
-                luaConfigPaths = Directory.GetFiles(LuaConnectConfig.Instance.OutputLuaFolder.assetPath);              
+                luaConfigPaths = Directory.GetFiles(LuaConnectConfig.Instance.OutputLuaFolder.assetPath);
             }
             string configName = Path.GetFileName(del).Replace(".xlsx", "");
-            foreach(var config in luaConfigPaths)
+            foreach (var config in luaConfigPaths)
             {
-                if(Path.GetFileName(config).StartsWith(configName))
+                if (Path.GetFileName(config).StartsWith(configName))
                 {
                     File.Delete(config);
                 }
@@ -143,29 +143,27 @@ namespace ZLuaFramework
                         for (int col = 1; col <= colCount; col++)
                         {
                             string value = worksheet.Cells[row, col].Value.ToSafeString();
-                            if (value.Equals("(null)"))
+                            bool valueIsNull = value.Equals("(null)");
+                            switch (types[col])
                             {
-                                value = "nil";
-                            }
-                            else
-                            {
-                                switch (types[col])
-                                {
-                                    /*case "int":
-                                        value = value;
-                                        break;*/
-                                    case "string":
-                                        value = "\"" + value + "\"";
-                                        break;
-                                    case "bool":
-                                        value =
-                                            (value.Equals("1") ||
-                                             value.ToLower().Equals("true"))
-                                            ? "true" : "false";
-                                        break;
-                                }
-                            }
+                                case "number":
+                                    value = valueIsNull ? "0" : value;
+                                    break;
+                                case "string":
+                                    value = valueIsNull ? "\"\"" : "\"" + value + "\"";
+                                    break;
+                                case "bool":
+                                    if (valueIsNull)
+                                        value = "false";
+                                    else
+                                    {
+                                        value = (value.Equals("1") 
+                                                ||value.ToLower().Equals("true"))
+                                                ? "true" : "false";
+                                    }
 
+                                    break;
+                            }
                             tableString.AppendLine(Space(2) + names[col] + " = " + value + ",");
                         }
                         tableString.AppendLine(Space() + "},");

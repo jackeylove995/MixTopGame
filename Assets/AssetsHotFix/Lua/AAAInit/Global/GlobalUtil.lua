@@ -32,3 +32,5 @@ Clock = CS.MTG.Clock
 Clock.Init(Clock)
 --颜色
 Color = CS.UnityEngine.Color
+--多语言
+LocalizationManager = CS.ZLuaFramework.LocalizationManager

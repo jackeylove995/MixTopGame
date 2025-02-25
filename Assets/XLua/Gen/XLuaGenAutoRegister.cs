@@ -52,6 +52,9 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(MTG.Clock), MTGClockWrap.__Register);
         
         
+            translator.DelayWrapLoader(typeof(ZLuaFramework.LocalizationManager), ZLuaFrameworkLocalizationManagerWrap.__Register);
+        
+        
             translator.DelayWrapLoader(typeof(MTG.UnityExtension), MTGUnityExtensionWrap.__Register);
         
         

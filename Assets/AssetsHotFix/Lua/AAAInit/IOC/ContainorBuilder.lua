@@ -86,6 +86,23 @@ function ContainorBuilder.BindInstanceByRequire(addressKey)
     ContainorBuilder.containor.content[addressKey] = bindItem
 end
 
+--- 绑定一个Config表数据，这个表格内数据是只读的
+---@param addressKey any
+function ContainorBuilder.BindReadOnlyConfig(addressKey)
+    local bindItem = {}
+    bindItem.getter = function()
+        if bindItem.instance == nil then
+            bindItem.instance = require(addressKey)
+            local meta = { __newIndex = function(table, key, value)
+                LogError(key .. "设置新值失败，配置表格为只读")
+            end}
+            setmetatable(bindItem.instance, meta)
+        end
+        return bindItem.instance
+    end
+    ContainorBuilder.containor.content[addressKey] = bindItem
+end
+
 --- Inject时总获取绑定的唯一对象
 function ContainorBuilder.FromInstance()
     local bindItem = ContainorBuilder.containor.content[ContainorBuilder.lockClassAddressKey]

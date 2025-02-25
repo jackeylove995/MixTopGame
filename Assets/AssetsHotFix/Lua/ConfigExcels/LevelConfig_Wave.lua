@@ -8,8 +8,8 @@ local LevelConfig_Wave =
 		roleId = 20001,
 		roleCount = 5,
 		timeToNext = 10,
-		isElite = nil,
-		isBoss = nil,
+		isElite = false,
+		isBoss = false,
 	},
 	[30002] =
 	{
@@ -18,7 +18,7 @@ local LevelConfig_Wave =
 		roleCount = 1,
 		timeToNext = 10,
 		isElite = true,
-		isBoss = nil,
+		isBoss = false,
 	},
 	[30003] =
 	{
@@ -26,7 +26,7 @@ local LevelConfig_Wave =
 		roleId = 20001,
 		roleCount = 1,
 		timeToNext = 10,
-		isElite = nil,
+		isElite = false,
 		isBoss = true,
 	},
 }

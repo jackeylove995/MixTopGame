@@ -10,22 +10,22 @@ local LevelConfig_Level =
 	[2] =
 	{
 		id = 2,
-		config = nil,
+		config = "",
 	},
 	[3] =
 	{
 		id = 3,
-		config = nil,
+		config = "",
 	},
 	[4] =
 	{
 		id = 4,
-		config = nil,
+		config = "",
 	},
 	[5] =
 	{
 		id = 5,
-		config = nil,
+		config = "",
 	},
 }
 
