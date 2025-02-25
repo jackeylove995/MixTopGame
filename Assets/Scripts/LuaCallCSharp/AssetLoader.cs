@@ -17,7 +17,9 @@ namespace MTG
         {
             Addressables.InstantiateAsync(address, parent).Completed += (handle) =>
             {
-                onCreate?.Invoke(handle.Result.GetComponent<LuaBehaviour>().scriptTable);
+                LuaTable lua = handle.Result.GetComponent<LuaBehaviour>().scriptTable;
+                onCreate?.Invoke(lua);
+                //Addressables.Release(handle);
             };
         }
 
@@ -38,6 +40,11 @@ namespace MTG
 
         public static void DestroyGameObject(UnityEngine.Object obj)
         {
+            if(obj is GameObject)
+            {
+                GameObject.Destroy(obj);
+                return;
+            }
             if (obj is Component component)
             {
                 GameObject.Destroy(component.gameObject);

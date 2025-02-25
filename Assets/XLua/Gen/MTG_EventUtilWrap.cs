@@ -110,10 +110,11 @@ namespace XLua.CSObjectWrap
             
                 
                 {
-                    string _eventName = LuaAPI.lua_tostring(L, 1);
-                    System.Action<XLua.LuaTable> _action = translator.GetDelegate<System.Action<XLua.LuaTable>>(L, 2);
+                    object _receiver = translator.GetObject(L, 1, typeof(object));
+                    string _eventName = LuaAPI.lua_tostring(L, 2);
+                    System.Action<XLua.LuaTable> _action = translator.GetDelegate<System.Action<XLua.LuaTable>>(L, 3);
                     
-                    MTG.EventUtil.Receive( _eventName, _action );
+                    MTG.EventUtil.Receive( _receiver, _eventName, _action );
                     
                     
                     
@@ -148,7 +149,7 @@ namespace XLua.CSObjectWrap
         {
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			    MTG.EventUtil.EventMap = (System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<System.Action<XLua.LuaTable>>>)translator.GetObject(L, 1, typeof(System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<System.Action<XLua.LuaTable>>>));
+			    MTG.EventUtil.EventMap = (System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<MTG.EventUtil.Receiver>>)translator.GetObject(L, 1, typeof(System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<MTG.EventUtil.Receiver>>));
             
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);

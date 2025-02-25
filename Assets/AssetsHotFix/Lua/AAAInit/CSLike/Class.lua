@@ -67,7 +67,7 @@ function new(classAddress, ...)
     return newItem
 end
 
-function iocIsMono(classAddress)
+function IsMono(classAddress)
     local classEntity = require(classAddress)
     if classEntity.Implement ~= nil then
         return string.find(classEntity.Implement, "MonoBehaviour") ~= nil

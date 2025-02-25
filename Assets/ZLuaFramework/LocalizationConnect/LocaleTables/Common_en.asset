@@ -27,7 +27,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4
-    m_Localized: Count Dowm
+    m_Localized: Count Down
     m_Metadata:
       m_Items: []
   references:

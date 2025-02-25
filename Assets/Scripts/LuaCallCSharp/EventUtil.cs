@@ -5,13 +5,26 @@ using XLua;
 
 namespace MTG
 {
+    
     /// <summary>
     /// lua发布的消息，Unity也能够接收到
     /// </summary>
     public static class EventUtil
     {
-        public static Dictionary<string, List<Action<LuaTable>>> EventMap
-            = new Dictionary<string, List<Action<LuaTable>>>();
+        public class Receiver
+        {
+            public string receiverName;
+            public Action<LuaTable> action;
+
+            public Receiver(string  receiverName, Action<LuaTable> action)
+            {
+                this.receiverName = receiverName;
+                this.action = action;
+            }
+        }
+
+        public static Dictionary<string, List<Receiver>> EventMap
+            = new Dictionary<string, List<Receiver>>();
 
         /// <summary>
         /// 推送消息
@@ -22,21 +35,25 @@ namespace MTG
         {
             if (EventMap.ContainsKey(eventName))
             {
-                var actions = EventMap[eventName];
-                for (int i = 0; i < actions.Count; i++)
+                var receivers = EventMap[eventName];
+                for (int i = receivers.Count - 1 ;  i > -1 ; i--)
                 {
                     try
                     {
-                        actions[i].Invoke(mapParam);
+                        if (receivers[i].receiver == null) 
+                        {
+                            receivers.RemoveAt(i);
+                            continue;
+                        }
+                        receivers[i].action.Invoke(mapParam);
                     }
                     catch (Exception e)
                     {
-                        actions.RemoveAt(i);
-                        i--;
-                        Debug.LogFormat($"event execute error, event name: {eventName}, so remove it. \n{e.Message}");
+                        receivers.RemoveAt(i);
+                        Debug.LogFormat($"[EventUtil] event execute error, event name: {eventName}, so remove it. \n{e.Message}");
                     }
                 }
-                if (actions.Count == 0)
+                if (receivers.Count == 0)
                 {
                     EventMap.Remove(eventName);
                 }
@@ -48,19 +65,29 @@ namespace MTG
         /// </summary>
         /// <param name="eventName">事件名</param>
         /// <param name="action">回调函数</param>
-        public static void Receive(string eventName, Action<LuaTable> action)
+        public static void Receive(string receiverName, string eventName, Action<LuaTable> action)
         {
+            List<Receiver> receivers;
             if (EventMap.ContainsKey(eventName))
             {
-                EventMap[eventName].Add(action);
+                receivers = EventMap[eventName];
+
+                for(int i = receivers.Count - 1 ;i > -1 ;i--)
+                {
+                    if (receivers[i].receiver == receiver)
+                    {
+                        Debug.Log($"[EventUtil] {eventName} has received double in one receiver,  receiver type is {receiver.GetType().ToString()}, so remove old one");
+                        receivers.RemoveAt(i);
+                    }
+                }
             }
             else
             {
-                EventMap[eventName] = new List<Action<LuaTable>>
-                {
-                    action
-                };
-            }          
+                receivers = new List<Receiver>();
+                EventMap[eventName] = receivers;
+            }
+
+           receivers.Add(new Receiver(receiver, action));
         }
     }
 }

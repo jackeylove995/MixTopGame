@@ -23,11 +23,11 @@ function IOC.GetOrCreateContainorByAddress(address)
     return IOC.Containors[name]
 end
 
-function IOC.LoadContainorWithScope(address)
+function IOC.LoadContainorWithScope(address, ...)
     local containor = IOC.GetOrCreateContainorByAddress(address)
     IOC.NowScopeContainor = containor
     if containor.start then
-        containor.start()
+        containor.start(...)
     else
         LogError(
             "Containor must have BindStartByMethod, which is the start action of the scope! The containor address:" ..
@@ -66,6 +66,10 @@ end
 ---@param key 通过BindXXX()方法绑定的key
 function IOC.Inject(key, ...)
     local bindItem = IOC.GetItemFromNowScope(key)
+    if not bindItem then
+        Debug.LogError("[IOC] the key is not binded in now scope，key is " .. key .. " ,current scope is " .. IOC.NowScopeContainor.name)
+        return nil
+    end
     if bindItem.getter then
         if type(bindItem.getter) == "function" then
             return bindItem.getter(...)

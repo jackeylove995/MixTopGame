@@ -122,7 +122,7 @@ function ContainorBuilder.Async()
 end
 
 --- 如果自己的containor找不到，从其他containor的content获取item
-function ContainorBuilder.BindItemsFromOtherContainorContent(containorAddress)
+function ContainorBuilder.BindItemsRefsFromOtherContainor(containorAddress)
     local name = GetClassNameByAddress(containorAddress)
     ContainorBuilder.containor.otherContainorReferences[name] = containorAddress
 end

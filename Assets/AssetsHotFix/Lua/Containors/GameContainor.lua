@@ -29,11 +29,11 @@ ContainorBuilder.BindInstanceByRequire(WeaponsConfig_lua)
 ContainorBuilder.BindInstanceByRequire(BallsConfig_lua)
 ContainorBuilder.BindInstanceByRequire(IncreaseConfig_lua)
 
-ContainorBuilder.BindStartMethod(function()
-    IOC.Inject(LoginPanel_lua, FullScreenPanelContainor)
+ContainorBuilder.BindStartMethod(function(levelIndex)
+    IOC.Inject(GameController_lua):OpenGame(levelIndex)
 end)
 
-ContainorBuilder.BindItemsFromOtherContainorContent(BarContainor_lua)
+ContainorBuilder.BindItemsRefsFromOtherContainor(BarContainor_lua)
 
 ContainorBuilder.Build()
 

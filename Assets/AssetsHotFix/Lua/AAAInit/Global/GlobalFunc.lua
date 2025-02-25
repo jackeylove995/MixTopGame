@@ -10,10 +10,11 @@ function Push(name, tableParam)
 end
 
 --- 接收消息
+---@param receiver 接收者
 ---@param name 消息名称
 ---@param andDo 接收到后做什么 ，andDo方法带参数，table格式
-function Receive(name, andDo)
-    EventUtil.Receive(name, andDo)
+function Receive(receiver, name, andDo)
+    EventUtil.Receive(receiver, name, andDo)
 end
 
 --- 函数用于深拷贝一个 table
@@ -113,4 +114,15 @@ function IsNotEmpty(obj)
     else
         LogError("判断了一个没定义的类型，请添加此类型 ：" .. type)
     end
+end
+
+--- 添加点击事件
+---@param button Unity Button
+---@param func click event
+---@param override 是否重写之前的
+function SetBtnEvent(button, func, override)
+    if override then
+        button.onClick:RemoveAllListener()
+    end
+    button.onClick:AddListener(func)
 end

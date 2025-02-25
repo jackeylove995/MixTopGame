@@ -14,6 +14,7 @@ function GameController:FixedUpdate()
 end
 
 function GameController:OpenGame(levelId)
+    Debug.Log(string.format("[GameController] 第%s关已载入...", tostring(levelId)))
     MonoUtil.AddFixedUpdate("GameController", PackFunction(self, self.FixedUpdate))
     GameDataManager:SetLevel(levelId)
     self:InitJoyStick()
