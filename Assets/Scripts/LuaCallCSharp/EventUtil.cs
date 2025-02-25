@@ -13,12 +13,12 @@ namespace MTG
     {
         public class Receiver
         {
-            public string receiverName;
+            public object receiver;
             public Action<LuaTable> action;
 
-            public Receiver(string  receiverName, Action<LuaTable> action)
+            public Receiver(object receiver, Action<LuaTable> action)
             {
-                this.receiverName = receiverName;
+                this.receiver = receiver;
                 this.action = action;
             }
         }
@@ -65,7 +65,7 @@ namespace MTG
         /// </summary>
         /// <param name="eventName">事件名</param>
         /// <param name="action">回调函数</param>
-        public static void Receive(string receiverName, string eventName, Action<LuaTable> action)
+        public static void Receive(object receiver, string eventName, Action<LuaTable> action)
         {
             List<Receiver> receivers;
             if (EventMap.ContainsKey(eventName))

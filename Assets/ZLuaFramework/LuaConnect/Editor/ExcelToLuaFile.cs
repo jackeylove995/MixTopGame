@@ -178,7 +178,7 @@ namespace ZLuaFramework
             }
             catch (Exception e)
             {
-                Debug.LogWarning("Error when convert xlsx " + excelName + "\n" + e.Message + "\n" + e.StackTrace);
+                Debug.LogError("Error when convert xlsx " + excelName + "\n" + e.Message + "\n" + e.StackTrace);
             }
         }
 
