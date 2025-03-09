@@ -12,7 +12,7 @@ namespace ZLuaFramework
     public class ApplicationBuild
     {
 
-        [MenuItem("MTG/BuildApplication")]
+        [MenuItem("ZLuaFramework/BuildApplication")]
         public static void BuildApplication()
         {
             BuildInternal(EditorUserBuildSettings.activeBuildTarget);

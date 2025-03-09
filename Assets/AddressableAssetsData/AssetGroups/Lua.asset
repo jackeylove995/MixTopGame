@@ -167,11 +167,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 41f454f264b3e9a46a952548281096f7
-    m_Address: Lua/ConfigExcels/WeaponsConfig.lua
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - lua
   - m_GUID: 0ce5649791ac3454f87fec48acfa5b05
     m_Address: Lua/ConfigExcels/RolesConfig.lua
     m_ReadOnly: 0
