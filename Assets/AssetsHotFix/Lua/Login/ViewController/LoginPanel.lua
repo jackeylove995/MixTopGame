@@ -1,8 +1,7 @@
 local LoginPanel = IOC.InjectClass(LoginPanel_lua)
 
 function LoginPanel:Start()
-    self.Button.onClick:AddListener(PackFunction(self,self.OnBtnStartClick))
-    --self:OnBtnStartClick()
+    AddListener(self.BtnBase, PackFunction(self,self.OnBtnStartClick))
 end
 
 function LoginPanel:OnBtnStartClick()   

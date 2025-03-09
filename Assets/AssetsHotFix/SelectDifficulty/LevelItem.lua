@@ -9,7 +9,7 @@ function LevelItem:OnGet(param)
     self.transform:SetParent(param.parent)
     self.index = param.index
     self.LevelIndex.text = tostring(param.index)
-    SetBtnEvent(self.Button, PackFunction(self, self.onBtnClick))
+    AddListener(self.Button, PackFunction(self, self.onBtnClick))
 end
 
 function LevelItem:onBtnClick()

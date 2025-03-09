@@ -119,10 +119,10 @@ end
 --- 添加点击事件
 ---@param button Unity Button
 ---@param func click event
----@param override 是否重写之前的
-function SetBtnEvent(button, func, override)
-    if override then
-        button.onClick:RemoveAllListener()
+---@param dotOverride 不重写之前的
+function AddListener(button, func, dotOverride)
+    if not dotOverride then
+        button.onClick:RemoveAllListeners()
     end
     button.onClick:AddListener(func)
 end
