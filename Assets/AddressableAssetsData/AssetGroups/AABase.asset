@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: AABase/BasePanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: fdbeb908a8e256f46ade7f72fc743bbb
+    m_Address: AABase/BtnBase.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f91640cf5ec166c489b0097f835df207, type: 2}
   m_SchemaSet:

@@ -81,6 +81,7 @@ Common_Shared_Data_asset = "Assets/MyUtil/LocalizationConnect/LocaleTables/Commo
 Common_zh_Hans = "Common_zh-Hans"
 Common_en = "Common_en"
 BasePanel_prefab = "AABase/BasePanel.prefab"
+BtnBase_prefab = "AABase/BtnBase.prefab"
 SelectDiffPanel_prefab = "SelectDifficulty/SelectDiffPanel.prefab"
 SelectDiffPanel_lua = "SelectDifficulty/SelectDiffPanel.lua"
 LevelItem_prefab = "SelectDifficulty/LevelItem.prefab"

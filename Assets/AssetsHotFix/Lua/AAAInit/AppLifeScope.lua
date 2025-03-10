@@ -11,7 +11,5 @@ end
 
 
 Receive(AppLifeAcope, "OnLuaStart", PackFunction(AppLifeAcope, AppLifeAcope.OnLuaStart))
-Receive(AppLifeAcope, "OnLuaStart", PackFunction(AppLifeAcope, AppLifeAcope.OnLuaStart))
-
 return AppLifeAcope
 
