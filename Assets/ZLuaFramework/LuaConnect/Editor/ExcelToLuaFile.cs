@@ -97,13 +97,23 @@ namespace ZLuaFramework
         {
             File.SetAttributes(excelFilePath, FileAttributes.Normal);
             FileInfo excelFile = new FileInfo(excelFilePath);
-
             string excelName = Path.GetFileName(excelFilePath).Replace(".xlsx", "");
+
+            string realSheetName = "";
+            int rowr = 0;
+            int liner = 0;
+            string valued = "";
             try
             {
                 ExcelPackage package = new ExcelPackage(excelFile);
                 foreach (var worksheet in package.Workbook.Worksheets)
                 {
+                    realSheetName = worksheet.Name;
+                    if (worksheet.Name.StartsWith("Sheet") && worksheet.Name != "Sheet1")
+                    {
+                        Debug.LogError($"[ExcelToLuaFile] sheet in {excelName}.xlsx cant startwith 'Sheet' except Sheet1");
+                        continue;
+                    }
                     string sheetName = (worksheet.Name == "Sheet1" || package.Workbook.Worksheets.Count == 1) ? "" : ("_" + worksheet.Name);
                     string tableName = excelName + sheetName;
                     string sheetPath = Path.Combine(LuaConnectConfig.Instance.OutputLuaFolder.assetPath, tableName + ".lua");
@@ -138,12 +148,19 @@ namespace ZLuaFramework
                     tableString.AppendLine("{");
                     for (int row = 4; row <= rowCount; row++)
                     {
-                        tableString.AppendLine(Space() + "[" + worksheet.Cells[row, 1].Value.ToString() + "] =");
+                        rowr = row;
+                        string id = worksheet.Cells[row, 1].Value.ToSafeString();
+                        if (id == "(null)")
+                            continue;
+                        tableString.AppendLine(Space() + "[" + id + "] =");
                         tableString.AppendLine(Space() + "{");
+
                         for (int col = 1; col <= colCount; col++)
                         {
+                            liner = col;
                             string value = worksheet.Cells[row, col].Value.ToSafeString();
                             bool valueIsNull = value.Equals("(null)");
+                            valued = value;
                             switch (types[col])
                             {
                                 case "number":
@@ -157,8 +174,8 @@ namespace ZLuaFramework
                                         value = "false";
                                     else
                                     {
-                                        value = (value.Equals("1") 
-                                                ||value.ToLower().Equals("true"))
+                                        value = (value.Equals("1")
+                                                || value.ToLower().Equals("true"))
                                                 ? "true" : "false";
                                     }
 
@@ -178,7 +195,7 @@ namespace ZLuaFramework
             }
             catch (Exception e)
             {
-                Debug.LogError("Error when convert xlsx " + excelName + "\n" + e.Message + "\n" + e.StackTrace);
+                Debug.LogError($"Error when convert xlsx excelName:{excelName},sheetName:{realSheetName},row:{rowr},line:{liner},value:{valued}\n{e.Message}\n{e.StackTrace}");
             }
         }
 
