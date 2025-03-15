@@ -20,7 +20,7 @@ function GameController:OpenGame(levelId)
     self:InitJoyStick()
     self:InitPanel()
     self:InitPlayer()
-    --self:StartWaveLoop()
+    self:StartWaveLoop()
 end
 
 --- 初始化摇杆

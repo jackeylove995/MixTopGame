@@ -24,20 +24,32 @@ MonoBehaviour:
   m_StringDatabase:
     rid: 5590444083039174661
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 3306003109737398272
   m_ProjectLocaleIdentifier:
     m_Code: en
   m_InitializeSynchronously: 0
   references:
     version: 2
     RefIds:
+    - rid: 3306003109737398272
+      type: {class: AppInfo, ns: UnityEngine.Localization.Platform.Android, asm: Unity.Localization}
+      data:
+        m_DisplayName:
+          m_TableReference:
+            m_TableCollectionName: GUID:36bc097687383f74094fbe7aeffd05c1
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
     - rid: 5590444083039174656
       type: {class: CommandLineLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
         m_CommandLineArgument: -language=
     - rid: 5590444083039174657
       type: {class: SystemLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data: 
     - rid: 5590444083039174658
       type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
@@ -45,7 +57,6 @@ MonoBehaviour:
           m_Code: en
     - rid: 5590444083039174659
       type: {class: LocalesProvider, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data: 
     - rid: 5590444083039174660
       type: {class: LocalizedAssetDatabase, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
@@ -121,19 +132,14 @@ MonoBehaviour:
         m_Groups: []
     - rid: 5590444083039174667
       type: {class: DictionarySource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
-      data: 
     - rid: 5590444083039174668
       type: {class: ValueTupleSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
-      data: 
     - rid: 5590444083039174669
       type: {class: XmlSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
-      data: 
     - rid: 5590444083039174670
       type: {class: ReflectionSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
-      data: 
     - rid: 5590444083039174671
       type: {class: DefaultSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
-      data: 
     - rid: 5590444083039174672
       type: {class: PluralLocalizationFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:

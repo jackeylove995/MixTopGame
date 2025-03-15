@@ -76,5 +76,5 @@ function IsMono(classAddress)
 end
 
 function GetClassNameByAddress(address)
-    return string.Replace(table.Last(string.Split(address, "/")), ".lua", "")
+    return string.Replace(table.Last(string.Split(address, ".")), ".lua", "")
 end

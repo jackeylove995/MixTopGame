@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using System;
 
 namespace ZLuaFramework
 {
@@ -11,6 +12,16 @@ namespace ZLuaFramework
     /// </summary>
     public class ApplicationBuild
     {
+        public static string tag = "[ab] ";
+        public static void Log(string message)
+        {
+            Debug.Log(tag + message);
+        }
+
+        public static void LogError(string message)
+        {
+            Debug.LogError(tag + message);
+        }
 
         [MenuItem("ZLuaFramework/BuildApplication")]
         public static void BuildApplication()
@@ -20,19 +31,25 @@ namespace ZLuaFramework
 
         public static void BuildInternal(BuildTarget target)
         {
-            var options = new BuildPlayerOptions
+            try
             {
-                locationPathName = GetLocalBuildPath(target),
-                scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(scene => scene.path).ToArray(),
-                target = target,
-            };
-            var report = BuildPipeline.BuildPlayer(options);
+                var options = new BuildPlayerOptions
+                {
+                    locationPathName = GetLocalBuildPath(target),
+                    scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(scene => scene.path).ToArray(),
+                    target = target,
+                };
+                var report = BuildPipeline.BuildPlayer(options);
 
-            Process.Start(PathSetting.BuildApplicationPath);
-            Debug.Log("Build completed location: " + GetLocalBuildPath(target));
-            string adbCMD = "adb install " + GetLocalBuildPath(target);
-            GUIUtility.systemCopyBuffer = adbCMD;
-            Debug.Log("Text copied to clipboard: " + adbCMD);
+                //Process.Start(PathSetting.BuildApplicationPath);
+                Log("build completed location: " + GetLocalBuildPath(target));
+                string adbCMD = "adb install " + GetLocalBuildPath(target);
+                GUIUtility.systemCopyBuffer = adbCMD;
+                Log("Text copied to clipboard: " + adbCMD);
+            }catch(Exception e)
+            {
+                LogError(e.ToString());
+            }       
         }
 
         public static string GetLocalBuildPath(BuildTarget target)

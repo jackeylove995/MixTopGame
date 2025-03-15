@@ -225,6 +225,10 @@ namespace ZLuaFramework
                     key = key.Replace(")", "_");
 
                     address = address.Replace(" ", "_");
+                    if(entry.labels.Contains("lua"))
+                    {
+                        address = address.Replace("Lua/", "").Replace(".lua", "").Replace("/", ".");
+                    }
 
                     string entryLine = key + " = " + "\"" + address + "\"";
                     content.AppendLine(entryLine);

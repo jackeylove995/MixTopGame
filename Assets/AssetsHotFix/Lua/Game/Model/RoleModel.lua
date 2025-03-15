@@ -29,7 +29,7 @@ function RoleModel:InitPrivateProperties(param)
                                  (self.increaseConfig and self.increaseConfig.weaponSpeedIncrease or 1)
 
     -- 角色攻击力 = （角色基础攻击 + 角色武器攻击）* 增益百分比
-    self.configAttack = (self.roleConfig.attack + self.weaponConfig.attack) *
+    self.configAttack = (self.roleConfig.attack + (self.weaponConfig and self.weaponConfig.attack or 0)) *
                             (self.increaseConfig and self.increaseConfig.attackIncrease or 1)
 end
 

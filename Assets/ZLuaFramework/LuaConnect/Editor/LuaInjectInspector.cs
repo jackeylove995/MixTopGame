@@ -30,63 +30,63 @@ namespace ZLuaFramework
 
             position.y += position.height + EditorGUIUtility.standardVerticalSpacing;
             position.height = EditorGUI.GetPropertyHeight(valueProperty);
-            DrawValueProperty(position, valueProperty);
+            DrawValueProperty(position,nameProperty, valueProperty);
 
-            if (valueProperty.objectReferenceValue != null && !nameProperty.stringValue.Equals(valueProperty.objectReferenceValue.name))
+           /* if (valueProperty.objectReferenceValue != null && !nameProperty.stringValue.Equals(valueProperty.objectReferenceValue.name))
             {
                 nameProperty.stringValue = valueProperty.objectReferenceValue.name;
                 nameProperty.serializedObject.ApplyModifiedProperties();
-            }
+            }*/
         }
 
-        protected void DrawValueProperty(Rect position, SerializedProperty property)
+        protected void DrawValueProperty(Rect position, SerializedProperty name, SerializedProperty value)
         {
-            EditorGUI.PropertyField(position, property);
+            EditorGUI.PropertyField(position, value);
 
-            if (property.propertyType != SerializedPropertyType.ObjectReference)
+            if (value.propertyType != SerializedPropertyType.ObjectReference)
                 return;
             position.y += position.height + EditorGUIUtility.standardVerticalSpacing;
             position.height = EditorGUIUtility.singleLineHeight;
             position.xMin += EditorGUIUtility.labelWidth;
-            using (new EditorGUI.DisabledScope(!property.objectReferenceValue))
+            using (new EditorGUI.DisabledScope(!value.objectReferenceValue))
             {
                 var displayText = NO_OBJECT;
-                if (property.objectReferenceValue)
-                    displayText = property.objectReferenceValue.GetType().Name;
+                if (value.objectReferenceValue)
+                    displayText = value.objectReferenceValue.GetType().Name;
                 if (GUI.Button(position, displayText, EditorStyles.popup))
-                    BuildPopupList(property).DropDown(position);
+                    BuildPopupList(name, value).DropDown(position);
             }
         }
 
-        private static GenericMenu BuildPopupList(SerializedProperty property)
+        private static GenericMenu BuildPopupList(SerializedProperty name, SerializedProperty value)
         {
             var menu = new GenericMenu();
-            var target = property.objectReferenceValue;
+            var target = value.objectReferenceValue;
             if (target is Component c)
                 target = c.gameObject;
             if (target is GameObject gameObject)
             {
                 menu.AddItem(EditorGUIUtility.TrTextContent(target.GetType().Name),
-                    property.objectReferenceValue == target, s_OnItemClick,
-                    new LuaInjectionObjectMenuEvent(property, target));
+                    value.objectReferenceValue == target, s_OnItemClick,
+                    new LuaInjectionObjectMenuEvent(name,value, target));
                 var components = gameObject.GetComponents<Component>();
                 foreach (var component in components)
                     menu.AddItem(EditorGUIUtility.TrTextContent(component.GetType().Name),
-                        property.objectReferenceValue == component, s_OnItemClick,
-                        new LuaInjectionObjectMenuEvent(property, component));
+                        value.objectReferenceValue == component, s_OnItemClick,
+                        new LuaInjectionObjectMenuEvent(name,value, component));
             }
             else if (EditorUtility.IsPersistent(target))
             {
                 var path = AssetDatabase.GetAssetPath(target);
                 var mainAsset = AssetDatabase.LoadMainAssetAtPath(path);
                 menu.AddItem(EditorGUIUtility.TrTextContent(mainAsset.GetType().Name),
-                    property.objectReferenceValue == mainAsset, s_OnItemClick,
-                    new LuaInjectionObjectMenuEvent(property, mainAsset));
+                    value.objectReferenceValue == mainAsset, s_OnItemClick,
+                    new LuaInjectionObjectMenuEvent(name, value, mainAsset));
                 var assets = AssetDatabase.LoadAllAssetRepresentationsAtPath(path);
                 foreach (var asset in assets)
                     menu.AddItem(EditorGUIUtility.TrTextContent($"{asset.GetType().Name} ({asset.name})"),
-                        property.objectReferenceValue == asset, OnItemClick,
-                        new LuaInjectionObjectMenuEvent(property, asset));
+                        value.objectReferenceValue == asset, OnItemClick,
+                        new LuaInjectionObjectMenuEvent(name, value, asset));
             }
             else menu.AddDisabledItem(EditorGUIUtility.TrTextContent(target.GetType().Name));
 
@@ -101,19 +101,25 @@ namespace ZLuaFramework
 
         internal sealed class LuaInjectionObjectMenuEvent
         {
-            private readonly SerializedProperty m_Property;
+            private readonly SerializedProperty m_nameProperty;
+            private readonly SerializedProperty m_valueProperty;
             private readonly Object m_Target;
 
-            public LuaInjectionObjectMenuEvent(SerializedProperty property, Object target)
+            public LuaInjectionObjectMenuEvent(SerializedProperty nameProperty, SerializedProperty valueProperty,  Object target)
             {
-                m_Property = property;
+                m_nameProperty = nameProperty;
+                m_valueProperty = valueProperty;
                 m_Target = target;
             }
 
             public void Apply()
             {
-                m_Property.objectReferenceValue = m_Target;
-                m_Property.serializedObject.ApplyModifiedProperties();          
+               
+                m_valueProperty.objectReferenceValue = m_Target;
+                m_nameProperty.stringValue = m_valueProperty.objectReferenceValue.name;
+
+                //m_nameProperty.serializedObject.ApplyModifiedProperties();
+                m_valueProperty.serializedObject.ApplyModifiedProperties();          
             }
         }
     }

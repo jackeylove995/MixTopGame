@@ -10,6 +10,7 @@ FullScreenPanelContainor = FullScreenPanelContainor or GameObject.Find("FullScre
 PopupPanelContainor = PopupPanelContainor or GameObject.Find("PopupPanelContainor").transform;
 Sprite3DContainor = Sprite3DContainor or GameObject.Find("Sprite3DContainor").transform;
 TMainCamera = TMainCamera or Camera.main.transform;
+DebugContainor = DebugContainor or GameObject.Find("DebugContainor").transform
 
 PlayerZDepth = -2
 FlyZDepth = -2

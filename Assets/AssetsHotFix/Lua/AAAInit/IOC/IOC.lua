@@ -139,7 +139,7 @@ end
 function IOC.FactoryGetter(bindItem)
     -- 没绑定Class, 工厂内不可以加入不是Class的流水线
     if bindItem.classAddress == nil then
-        LogError("Factory item must be a lua table, which item is " .. bindItem.classAddress)
+        LogError("[IOC] Factory item must be a lua table, which item is " .. bindItem.classAddress)
         return
     end
 

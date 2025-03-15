@@ -53,7 +53,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: ee04d0efd040f3f4ca1a9c745f9d5b48
-    m_Address: Lua/AAAInit/main.lua
+    m_Address: Lua/main.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -234,6 +234,11 @@ MonoBehaviour:
     - lua
   - m_GUID: f1219e7a5371d3b4eba88e96d5dd85c2
     m_Address: Lua/ConfigExcels/BallsConfig.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 4986cb490b02ee24a8a181f1745b4f6d
+    m_Address: Lua/LuaDebug/DebugPanel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
