@@ -29,6 +29,9 @@ ContainorBuilder.BindReadOnlyConfig(WeaponsConfig_lua)
 ContainorBuilder.BindReadOnlyConfig(BallsConfig_lua)
 ContainorBuilder.BindReadOnlyConfig(IncreaseConfig_lua)
 
+--Singleton
+ContainorBuilder.BindInstanceByRequire(CMCameraManager_lua)
+
 ContainorBuilder.BindStartMethod(function(levelIndex)
     IOC.Inject(GameController_lua):OpenGame(levelIndex)
 end)

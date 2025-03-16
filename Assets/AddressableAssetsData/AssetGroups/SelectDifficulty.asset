@@ -18,19 +18,11 @@ MonoBehaviour:
   m_GUID: fe50e2b6aff14fa4cafdb7ca2d72a2c8
   m_SerializeEntries:
   - m_GUID: 50e112b611a322a48a0984c982af782e
-    m_Address: SelectDifficulty/SelectDiffPanel.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 18a6bc7e6cdb6064d9a1f6103ed63cb6
-    m_Address: SelectDifficulty/SelectDiffPanel.lua
+    m_Address: GameLogic/SelectDifficulty/SelectDiffPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 0d05eaafa290baa4ba33ec4acd95d769
-    m_Address: SelectDifficulty/LevelItem.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9be6872f060544f4c9156d78b6317af2
-    m_Address: SelectDifficulty/LevelItem.lua
+    m_Address: GameLogic/SelectDifficulty/LevelItem.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

@@ -98,7 +98,7 @@ namespace ZLuaFramework
             {
                 return;
             }
-            string module = path.Split('/')[2];
+            string module = GetModuleNameByPath(path);
             AddressableAssetGroup group = GetOrCreateGroup(module);     
             string addressPath = GetAddressByPath(path);   
             foreach (var asset in group.entries)
@@ -158,6 +158,22 @@ namespace ZLuaFramework
             {
                 settings.RemoveGroup(group);
             }
+        }
+
+        static string GetModuleNameByPath(string path)
+        {
+            if(AddressableConnectConfig.Instance.UnpackToMultiGroups != null)
+            {
+                foreach(var folderAsset in AddressableConnectConfig.Instance.UnpackToMultiGroups)
+                {
+                    string folderPath = folderAsset.assetPath;
+                    if(path.StartsWith(folderPath))
+                    {
+                        return path.Replace(folderPath + "/", "").Split("/")[0];
+                    }
+                }
+            }
+            return path.Split('/')[2];
         }
 
         static bool IsAValidAddressPath(string path)

@@ -8,13 +8,19 @@
 		<type fullname="MTG.AssetLoader" preserve="all"/>
 		<type fullname="MTG.DOTweenUtil" preserve="all"/>
 		<type fullname="MTG.EventUtil" preserve="all"/>
-		<type fullname="MTG.FollowUtil" preserve="all"/>
 		<type fullname="MTG.MonoUtil" preserve="all"/>
 		<type fullname="MTG.UnityUtil" preserve="all"/>
 		<type fullname="JoyStick" preserve="all"/>
 		<type fullname="MTG.Clock" preserve="all"/>
 		<type fullname="ZLuaFramework.LocalizationManager" preserve="all"/>
 		<type fullname="MTG.UnityExtension" preserve="all"/>
+		
+	</assembly>
+
+	<assembly fullname="Cinemachine">
+	    <type fullname="Cinemachine.LensSettings" preserve="all"/>
+		<type fullname="Cinemachine.Cinemachine3rdPersonFollow" preserve="all"/>
+		<type fullname="Cinemachine.CinemachineVirtualCamera" preserve="all"/>
 		
 	</assembly>
 

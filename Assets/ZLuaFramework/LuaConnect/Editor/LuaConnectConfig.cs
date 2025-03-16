@@ -37,28 +37,28 @@ namespace ZLuaFramework
     [CustomEditor(typeof(LuaConnectConfig))]
     public class LuaConnectConfigEditor : Editor
     {
-        private SerializedObject serializedObject;
+        private SerializedObject csharpObject;
         private SerializedProperty ExcelFolder, OutputLuaFolder;
 
         private void OnEnable()
         {
-            serializedObject = new SerializedObject(target);
-            ExcelFolder = serializedObject.FindProperty("ExcelFolder");
-            OutputLuaFolder = serializedObject.FindProperty("OutputLuaFolder");
+            csharpObject = new SerializedObject(target);
+            ExcelFolder = csharpObject.FindProperty("ExcelFolder");
+            OutputLuaFolder = csharpObject.FindProperty("OutputLuaFolder");
             var s =  LuaConnectConfig.Instance;
         }
 
 
         public override void OnInspectorGUI()
         {           
-            serializedObject.Update();
+            csharpObject.Update();
             EditorGUILayout.LabelField("LuaConnectConfig", EditorDrawer.ConnectTitleStyle);
 
             EditorGUILayout.Space(20);
             EditorGUILayout.LabelField("Automatically convert all excel files in the ExcelFolder to lua files in the OutputLuaFolder when there are changes.", EditorStyles.wordWrappedLabel);
             EditorGUILayout.PropertyField(ExcelFolder);
             EditorGUILayout.PropertyField(OutputLuaFolder);        
-            serializedObject.ApplyModifiedProperties();
+            csharpObject.ApplyModifiedProperties();
         }
     }
 #endif

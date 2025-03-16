@@ -72,13 +72,6 @@ namespace MTG
         void FixedUpdate()
         {
             mFixUpdate?.Invoke();
-            foreach (var fow in FollowUtil.followMap)
-            {
-                var z = fow.Key.position.z;
-                var newPos = fow.Value.position;
-                newPos.z = z;
-                fow.Key.position = newPos;
-            }
         }
     }
 }

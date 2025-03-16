@@ -18,75 +18,75 @@ MonoBehaviour:
   m_GUID: 2bf7810f5a46d24498700a454ef7640e
   m_SerializeEntries:
   - m_GUID: 511b41f27ee41c24cb4e37d4daf0387a
-    m_Address: Game/GamePanel.prefab
+    m_Address: GameLogic/Game/GamePanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ce9d1a24178ec0c4c95306c59df9d3e9
-    m_Address: Game/Art/Game_Bg.jpg
+    m_Address: GameLogic/Game/Art/Game_Bg.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 07d868e0fd2a23942bd04c6dffb76ed7
-    m_Address: Game/Art/Circle green.png
+    m_Address: GameLogic/Game/Art/Circle green.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e019cd8c6a958a74bb226a0fd85030d6
-    m_Address: Game/Art/Circle blue full.png
+    m_Address: GameLogic/Game/Art/Circle blue full.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: de31feca82a11e048bed1809152f5d2c
-    m_Address: Game/JoyStick.prefab
+    m_Address: GameLogic/Game/JoyStick.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5df34926aeebbf64ca03faad92a65444
-    m_Address: Game/Fly.prefab
+    m_Address: GameLogic/Game/Fly.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 603aa49c288eb5a499ecadfa9d63e3c6
-    m_Address: Game/Art/Sword1/Sword1_Material_Bronze.mat
+    m_Address: GameLogic/Game/Art/Sword1/Sword1_Material_Bronze.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e6aa6524c0c2d5b4bbc4535009532562
-    m_Address: Game/Art/Sword1/Textures/Sword1_Emission.png
+    m_Address: GameLogic/Game/Art/Sword1/Textures/Sword1_Emission.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5d01f13eac8a104448615e61e2f19711
-    m_Address: Game/Art/Sword1/Textures/Sword1_Normal.png
+    m_Address: GameLogic/Game/Art/Sword1/Textures/Sword1_Normal.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 78b98abe328cb624e876de012f40f5ce
-    m_Address: Game/Art/Sword1/Textures/Sword1_Albedo_Silver.png
+    m_Address: GameLogic/Game/Art/Sword1/Textures/Sword1_Albedo_Silver.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 22f89556adfcc3f45a131e6be1a00e7d
-    m_Address: Game/Art/Sword1/Textures/Sword1_Albedo_Bronze.png
+    m_Address: GameLogic/Game/Art/Sword1/Textures/Sword1_Albedo_Bronze.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 1349c88664e824f4fb8413016d755c15
-    m_Address: Game/Enemy.prefab
+    m_Address: GameLogic/Game/Enemy.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 76ec0f7c7d6c188409b0ddd47bd763d8
-    m_Address: Game/Art/Sword1/Sword1_Material_Gold.mat
+    m_Address: GameLogic/Game/Art/Sword1/Sword1_Material_Gold.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fa5baed6be3065a459482872af5d2796
-    m_Address: Game/Art/Sword1/Sword1_Material_Silver.mat
+    m_Address: GameLogic/Game/Art/Sword1/Sword1_Material_Silver.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: eb1d4f04b03d83249ab8fa1746e34c20
-    m_Address: Game/Art/Sword1/Textures/Sword1_Albedo_Gold.png
+    m_Address: GameLogic/Game/Art/Sword1/Textures/Sword1_Albedo_Gold.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 1af6c9d4792b975498541f34267aefc6
-    m_Address: Game/Art/Sword1/Sword1_FBX.fbx
+    m_Address: GameLogic/Game/Art/Sword1/Sword1_FBX.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9643e59550d809440966e8232bcfa56d
-    m_Address: Game/Art/Sword1/Textures/Sword1_Metallic.png
+    m_Address: GameLogic/Game/Art/Sword1/Textures/Sword1_Metallic.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 8be805b137918404d8d7ae2c4c8af5ce
-    m_Address: Game/Ball.prefab
+    m_Address: GameLogic/Game/Ball.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

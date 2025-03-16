@@ -18,15 +18,15 @@ MonoBehaviour:
   m_GUID: 30b56976c02db7a42aae96defbdedb03
   m_SerializeEntries:
   - m_GUID: 54af60d343d3e3b458ad7e97dd60dd04
-    m_Address: Bar/Art/Heart.png
+    m_Address: GameLogic/Bar/Art/Heart.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 60cfd84ae231a4943b3f0f6cf0dcf409
-    m_Address: Bar/Art/Blue gradient.png
+    m_Address: GameLogic/Bar/Art/Blue gradient.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 76d0ab47b3f79b24f9cf0889f7f539c2
-    m_Address: Bar/Bars.prefab
+    m_Address: GameLogic/Bar/Bars.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

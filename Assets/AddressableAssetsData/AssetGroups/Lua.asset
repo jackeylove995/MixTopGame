@@ -48,7 +48,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: 93c8d6bf47bc330429891af37a7c0b21
-    m_Address: Lua/AAAInit/LuaDebug.lua
+    m_Address: Lua/LuaDebug/LuaDebug.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -58,22 +58,22 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: 2732224696885404bbc2106e58915d70
-    m_Address: Lua/Game/ViewController/GamePanel.lua
+    m_Address: Lua/GameLogic/Game/ViewController/GamePanel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 9e6d6aa26cb6360469e2243c31bed385
-    m_Address: Lua/Game/ViewController/Fly.lua
+    m_Address: Lua/GameLogic/Game/ViewController/Fly.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 36e9c4be3bbd4294a9a9884bc846dcee
-    m_Address: Lua/Login/ViewController/LoginPanel.lua
+    m_Address: Lua/GameLogic/Login/ViewController/LoginPanel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: bb8ea5848d2b8de49a365b576a91f54c
-    m_Address: Lua/Game/ViewController/GameController.lua
+    m_Address: Lua/GameLogic/Game/ViewController/GameController.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -98,12 +98,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: cc3b57177efddae4098b92ca30d7f0a7
-    m_Address: Lua/Game/Model/RoleModel.lua
+    m_Address: Lua/GameLogic/Game/Model/RoleModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: d93cea708e6baef4d8f5766969faab08
-    m_Address: Lua/Game/Model/GameDataManager.lua
+    m_Address: Lua/GameLogic/Game/Model/GameDataManager.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -113,42 +113,42 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: c13ebef8b3e873c46b24fbc2b4641942
-    m_Address: Lua/Game/Model/WaveModel.lua
+    m_Address: Lua/GameLogic/Game/Model/WaveModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 5c98f8b9f3b0e5a4ebada457875043c2
-    m_Address: Lua/Game/Model/LevelModel.lua
+    m_Address: Lua/GameLogic/Game/Model/LevelModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 282492c6093f0c64c8f73883c07a3598
-    m_Address: Lua/Game/Model/EnemyModel.lua
+    m_Address: Lua/GameLogic/Game/Model/EnemyModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 71806c338f89f0049bafe40a477719bc
-    m_Address: Lua/Game/ViewController/Ball.lua
+    m_Address: Lua/GameLogic/Game/ViewController/Ball.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 5a60ad2846f200a45b8a89a0c1004145
-    m_Address: Lua/Game/Model/BallModel.lua
+    m_Address: Lua/GameLogic/Game/Model/BallModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: d3e839e294c1cd3409a801c2dd9a692c
-    m_Address: Lua/Bar/BarModel.lua
+    m_Address: Lua/GameLogic/Bar/BarModel.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 2c3a54ddd09b6ca45bc0a5184b3d10fe
-    m_Address: Lua/Bar/Bar.lua
+    m_Address: Lua/GameLogic/Bar/Bar.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: d7ec8be75931e1148a0faf5581cfd59c
-    m_Address: Lua/Containors/GameContainor.lua
+    m_Address: Lua/GameLogic/Game/GameContainor.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -158,12 +158,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: 48b62b4996dd28d43acfc41ba11d9b6e
-    m_Address: Lua/Containors/BarContainor.lua
+    m_Address: Lua/GameLogic/Bar/BarContainor.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: c715c12002e9fff4ebce2c16f2fc2d19
-    m_Address: Lua/Role/Role.lua
+    m_Address: Lua/GameLogic/Role/Role.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -203,7 +203,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - lua
   - m_GUID: 302ef15a6f2eb6448aced59a14b1fe1f
-    m_Address: Lua/Bar/Bars.lua
+    m_Address: Lua/GameLogic/Bar/Bars.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -217,18 +217,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
-  - m_GUID: 016849843ecced94c9fd814e5fc15870
+  - m_GUID: 7d2947beef799a948936c26c725aebe6
     m_Address: Lua/AddressMap/AddressMap.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 7aa5dc9f74379c6479aed27a7bfe1fed
-    m_Address: Lua/Containors/SelectDiffContainor.lua
+    m_Address: Lua/GameLogic/SelectDifficulty/SelectDiffContainor.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
   - m_GUID: 753d9142c7b84d140a5728d9c4d28202
-    m_Address: Lua/Containors/LoginContainor.lua
+    m_Address: Lua/GameLogic/Login/LoginContainor.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua
@@ -239,6 +239,21 @@ MonoBehaviour:
     - lua
   - m_GUID: 4986cb490b02ee24a8a181f1745b4f6d
     m_Address: Lua/LuaDebug/DebugPanel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 85b2bda8e9e7c304eafd46c663249d78
+    m_Address: Lua/GameLogic/CMCamera/CMCameraManager.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 18a6bc7e6cdb6064d9a1f6103ed63cb6
+    m_Address: Lua/GameLogic/SelectDifficulty/SelectDiffPanel.lua
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lua
+  - m_GUID: 9be6872f060544f4c9156d78b6317af2
+    m_Address: Lua/GameLogic/SelectDifficulty/LevelItem.lua
     m_ReadOnly: 0
     m_SerializedLabels:
     - lua

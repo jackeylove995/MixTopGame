@@ -1,4 +1,5 @@
 
+using Cinemachine;
 using System;
 using System.Collections.Generic;
 using XLua;
@@ -14,12 +15,14 @@ namespace MTG
             typeof(AssetLoader),
             typeof(DOTweenUtil),
             typeof(EventUtil),
-            typeof(FollowUtil),
             typeof(MonoUtil),
             typeof(UnityUtil),
             typeof(JoyStick),
             typeof(Clock),
-            typeof(LocalizationManager)
+            typeof(LocalizationManager),
+            typeof(LensSettings),
+            typeof(Cinemachine3rdPersonFollow),
+            typeof(CinemachineVirtualCamera)
         };
 
         [CSharpCallLua]

@@ -103,6 +103,14 @@ function ContainorBuilder.BindReadOnlyConfig(addressKey)
     ContainorBuilder.containor.content[addressKey] = bindItem
 end
 
+function ContainorBuilder:BindSingleton(addressKey)
+    local bindItem = {}
+    bindItem.getter = function()
+        return GetSingleton(addressKey)
+    end
+    ContainorBuilder.containor.content[addressKey] = bindItem
+end
+
 --- Inject时总获取绑定的唯一对象
 function ContainorBuilder.FromInstance()
     local bindItem = ContainorBuilder.containor.content[ContainorBuilder.lockClassAddressKey]

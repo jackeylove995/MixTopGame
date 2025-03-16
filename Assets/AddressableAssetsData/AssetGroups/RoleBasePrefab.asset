@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: d854b763b2807e446aad0ed02ba6ad88
   m_SerializeEntries:
   - m_GUID: b26b879d2fb5d9141855d27ec311bc42
-    m_Address: RoleBasePrefab/Role.prefab
+    m_Address: GameLogic/RoleBasePrefab/Role.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

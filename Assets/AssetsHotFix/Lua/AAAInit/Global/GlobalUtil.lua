@@ -19,8 +19,6 @@ MonoUtil = CS.MTG.MonoUtil
 MonoUtil.Init()
 --- 事件工具
 EventUtil = CS.MTG.EventUtil
---- 跟随工具
-FollowUtil = CS.MTG.FollowUtil
 --- Vector3
 Vector3 = CS.UnityEngine.Vector3
 --- Time

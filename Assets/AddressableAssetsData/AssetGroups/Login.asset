@@ -18,11 +18,11 @@ MonoBehaviour:
   m_GUID: 97c8c5da324064b43a1a1eef88d7dfc2
   m_SerializeEntries:
   - m_GUID: 4238498776e7c2d409821598f7f09f0b
-    m_Address: Login/LoginPanel.prefab
+    m_Address: GameLogic/Login/LoginPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 1c3f3228c5e7eab40bb568af6635e6ee
-    m_Address: Login/login_bg.jpg
+    m_Address: GameLogic/Login/login_bg.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

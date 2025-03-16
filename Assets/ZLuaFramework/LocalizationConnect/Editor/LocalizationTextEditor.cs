@@ -6,21 +6,21 @@ namespace ZLuaFramework
     [CustomEditor(typeof(LocalizationText))]
     public class LocalizationTextEditor : Editor
     {
-        private SerializedObject serializedObject;
+        private SerializedObject csharpObject;
 
         private void OnEnable()
         {
-            serializedObject = new SerializedObject(target);
+            csharpObject = new SerializedObject(target);
         }
 
         public override void OnInspectorGUI()
         {
-            if (serializedObject.FindProperty("text").objectReferenceValue == null)
+            if (csharpObject.FindProperty("text").objectReferenceValue == null)
             {
                 var text = ((LocalizationText)target).GetComponent<TextMeshProUGUI>();
 
-                serializedObject.FindProperty("text").objectReferenceValue = text;
-                serializedObject.ApplyModifiedProperties();
+                csharpObject.FindProperty("text").objectReferenceValue = text;
+                csharpObject.ApplyModifiedProperties();
             }
             DrawDefaultInspector();
         }

@@ -15,6 +15,9 @@ MonoBehaviour:
   HoffixFolder:
     asset: {fileID: 102900000, guid: d840854c8fd5e074db8401e69b981014, type: 3}
     assetPath: Assets/AssetsHotFix
+  UnpackToMultiGroups:
+  - asset: {fileID: 102900000, guid: 0f2ecded7bdea284e8e68272ed08ebf9, type: 3}
+    assetPath: Assets/AssetsHotFix/GameLogic
   AddressKeyMapFile:
-    asset: {fileID: 1042094116111776886, guid: 016849843ecced94c9fd814e5fc15870, type: 3}
+    asset: {fileID: 1042094116111776886, guid: 7d2947beef799a948936c26c725aebe6, type: 3}
     assetPath: Assets/AssetsHotFix/Lua/AddressMap/AddressMap.lua

@@ -3,6 +3,7 @@
 --- desc: 游戏管理器
 local GameController = IOC.InjectClass(GameController_lua)
 
+local CMCameraManager = IOC.Inject(CMCameraManager_lua)
 local GameDataManager = IOC.Inject(GameDataManager_lua)
 
 function GameController:FixedUpdate()
@@ -14,7 +15,7 @@ function GameController:FixedUpdate()
 end
 
 function GameController:OpenGame(levelId)
-    Debug.Log(string.format("[GameController] 第%s关已载入...", tostring(levelId)))
+    Debug.Log(string.format("[GameController] 第%s关已载入...", tostring(levelId)))  
     MonoUtil.AddFixedUpdate("GameController", PackFunction(self, self.FixedUpdate))
     GameDataManager:SetLevel(levelId)
     self:InitJoyStick()
@@ -106,8 +107,8 @@ function GameController:InitPlayer()
         self.mainPlayer = mainPlayer
 
         mainPlayer:BindBars()
-
-        FollowUtil.FollowTargetXY(TMainCamera, mainPlayer.transform)
+        
+        CMCameraManager:VCMLookTo(mainPlayer.transform)
         -- 每过几秒生成一个球
         Clock.Name("CreateBall").FixTimeCall(3, true, function(count)
             local ballModel = self.mainPlayer.model:GetRandomBall()

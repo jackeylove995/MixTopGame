@@ -37,9 +37,6 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(MTG.EventUtil), MTGEventUtilWrap.__Register);
         
         
-            translator.DelayWrapLoader(typeof(MTG.FollowUtil), MTGFollowUtilWrap.__Register);
-        
-        
             translator.DelayWrapLoader(typeof(MTG.MonoUtil), MTGMonoUtilWrap.__Register);
         
         
@@ -53,6 +50,15 @@ namespace XLua.CSObjectWrap
         
         
             translator.DelayWrapLoader(typeof(ZLuaFramework.LocalizationManager), ZLuaFrameworkLocalizationManagerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Cinemachine.LensSettings), CinemachineLensSettingsWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Cinemachine.Cinemachine3rdPersonFollow), CinemachineCinemachine3rdPersonFollowWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Cinemachine.CinemachineVirtualCamera), CinemachineCinemachineVirtualCameraWrap.__Register);
         
         
             translator.DelayWrapLoader(typeof(MTG.UnityExtension), MTGUnityExtensionWrap.__Register);

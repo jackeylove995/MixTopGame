@@ -1,10 +1,11 @@
 --- author:author
 --- create:2024/12/7 16:27:14
 --- desc: 类方法
-
 ---@class Class
 local classCache = {}
 local maxClassCacheCount = 5
+
+local singletons = {}
 
 --- 声明一个Class
 function Class(name, ...)
@@ -21,23 +22,27 @@ function Class(name, ...)
         c.Implement = c.Implement or ""
         for i, implement in ipairs(implements) do
             if type(implement) == "string" then
-                --表明是类地址
+                -- 表明是类地址
                 local class = require(implement)
-                c.Implement = c.Implement .. class.ClassName .. " " .. (class.Implement or "")  .. " "              
+                c.Implement = c.Implement .. class.ClassName .. " " .. (class.Implement or "") .. " "
                 table.insert(implementsTable, class)
             else
-                --表明是table 
-                c.Implement = c.Implement .. implement.ClassName .. " " .. (implement.Implement or "") .. " "               
+                -- 表明是table 
+                c.Implement = c.Implement .. implement.ClassName .. " " .. (implement.Implement or "") .. " "
                 table.insert(implementsTable, implement)
             end
-        end   
+        end
     end
 
     if #implementsTable > 0 then
-        for i = 1, #implementsTable -1, 1 do
-            setmetatable(implementsTable[i], {__index = implementsTable[i+1]})
+        for i = 1, #implementsTable - 1, 1 do
+            setmetatable(implementsTable[i], {
+                __index = implementsTable[i + 1]
+            })
         end
-        setmetatable(c, {__index = implementsTable[1]})
+        setmetatable(c, {
+            __index = implementsTable[1]
+        })
     end
 
     isMono = string.find(c.Implement, "MonoBehaviour") ~= nil
@@ -77,4 +82,11 @@ end
 
 function GetClassNameByAddress(address)
     return string.Replace(table.Last(string.Split(address, ".")), ".lua", "")
+end
+
+function GetSingleton(classAddress)
+    if not singletons[classAddress] then
+        singletons.classAddress = require(classAddress)
+    end
+    return singletons[classAddress]
 end

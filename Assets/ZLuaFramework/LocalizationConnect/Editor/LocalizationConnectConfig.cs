@@ -38,20 +38,20 @@ namespace ZLuaFramework
     [CustomEditor(typeof(LocalizationConnectConfig))]
     public class LocalizationConnectConfigEditor : Editor
     {
-        private SerializedObject serializedObject;
+        private SerializedObject csharpObject;
         private SerializedProperty ExcelFile, OutputLuaKeyFile;
 
         private void OnEnable()
         {
-            serializedObject = new SerializedObject(target);
-            ExcelFile = serializedObject.FindProperty("ExcelFile");
-            OutputLuaKeyFile = serializedObject.FindProperty("OutputLuaKeyFile");   
+            csharpObject = new SerializedObject(target);
+            ExcelFile = csharpObject.FindProperty("ExcelFile");
+            OutputLuaKeyFile = csharpObject.FindProperty("OutputLuaKeyFile");   
         }
         
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
+            csharpObject.Update();
             EditorGUILayout.LabelField("AddressableConnectConfig", EditorDrawer.ConnectTitleStyle);
 
             EditorGUILayout.Space(20);
@@ -62,7 +62,7 @@ namespace ZLuaFramework
             EditorGUILayout.LabelField("Automatically convert localization keys in file in OutputLuaKeyFile after excel change.(Optional)", EditorStyles.wordWrappedLabel);
             EditorGUILayout.PropertyField(OutputLuaKeyFile);
 
-            serializedObject.ApplyModifiedProperties();
+            csharpObject.ApplyModifiedProperties();
         }
     }
 #endif

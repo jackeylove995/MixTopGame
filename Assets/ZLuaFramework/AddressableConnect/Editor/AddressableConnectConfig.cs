@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,6 +32,8 @@ namespace ZLuaFramework
 
         public AssetWithPath HoffixFolder;
 
+        public AssetWithPath[] UnpackToMultiGroups;
+
         public AssetWithPath AddressKeyMapFile;
     }
 
@@ -37,20 +41,21 @@ namespace ZLuaFramework
     [CustomEditor(typeof(AddressableConnectConfig))]
     public class AddressableConnectConfigEditor : Editor
     {
-        private SerializedObject serializedObject;
-        private SerializedProperty HoffixFolder, AddressKeyMapFile;
+        private SerializedObject csharpObject;
+        private SerializedProperty HoffixFolder, UnpackToMultiGroups, AddressKeyMapFile;
 
         private void OnEnable()
         {
-            serializedObject = new SerializedObject(target);
-            HoffixFolder = serializedObject.FindProperty("HoffixFolder");
-            AddressKeyMapFile = serializedObject.FindProperty("AddressKeyMapFile");    
+            csharpObject = new SerializedObject(target);
+            HoffixFolder = csharpObject.FindProperty("HoffixFolder");
+            AddressKeyMapFile = csharpObject.FindProperty("AddressKeyMapFile");
+            UnpackToMultiGroups = csharpObject.FindProperty("UnpackToMultiGroups");
         }
         
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
+            csharpObject.Update();
             EditorGUILayout.LabelField("AddressableConnectConfig", EditorDrawer.ConnectTitleStyle);
 
             EditorGUILayout.Space(20);
@@ -58,10 +63,15 @@ namespace ZLuaFramework
             EditorGUILayout.PropertyField(HoffixFolder);
 
             EditorGUILayout.Space(20);
+            EditorGUILayout.LabelField("Children folders in below folders will be marked as single module.(Optional)", EditorStyles.wordWrappedLabel);
+            EditorGUILayout.PropertyField(UnpackToMultiGroups, true);
+
+
+            EditorGUILayout.Space(20);
             EditorGUILayout.LabelField("Automatically convert all addressable keys to AddressKeyMapFile.(Optional)", EditorStyles.wordWrappedLabel);
             EditorGUILayout.PropertyField(AddressKeyMapFile);
 
-            serializedObject.ApplyModifiedProperties();
+            csharpObject.ApplyModifiedProperties();
         }
     }
 #endif
