@@ -4,6 +4,7 @@ using UnityEngine.AddressableAssets;
 using XLua;
 using static XLua.LuaEnv;
 using ZLuaFramework;
+using System.IO;
 
 namespace MTG
 {
@@ -16,8 +17,26 @@ namespace MTG
         }
 
         public override IEnumerator DOTask()
+        {           
+            LuaBehaviour.luaEnv.AddLoader(GetLoader());     
+            yield return null;
+        }
+
+        public CustomLoader GetLoader()
         {
-            CustomLoader customLoader = (ref string address) =>
+#if UNITY_EDITOR
+
+            string luaPathPre = "Assets/AssetsHotFix/Lua/";
+            CustomLoader fileLoader = (ref string address) =>
+            {
+                string filePath = luaPathPre + address.Replace(".", "/") + ".lua";
+                return File.ReadAllBytes(filePath);
+            };
+            return fileLoader;
+
+#endif
+
+            CustomLoader addressableLoader = (ref string address) =>
             {
                 address = "Lua/" + address.Replace(".", "/") + ".lua";
                 var handle = Addressables.LoadAssetAsync<TextAsset>(address);
@@ -26,10 +45,7 @@ namespace MTG
                 Addressables.Release(handle);
                 return luaTextBytes;
             };
-
-            LuaBehaviour.luaEnv.AddLoader(customLoader);     
-
-            yield return null;
+            return addressableLoader;
         }
     }
 }
